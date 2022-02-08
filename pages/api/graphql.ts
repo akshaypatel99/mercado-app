@@ -8,7 +8,10 @@ import Cors from 'micro-cors';
 
 connectDB();
 
-const cors = Cors()
+const cors = Cors({
+  origin: "https://studio.apollographql.com",
+  allowCredentials: true,
+})
 
 const schema = makeExecutableSchema({
   typeDefs,
