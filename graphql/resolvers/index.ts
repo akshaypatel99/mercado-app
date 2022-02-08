@@ -1,7 +1,7 @@
 import { userQueries, userMutations, userFields } from "./user";
 import { productQueries, productMutations, productFields } from "./product";
 import { orderQueries, orderMutations, orderFields } from "./order";
-import GraphQLUpload from 'graphql-upload/public/GraphQLUpload'
+import { GraphQLUpload } from 'graphql-upload';
 
 const resolvers = {
   Query: {
