@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-micro';
 import { PageConfig } from 'next';
-import { makeExecutableSchema } from 'graphql-tools';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import typeDefs from '../../graphql/typedefs';
 import resolvers from '../../graphql/resolvers';
 import connectDB from '../../db/config';
