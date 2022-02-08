@@ -34,7 +34,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const uploadLink = createUploadLink({
-	uri: process.env.GRAPHQL_API,
+	uri: 'https://mercado--api.herokuapp.com/graphql',
 	credentials: 'include',
 });
 
