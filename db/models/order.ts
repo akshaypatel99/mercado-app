@@ -1,4 +1,4 @@
-import { Schema, Types, model } from 'mongoose';
+import { Schema, Types, model, models } from 'mongoose';
 export interface Order {
 	user: Types.ObjectId;
 	orderItems: Types.ObjectId[];
@@ -100,6 +100,6 @@ const orderSchema = new Schema(
 	}
 );
 
-const OrderModel = model('Order', orderSchema);
+const OrderModel = models.Order || model<Order>('Order', orderSchema);
 
 export default OrderModel;

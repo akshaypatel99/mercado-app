@@ -1,4 +1,4 @@
-import { Schema, Types, model } from 'mongoose';
+import { Schema, Types, model, models } from 'mongoose';
 
 export interface Product {
   user: Types.ObjectId;
@@ -48,6 +48,6 @@ const productSchema = new Schema<Product>({
   }
 )
 
-const ProductModel = model<Product>('Product', productSchema);
+const ProductModel = models.Product || model<Product>('Product', productSchema);
 
 export default ProductModel;
