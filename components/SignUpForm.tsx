@@ -13,43 +13,38 @@ import {
 } from '@chakra-ui/react';
 import { AuthContext } from '../context/auth';
 
-const LOGIN = gql`
-	mutation Login($input: LoginInput) {
-		login(input: $input) {
+const SIGN_UP = gql`
+	mutation SignUp($input: SignupInput) {
+		signup(input: $input) {
 			message
 			user {
 				_id
 				name
 				email
 				role
-				userProducts {
-					_id
-					name
-				}
-				userOrders {
-					_id
-				}
 			}
 		}
 	}
 `;
 
-export default function LoginForm() {
+export default function SignUpForm() {
+	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const auth = useContext(AuthContext);
 
-	const [login, { data, loading, error, reset }] = useMutation(LOGIN);
+	const [signup, { data, loading, error, reset }] = useMutation(SIGN_UP);
 
 	useEffect(() => {
-		auth?.setUser(data?.login?.user);
+		auth?.setUser(data?.signup?.user);
 	}, [data, auth]);
 
-	async function handleLogin(e: React.SyntheticEvent) {
+	async function handleSignup(e: React.SyntheticEvent) {
 		e.preventDefault();
-		await login({
+		await signup({
 			variables: {
 				input: {
+					name,
 					email,
 					password,
 				},
@@ -57,17 +52,33 @@ export default function LoginForm() {
 		});
 	}
 
+	const isNameError = name === '';
 	const isEmailError = email === '';
 	const isPasswordError = password === '';
 
 	return (
 		<Box>
 			<Center mb='16'>
-				<Heading>{auth.user ? `Welcome ${auth.user.name}!` : 'Login'}</Heading>
+				<Heading>
+					{auth.user ? `Welcome ${auth.user.name}!` : 'Sign Up'}
+				</Heading>
 			</Center>
 			<Center mb='4'>{error && <Box>{error?.message}</Box>}</Center>
 			<Center>
-				<form onSubmit={handleLogin}>
+				<form onSubmit={handleSignup}>
+					<FormControl isRequired isInvalid={isNameError} my='4'>
+						<FormLabel htmlFor='name'>Full name</FormLabel>
+						<Input
+							w='sm'
+							id='name'
+							type='text'
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+						/>
+						{isEmailError && (
+							<FormErrorMessage>Full name is required.</FormErrorMessage>
+						)}
+					</FormControl>
 					<FormControl isRequired isInvalid={isEmailError} my='4'>
 						<FormLabel htmlFor='email'>Email address</FormLabel>
 						<Input
@@ -104,7 +115,7 @@ export default function LoginForm() {
 						isLoading={loading}
 						colorScheme='teal'
 					>
-						Login
+						Sign Up
 					</Button>
 				</form>
 			</Center>
