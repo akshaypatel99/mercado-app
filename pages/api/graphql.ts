@@ -5,8 +5,10 @@ import typeDefs from '../../graphql/typedefs';
 import resolvers from '../../graphql/resolvers';
 import connectDB from '../../db/config';
 import Cors from 'micro-cors';
-
-connectDB();
+import validateTokensMiddleware from '../../helpers/validateTokens';
+import { NextApiRequest , NextApiResponse } from 'next';
+import { getCookie } from '../../helpers/cookies';
+import { validateToken } from '../../helpers/util';
 
 const cors = Cors({
   origin: "https://studio.apollographql.com",
@@ -18,21 +20,29 @@ const schema = makeExecutableSchema({
   resolvers,
 });
 
-
 const apolloServer = new ApolloServer({
   schema,
-
-  context: ({ req, res }) => ({ req, res }),
+  context: async ({ req, res }: { req: NextApiRequest, res: NextApiResponse }) => {
+    try {      
+      const token = getCookie(req);
+      const decoded = validateToken(token);
+      return { req, res, user: decoded };
+    } catch (error) {
+      return { req, res, user: null };
+    }
+  }
 });
 
-const startServer = apolloServer.start();
-
-export default cors(async function (req, res) {
+export default cors(async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'OPTIONS') {
-    return res.status(200).send('Ok!');
+    res.end();
+    return false;
   }
+
+  // await validateTokensMiddleware(req, res);
   
-  await startServer;
+  await connectDB();
+  await apolloServer.start();
 
   await apolloServer.createHandler({ path: '/api/graphql' })(req, res);
 })

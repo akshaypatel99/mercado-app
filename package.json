@@ -22,6 +22,7 @@
     "apollo-upload-client": "^17.0.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.28.1",
+    "cookie": "^0.4.2",
     "framer-motion": "^6.2.4",
     "graphql": "^16.3.0",
     "graphql-upload": "^13.0.0",
@@ -29,6 +30,7 @@
     "micro-cors": "^0.1.1",
     "mongoose": "^6.2.1",
     "next": "12.0.10",
+    "next-connect": "^0.12.1",
     "nprogress": "^0.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"

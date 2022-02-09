@@ -1,6 +1,7 @@
 import { ApolloError, UserInputError } from 'apollo-server-micro';
 import { User } from '../../../db/models';
-import { hashPassword, setTokens, tokenCookies, verifyPassword, checkUserRole } from '../../../helpers/util';
+import { setCookie } from '../../../helpers/cookies';
+import { hashPassword, setTokens, verifyPassword, checkUserRole, setToken } from '../../../helpers/util';
 
 const userMutations = {
   signup: async (parent, { input }, { res }) => {
@@ -30,11 +31,11 @@ const userMutations = {
         const savedUser = await newUser.save();
 
         if (savedUser) {
-          const tokens = setTokens(savedUser);
-          const cookies = tokenCookies(tokens);
-
-          res.cookie(...cookies.access);
-          res.cookie(...cookies.refresh);
+          // const { accessToken, refreshToken } = setTokens(savedUser);
+          const token = setToken(savedUser);
+          setCookie(res, 'token', token);
+          // setCookie(res, 'access', accessToken);
+          // setCookie(res, 'refresh', refreshToken);
 
           return {
             message: 'User created!',
@@ -53,6 +54,7 @@ const userMutations = {
       const { email, password } = input;
 
       const foundUser = await User.findOne({ email }).lean();
+      console.log('foundUser', foundUser);
 
       if (!foundUser) {
         throw new UserInputError('Wrong email or password');
@@ -61,11 +63,11 @@ const userMutations = {
       const passwordValid = await verifyPassword(password, foundUser.password);
       
       if (passwordValid) {
-        const tokens = setTokens(foundUser);
-        const cookies = tokenCookies(tokens);
-
-        res.cookie(...cookies.access);
-        res.cookie(...cookies.refresh);
+        // const { accessToken, refreshToken } = setTokens(foundUser);
+        const token = setToken(foundUser);
+        setCookie(res, 'token', token);
+        // setCookie(res, 'access', accessToken);
+        // setCookie(res, 'refresh', refreshToken);
 
         return {
           message: 'Authentication successful',

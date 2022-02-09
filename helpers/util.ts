@@ -18,7 +18,7 @@ export type UserData = {
 
 const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
 const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
-const frontendProdURL = process.env.FRONTEND_PROD_URL;
+const jwtSecret = process.env.JWT_SECRET;
 
 /* AUTH TOKEN HELPERS */
 const setTokens = (user) => {
@@ -48,6 +48,17 @@ const setTokens = (user) => {
   return { accessToken, refreshToken };
 };
 
+const setToken = (user) => {
+  const token = jwt.sign(
+    {
+      user: user._id
+    },
+    jwtSecret,
+    { algorithm: 'HS256', expiresIn: '1d' }
+  );
+  return token;
+}
+
 const validateAccessToken = (token: string) => {
   try {
     return jwt.verify(token, jwtAccessSecret);
@@ -64,21 +75,13 @@ const validateRefreshToken = (token: string) => {
   }
 };
 
-const tokenCookies = ({ accessToken, refreshToken }) => {
-  const cookieOptions = {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'none',
-    domain: frontendProdURL,
-    path: '/',
-    maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week 
-  };
-
-  return {
-    access: ['access', accessToken, cookieOptions] as [string, string, object],
-    refresh: ['refresh', refreshToken, cookieOptions] as [string, string, object]
-  };
-}
+const validateToken = (token: string) => {
+  try {
+    return jwt.verify(token, jwtSecret);
+  } catch (error) {
+    return null;
+  }
+};
 
 /* PASSWORD HELPERS */
 const hashPassword = async (password: string) => {
@@ -144,9 +147,10 @@ const checkUserRole = (user: UserData, allowableRoles: string[]) => {
 
 export {
   setTokens,
+  setToken,
   validateAccessToken,
   validateRefreshToken,
-  tokenCookies,
+  validateToken,
   hashPassword,
   verifyPassword,
   uploadFile,
