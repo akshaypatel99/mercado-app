@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import Link from 'next/link';
+import LogoutBtn from './LogoutBtn';
 
 export default function Nav() {
 	return (
@@ -23,6 +24,7 @@ export default function Nav() {
 				<Link href='/login'>
 					<a>Login</a>
 				</Link>
+				<LogoutBtn />
 			</Flex>
 		</nav>
 	);
