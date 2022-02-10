@@ -18,7 +18,7 @@ export default function Product({
 	isNew: number;
 }) {
 	return (
-		<Link href={`/product/${product._id}`}>
+		<Link href={`/product/${product._id}`} passHref>
 			<Box
 				maxW='sm'
 				borderWidth='1px'
