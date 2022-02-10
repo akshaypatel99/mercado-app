@@ -12,6 +12,7 @@ type Query {
 	# User
 	users(params: QueryParams): Users!
 	user(id: ID!): User
+	currentUser: User
 
 	# Order
 	orders(params: QueryParams): Orders!

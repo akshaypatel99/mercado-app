@@ -39,6 +39,15 @@ const userQueries = {
       return error
     }
   },
+  currentUser: async (parent, args, { user }) => {
+    try {
+      const current = await User.findById(user._id)
+      console.log('current' , current)
+      return current;
+    } catch (error) {
+      return error
+    }
+  }
 };
 
 export default userQueries;
