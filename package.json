@@ -16,6 +16,7 @@
     "@fontsource/oleo-script": "^4.5.1",
     "@fontsource/rambla": "^4.5.2",
     "@graphql-tools/schema": "^8.3.1",
+    "@graphql-tools/utils": "^8.6.1",
     "@types/apollo-upload-client": "^17.0.0",
     "@types/nprogress": "^0.2.0",
     "apollo-server-micro": "^3.6.3",
