@@ -5,7 +5,6 @@ import typeDefs from '../../graphql/typedefs';
 import resolvers from '../../graphql/resolvers';
 import connectDB from '../../db/config';
 import Cors from 'micro-cors';
-import validateTokensMiddleware from '../../helpers/validateTokens';
 import { NextApiRequest , NextApiResponse } from 'next';
 import { getCookie } from '../../helpers/cookies';
 import { validateToken } from '../../helpers/util';
@@ -38,8 +37,6 @@ export default cors(async function (req: NextApiRequest, res: NextApiResponse) {
     res.end();
     return false;
   }
-
-  // await validateTokensMiddleware(req, res);
   
   await connectDB();
   await apolloServer.start();
