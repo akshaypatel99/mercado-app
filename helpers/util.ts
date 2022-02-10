@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-// import { jwtAccessSecret, jwtRefreshSecret, frontendDevURL, frontendProdURL } from '../config/environment';
 import cloudinary from 'cloudinary';
 import { AuthenticationError } from 'apollo-server-micro';
 
@@ -16,64 +15,20 @@ export type UserData = {
   role: string;
 }
 
-const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
-const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
 const jwtSecret = process.env.JWT_SECRET;
 
 /* AUTH TOKEN HELPERS */
-const setTokens = (user) => {
-  // Sign the JWT
-  const accessUser: UserInfo = {
-    _id: user._id,
-  }
-  const accessToken = jwt.sign(
-    {
-      user: accessUser
-    },
-    jwtAccessSecret,
-    { algorithm: 'HS256', expiresIn: '1h' }
-  )
-
-  const refreshUser: UserInfo = {
-    _id: user._id,
-  }
-  const refreshToken = jwt.sign(
-    {
-      user: refreshUser
-    },
-    jwtRefreshSecret,
-    { algorithm: 'HS256', expiresIn: '7d' }
-  )
-  
-  return { accessToken, refreshToken };
-};
-
 const setToken = (user) => {
   const token = jwt.sign(
     {
-      user: user._id
+      user: user._id,
+      role: user.role
     },
     jwtSecret,
     { algorithm: 'HS256', expiresIn: '1d' }
   );
   return token;
 }
-
-const validateAccessToken = (token: string) => {
-  try {
-    return jwt.verify(token, jwtAccessSecret);
-  } catch (error) {
-    return null;
-  }
-};
-
-const validateRefreshToken = (token: string) => {
-  try {
-    return jwt.verify(token, jwtRefreshSecret);
-  } catch (error) { 
-    return null;
-  }
-};
 
 const validateToken = (token: string) => {
   try {
@@ -146,10 +101,7 @@ const checkUserRole = (user: UserData, allowableRoles: string[]) => {
 
 
 export {
-  setTokens,
   setToken,
-  validateAccessToken,
-  validateRefreshToken,
   validateToken,
   hashPassword,
   verifyPassword,
