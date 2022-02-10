@@ -3,8 +3,10 @@ import {
 	Dispatch,
 	ReactNode,
 	SetStateAction,
+	useEffect,
 	useState,
 } from 'react';
+import { useUser } from '../hooks/useUser';
 
 type User = {
 	_id: string;
@@ -18,34 +20,60 @@ type User = {
 interface AuthContextInterface {
 	user: User | undefined;
 	setUser: Dispatch<SetStateAction<User | undefined>>;
+	logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextInterface>({
-	user: {
-		_id: '',
-		name: '',
-		email: '',
-		role: '',
-		userProducts: [],
-		userOrders: [],
-	},
-	setUser: () => {},
-});
+// const AuthContext = createContext<AuthContextInterface>({
+// 	user: {
+// 		_id: '',
+// 		name: '',
+// 		email: '',
+// 		role: '',
+// 		userProducts: [],
+// 		userOrders: [],
+// 	},
+// 	setUser: () => {},
+// 	logout: () => {},
+// });
+
+const AuthContext = createContext(null);
 
 const { Provider } = AuthContext;
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-	const [user, setUser] = useState<User>();
+	const [user, setUser] = useState();
+	// const { data, loading, error } = useUser();
+
+	// console.log('AuthContext data', data?.currentUser);
+
+	// useEffect(() => {
+	// 	if (data) {
+	// 		setUser(data.currentUser);
+	// 	}
+	// 	if (error) {
+	// 		setUser({});
+	// 	}
+	// }, [data, error]);
+
+	// const logout = () => {
+	// 	try {
+	// 		setUser(null);
+	// 	} catch (error) {
+	// 		return error;
+	// 	}
+	// };
 
 	return (
-		<Provider
+		<AuthContext.Provider
 			value={{
 				user,
 				setUser,
+				// logout,
+				greeting: 'hello',
 			}}
 		>
 			{children}
-		</Provider>
+		</AuthContext.Provider>
 	);
 };
 
