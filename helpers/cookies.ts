@@ -13,7 +13,7 @@ const cookieOptions: CookieSerializeOptions = {
 
 export const setCookie = (
   res: NextApiResponse,
-  name: string = 'qid',
+  name: string = 'token',
   value: unknown,
   options: CookieSerializeOptions = cookieOptions
 ) => {
@@ -30,7 +30,7 @@ export const setCookie = (
 
 export const removeCookie = (
   res: NextApiResponse,
-  name: string = 'qid',
+  name: string = 'token',
 ) => {
   res.setHeader('Set-Cookie', serialize(name, '', {
     ...cookieOptions,
@@ -47,5 +47,5 @@ export const parseCookie = (req: NextApiRequest) => {
 
 export const getCookie = (req: NextApiRequest) => {
   const cookies = parseCookie(req);
-  return cookies['qid'];
+  return cookies['token'];
 }

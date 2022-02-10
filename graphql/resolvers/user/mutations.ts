@@ -1,7 +1,7 @@
 import { ApolloError, UserInputError } from 'apollo-server-micro';
 import { User } from '../../../db/models';
-import { setCookie } from '../../../helpers/cookies';
-import { hashPassword, setTokens, verifyPassword, checkUserRole, setToken } from '../../../helpers/util';
+import { removeCookie, setCookie } from '../../../helpers/cookies';
+import { hashPassword, verifyPassword, checkUserRole, setToken } from '../../../helpers/util';
 
 const userMutations = {
   signup: async (parent, { input }, { res }) => {
@@ -31,11 +31,8 @@ const userMutations = {
         const savedUser = await newUser.save();
 
         if (savedUser) {
-          // const { accessToken, refreshToken } = setTokens(savedUser);
           const token = setToken(savedUser);
           setCookie(res, 'token', token);
-          // setCookie(res, 'access', accessToken);
-          // setCookie(res, 'refresh', refreshToken);
 
           return {
             message: 'User created!',
@@ -63,11 +60,8 @@ const userMutations = {
       const passwordValid = await verifyPassword(password, foundUser.password);
       
       if (passwordValid) {
-        // const { accessToken, refreshToken } = setTokens(foundUser);
         const token = setToken(foundUser);
         setCookie(res, 'token', token);
-        // setCookie(res, 'access', accessToken);
-        // setCookie(res, 'refresh', refreshToken);
 
         return {
           message: 'Authentication successful',
@@ -82,8 +76,7 @@ const userMutations = {
   },
   logout: async (parent, args, { res }) => {
     try {
-      res.clearCookie('access');
-      res.clearCookie('refresh');
+      removeCookie(res, 'token');
 
       return true;
     } catch (error) {

@@ -21,7 +21,7 @@ const jwtSecret = process.env.JWT_SECRET;
 const setToken = (user) => {
   const token = jwt.sign(
     {
-      user: user._id,
+      _id: user._id,
       role: user.role
     },
     jwtSecret,
