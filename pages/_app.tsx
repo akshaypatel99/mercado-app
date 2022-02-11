@@ -44,7 +44,8 @@ const url =
 		: 'https://mercado-app.vercel.app';
 
 const apiLink = new HttpLink({
-	uri: `${url}/api/graphql`,
+	// uri: `${url}/api/graphql`,
+	uri: 'https://mercado-app.vercel.app/api/graphql',
 	credentials: 'include',
 });
 
