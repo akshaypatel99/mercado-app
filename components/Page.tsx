@@ -11,7 +11,7 @@ const Page = ({ children }: PageProps, { ...props }) => {
 			<Container
 				maxW='container.xl'
 				my='16'
-				p={{ sm: '2rem', md: '1rem', lg: '0rem' }}
+				p={{ sm: '2rem', md: '1rem', lg: '1rem' }}
 			>
 				{children}
 			</Container>
