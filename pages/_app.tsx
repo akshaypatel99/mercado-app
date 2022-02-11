@@ -43,14 +43,13 @@ const url =
 		? 'http://localhost:3000'
 		: 'https://mercado-app.vercel.app';
 
-const apiLink = new HttpLink({
-	uri: `${url}/api/graphql`,
+const httpLink = new HttpLink({
+	uri: '/api/graphql',
 	credentials: 'include',
 });
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
-	credentials: 'include',
 	uri: '/api/graphql',
 });
 
