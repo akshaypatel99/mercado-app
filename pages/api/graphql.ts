@@ -11,11 +11,11 @@ import { validateToken } from '../../helpers/util';
 
 connectDB();
 
-const cors = Cors({
-  allowCredentials: true,
-  allowMethods: ['POST', 'GET', 'OPTIONS'],
-  origin: '*',
-})
+// const cors = Cors({
+//   allowCredentials: true,
+//   allowMethods: ['POST', 'GET', 'OPTIONS'],
+//   origin: '*',
+// })
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -37,11 +37,24 @@ const apolloServer = new ApolloServer({
 
 const startServer = apolloServer.start()
 
-export default cors(async function (req: NextApiRequest, res: NextApiResponse) {
+/* eslint-disable */
+export default async function (req: NextApiRequest, res: NextApiResponse) {
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  res.setHeader(
+    'Access-Control-Allow-Origin',
+    'https://studio.apollographql.com'
+  );
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, PATCH, DELETE, OPTIONS');
+
   await startServer;
 
   await apolloServer.createHandler({ path: '/api/graphql' })(req, res);
-})
+}
+/* eslint-enable */
 
   
 export const config: PageConfig = {
