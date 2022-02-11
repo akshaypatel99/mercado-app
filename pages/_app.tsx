@@ -2,7 +2,6 @@ import { ApolloProvider, HttpLink } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import { ApolloClient, from, InMemoryCache } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import { createUploadLink } from 'apollo-upload-client';
 import { ChakraProvider } from '@chakra-ui/react';
 import { AuthProvider } from '../context/auth';
 import NProgress from 'nprogress';
@@ -33,20 +32,15 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 	if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-const graphQLUrl: string =
-	process.env.NODE_ENV === 'production'
-		? 'https://mercado-app.vercel.app/api/graphql'
-		: 'http://localhost:3000/api/graphql';
-
-const link = new HttpLink({
-	uri: graphQLUrl,
+const apiLink = new HttpLink({
+	uri: '/api/graphql',
 	credentials: 'include',
 });
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	credentials: 'include',
-	link: from([errorLink, link]),
+	link: from([errorLink, apiLink]),
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
