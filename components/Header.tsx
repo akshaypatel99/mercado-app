@@ -11,7 +11,7 @@ const Header = () => {
 			>
 				<Center>
 					<Heading as='h1' size='3xl' fontFamily='logo' my='2'>
-						Mercado
+						<Link href='/products'>Mercado</Link>
 					</Heading>
 				</Center>
 				<Nav />

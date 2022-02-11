@@ -6,24 +6,12 @@ export default function Nav() {
 	return (
 		<nav>
 			<Flex justify='space-between' my='4'>
-				<Link href='/products'>
-					<a>Products</a>
-				</Link>
-				<Link href='/sell'>
-					<a>Sell</a>
-				</Link>
-				<Link href='/orders'>
-					<a>Orders</a>
-				</Link>
-				<Link href='/account'>
-					<a>Account</a>
-				</Link>
-				<Link href='/signup'>
-					<a>Sign Up</a>
-				</Link>
-				<Link href='/login'>
-					<a>Login</a>
-				</Link>
+				<Link href='/products'>Products</Link>
+				<Link href='/sell'>Sell</Link>
+				<Link href='/orders'>Orders</Link>
+				<Link href='/account'>Account</Link>
+				<Link href='/signup'>Sign Up</Link>
+				<Link href='/login'>Login</Link>
 				<LogoutBtn />
 			</Flex>
 		</nav>
