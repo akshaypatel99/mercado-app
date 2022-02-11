@@ -51,7 +51,7 @@ const apiLink = new HttpLink({
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	credentials: 'include',
-	uri: `${url}/api/graphql`,
+	uri: '/api/graphql',
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
