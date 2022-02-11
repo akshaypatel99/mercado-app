@@ -34,6 +34,9 @@ const apolloServer = new ApolloServer({
 const startServer = apolloServer.start()
 
 export default cors(async function (req: NextApiRequest, res: NextApiResponse) {
+  res.setHeader('Access-Control-Allow-Credentials', 'true')
+  res.setHeader('Access-Control-Allow-Origin', 'https://studio.apollographql.com');
+  res.setHeader('Access-Control-Allow-Origin', 'https://mercado-app.vercel.app/');
   if (req.method === 'OPTIONS') {
     res.end();
     return false;
