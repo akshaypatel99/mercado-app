@@ -4,15 +4,20 @@ import cloudinary from 'cloudinary';
 import { AuthenticationError } from 'apollo-server-micro';
 
 export type UserInfo = {
-  _id: String
+  _id: string
+  role: string
 }
 
 export type UserData = {
-  _id: String;
+  _id: string;
   name: string;
   email: string;
   password: string;
   role: string;
+  userProducts: object[];
+  userOrders: object[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 const jwtSecret = process.env.JWT_SECRET;
@@ -92,12 +97,19 @@ const uploadFile = async (file) => {
 
 
 /* AUTHENTICATION HELPERS */
-const checkUserRole = (user: UserData, allowableRoles: string[]) => {
+const checkUserRole = (user: UserInfo, allowableRoles: string[]) => {
 	if (!user || !allowableRoles.includes(user.role)) {
 		throw new AuthenticationError('Not authorized');
 	}
 	return true;
 };
+
+
+// Send safe user info (remove password)
+const safeUserInfo = (user: UserData) => {
+  const { password, ...userInfo } = user;
+  return userInfo;
+}
 
 
 export {
@@ -106,5 +118,6 @@ export {
   hashPassword,
   verifyPassword,
   uploadFile,
-  checkUserRole
+  checkUserRole,
+  safeUserInfo
 };

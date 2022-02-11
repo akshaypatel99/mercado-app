@@ -1,7 +1,7 @@
 import { ApolloError, UserInputError } from 'apollo-server-micro';
 import { User } from '../../../db/models';
 import { removeCookie, setCookie } from '../../../helpers/cookies';
-import { hashPassword, verifyPassword, checkUserRole, setToken } from '../../../helpers/util';
+import { hashPassword, verifyPassword, checkUserRole, setToken, safeUserInfo } from '../../../helpers/util';
 
 const userMutations = {
   signup: async (parent, { input }, { res }) => {
@@ -34,9 +34,11 @@ const userMutations = {
           const token = setToken(savedUser);
           setCookie(res, 'token', token);
 
+          const savedUserData = safeUserInfo(savedUser);
+
           return {
             message: 'User created!',
-            user: savedUser
+            user: savedUserData
           };
         } else {
           throw new ApolloError('There was a problem creating your account')
@@ -63,9 +65,11 @@ const userMutations = {
         const token = setToken(foundUser);
         setCookie(res, 'token', token);
 
+        const foundUserData = safeUserInfo(foundUser);
+
         return {
           message: 'Authentication successful',
-          user: foundUser
+          user: foundUserData
         }
       } else {
         throw new UserInputError('Wrong email or password');

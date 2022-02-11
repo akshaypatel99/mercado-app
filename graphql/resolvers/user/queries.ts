@@ -1,4 +1,5 @@
 import { User } from "../../../db/models";
+import { safeUserInfo } from "../../../helpers/util";
 
 const userQueries = {
   users: async (parent, args, context) => {
@@ -41,9 +42,9 @@ const userQueries = {
   },
   currentUser: async (parent, args, { user }) => {
     try {
-      const current = await User.findById(user._id)
-      console.log('current' , current)
-      return current;
+      const data = await User.findById(user._id)
+      const currentUserData = safeUserInfo(data)
+      return currentUserData;
     } catch (error) {
       return error
     }
