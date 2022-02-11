@@ -1,7 +1,7 @@
 import {
 	createContext,
 	Dispatch,
-	ReactNode,
+	ReactElement,
 	SetStateAction,
 	useEffect,
 	useState,
@@ -38,9 +38,7 @@ interface AuthContextInterface {
 
 const AuthContext = createContext(null);
 
-const { Provider } = AuthContext;
-
-const AuthProvider = ({ children }: { children: ReactNode }) => {
+const AuthProvider = ({ children }: { children: ReactElement }) => {
 	const [user, setUser] = useState();
 	// const { data, loading, error } = useUser();
 
@@ -55,20 +53,20 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 	// 	}
 	// }, [data, error]);
 
-	// const logout = () => {
-	// 	try {
-	// 		setUser(null);
-	// 	} catch (error) {
-	// 		return error;
-	// 	}
-	// };
+	const logout = () => {
+		try {
+			setUser(null);
+		} catch (error) {
+			return error;
+		}
+	};
 
 	return (
 		<AuthContext.Provider
 			value={{
 				user,
 				setUser,
-				// logout,
+				logout,
 				greeting: 'hello',
 			}}
 		>
