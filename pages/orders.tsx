@@ -8,7 +8,6 @@ export default function Orders({ token }) {
 		<>
 			<div>I am the Orders Page</div>
 			{token}
-			{auth?.user?.name}
 		</>
 	);
 }
