@@ -38,6 +38,13 @@ const productQueries = {
       return error
     }
   },
+  userProducts: async (parent, args, { user }) => {
+    try {
+      return await Product.find({ user: user._id })
+    } catch (error) {
+      return error
+    }
+  }
 };
 
 export default productQueries;

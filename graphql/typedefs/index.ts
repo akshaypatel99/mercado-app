@@ -8,6 +8,7 @@ type Query {
 	# Product
 	products(params: QueryParams): Products!
 	product(id: ID!): Product
+	userProducts: [Product]!
 
 	# User
 	users(params: QueryParams): Users!
@@ -17,6 +18,7 @@ type Query {
 	# Order
 	orders(params: QueryParams): Orders!
 	order(id: ID!): Order
+	userOrders: [Order]!
 }
 
 type Mutation {

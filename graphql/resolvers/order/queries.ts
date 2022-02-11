@@ -32,10 +32,9 @@ const orderQueries = {
       return error
     }
   },
-  order: async (parent, args, { req }) => {
+  order: async (parent, args, { user }) => {
     try {
       const { id } = args;
-      const { user } = req;
 
       const loggedInUser = await User.findById({ _id: user._id });
       
@@ -48,6 +47,13 @@ const orderQueries = {
       return error
     }
   },
+  userOrders: async (parent, args, { user }) => {
+    try {
+      return await Order.find({ user: user._id })
+    } catch (error) {
+      return error
+    }
+  }
 };
 
 export default orderQueries;
