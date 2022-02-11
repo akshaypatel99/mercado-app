@@ -24,18 +24,15 @@ const schema = makeExecutableSchema({
 
 const apolloServer = new ApolloServer({
   schema,
-  // context: async ({ req, res }: { req: NextApiRequest, res: NextApiResponse }) => {    
-  //   const token = getCookie(req);
-  //   const decoded = validateToken(token);
-  //   if (decoded) {
-  //     console.log('decoded', decoded);
-  //     return { req, res, user: decoded };
-  //   } else {
-  //     console.log('here')
-  //     return { req, res, user: null };
-  //   }
-  // }
-  context: ({ req, res }) => ({ req, res })
+  context: async ({ req, res }: { req: NextApiRequest, res: NextApiResponse }) => {
+    try {
+      const token = getCookie(req);
+      const decoded = validateToken(token);
+      return { req, res, user: decoded };
+    } catch (error) {
+      return { req, res, user: null };
+    }
+  }
 });
 
 const startServer = apolloServer.start()
