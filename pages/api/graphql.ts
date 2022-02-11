@@ -11,10 +11,7 @@ import { validateToken } from '../../helpers/util';
 
 connectDB();
 
-const cors = Cors({
-  origin: "https://studio.apollographql.com",
-  allowCredentials: true,
-})
+const cors = Cors();
 
 const schema = makeExecutableSchema({
   typeDefs,
