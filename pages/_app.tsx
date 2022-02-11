@@ -1,4 +1,4 @@
-import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider, HttpLink } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import { ApolloClient, from, InMemoryCache } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
@@ -33,15 +33,20 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 	if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-const uploadLink = createUploadLink({
-	uri: 'http://localhost:3000/api/graphql',
+const graphQLUrl: string =
+	process.env.NODE_ENV === 'production'
+		? 'https://mercado-app.vercel.app/api/graphql'
+		: 'http://localhost:3000/api/graphql';
+
+const link = new HttpLink({
+	uri: graphQLUrl,
 	credentials: 'include',
 });
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	credentials: 'include',
-	link: from([errorLink, uploadLink]),
+	link: from([errorLink, link]),
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
