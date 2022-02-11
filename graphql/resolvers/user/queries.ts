@@ -43,7 +43,7 @@ const userQueries = {
   currentUser: async (parent, args, { user }) => {
     try {
       const data = await User.findById(user._id)
-      const currentUserData = safeUserInfo(data)
+      const currentUserData = safeUserInfo(data);
       return currentUserData;
     } catch (error) {
       return error

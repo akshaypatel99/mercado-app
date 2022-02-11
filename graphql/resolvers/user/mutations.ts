@@ -53,7 +53,6 @@ const userMutations = {
       const { email, password } = input;
 
       const foundUser = await User.findOne({ email }).lean();
-      console.log('foundUser', foundUser);
 
       if (!foundUser) {
         throw new UserInputError('Wrong email or password');
