@@ -10,8 +10,11 @@ import {
 	Box,
 	Button,
 	Heading,
+	Text,
+	Link,
 } from '@chakra-ui/react';
 import { AuthContext } from '../context/auth';
+import NextLink from 'next/link';
 
 const SIGN_UP = gql`
 	mutation SignUp($input: SignupInput) {
@@ -118,6 +121,16 @@ export default function SignUpForm() {
 						Sign Up
 					</Button>
 				</form>
+			</Center>
+			<Center mt='8'>
+				<Text fontSize='sm' fontWeight='semibold' color='brand.700'>
+					Already have an account?{' '}
+					<NextLink href='/login' passHref>
+						<Link fontWeight='bold' color='brand.800'>
+							Log in here
+						</Link>
+					</NextLink>
+				</Text>
 			</Center>
 		</Box>
 	);

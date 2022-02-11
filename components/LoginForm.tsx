@@ -10,8 +10,11 @@ import {
 	Box,
 	Button,
 	Heading,
+	Text,
+	Link,
 } from '@chakra-ui/react';
 import { AuthContext } from '../context/auth';
+import NextLink from 'next/link';
 
 const LOGIN = gql`
 	mutation Login($input: LoginInput) {
@@ -79,7 +82,7 @@ export default function LoginForm() {
 						/>
 						{!isEmailError ? (
 							<FormHelperText>
-								We`&apos`ll never share your email.
+								We&apos;ll never share your email.
 							</FormHelperText>
 						) : (
 							<FormErrorMessage>Email is required.</FormErrorMessage>
@@ -107,6 +110,16 @@ export default function LoginForm() {
 						Login
 					</Button>
 				</form>
+			</Center>
+			<Center mt='8'>
+				<Text fontSize='sm' fontWeight='semibold' color='brand.700'>
+					Don&apos;t have an account?{' '}
+					<NextLink href='/signup' passHref>
+						<Link fontWeight='bold' color='brand.800'>
+							Sign up here
+						</Link>
+					</NextLink>
+				</Text>
 			</Center>
 		</Box>
 	);
