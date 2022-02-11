@@ -1,7 +1,7 @@
 import {
 	createContext,
 	Dispatch,
-	ReactElement,
+	ReactNode,
 	SetStateAction,
 	useEffect,
 	useState,
@@ -38,7 +38,7 @@ interface AuthContextInterface {
 
 const AuthContext = createContext(null);
 
-const AuthProvider = ({ children }: { children: ReactElement }) => {
+const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [user, setUser] = useState();
 	// const { data, loading, error } = useUser();
 
