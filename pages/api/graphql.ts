@@ -4,14 +4,14 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import typeDefs from '../../graphql/typedefs';
 import resolvers from '../../graphql/resolvers';
 import connectDB from '../../db/config';
-import Cors from 'micro-cors';
+// import Cors from 'micro-cors';
 import { NextApiRequest , NextApiResponse } from 'next';
 import { getCookie } from '../../helpers/cookies';
 import { validateToken } from '../../helpers/util';
 
 connectDB();
 
-const cors = Cors()
+// const cors = Cors()
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -33,7 +33,7 @@ const apolloServer = new ApolloServer({
 
 const startServer = apolloServer.start()
 
-export default cors(async function (req: NextApiRequest, res: NextApiResponse) {
+export default (async function (req: NextApiRequest, res: NextApiResponse) {
   res.setHeader('Access-Control-Allow-Credentials', 'true')
   res.setHeader('Access-Control-Allow-Origin', 'https://studio.apollographql.com');
   res.setHeader('Access-Control-Allow-Origin', 'https://mercado-app.vercel.app/');
