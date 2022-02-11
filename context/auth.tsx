@@ -6,6 +6,8 @@ import {
 	useEffect,
 	useState,
 } from 'react';
+import { gql, useMutation } from '@apollo/client';
+
 import { useUser } from '../hooks/useUser';
 
 type User = {
@@ -23,41 +25,31 @@ interface AuthContextInterface {
 	logout: () => void;
 }
 
-// const AuthContext = createContext<AuthContextInterface>({
-// 	user: {
-// 		_id: '',
-// 		name: '',
-// 		email: '',
-// 		role: '',
-// 		userProducts: [],
-// 		userOrders: [],
-// 	},
-// 	setUser: () => {},
-// 	logout: () => {},
-// });
+const LOGOUT = gql`
+	mutation Logout {
+		logout
+	}
+`;
 
 const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [user, setUser] = useState();
-	// const { data, loading, error } = useUser();
+	const [logout, { reset }] = useMutation(LOGOUT);
+	const { data } = useUser();
 
-	// console.log('AuthContext data', data?.currentUser);
+	useEffect(() => {
+		if (data) {
+			setUser(data.currentUser);
+		}
+	}, [data]);
 
-	// useEffect(() => {
-	// 	if (data) {
-	// 		setUser(data.currentUser);
-	// 	}
-	// 	if (error) {
-	// 		setUser({});
-	// 	}
-	// }, [data, error]);
-
-	const logout = () => {
+	const logoutUser = () => {
 		try {
+			logout();
 			setUser(null);
 		} catch (error) {
-			return error;
+			reset();
 		}
 	};
 
@@ -66,7 +58,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 			value={{
 				user,
 				setUser,
-				logout,
+				logoutUser,
 				greeting: 'hello',
 			}}
 		>
