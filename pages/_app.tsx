@@ -1,6 +1,11 @@
-import { ApolloProvider, HttpLink } from '@apollo/client';
 import type { AppProps } from 'next/app';
-import { ApolloClient, from, InMemoryCache } from '@apollo/client';
+import {
+	ApolloClient,
+	from,
+	InMemoryCache,
+	ApolloProvider,
+	HttpLink,
+} from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { ChakraProvider } from '@chakra-ui/react';
 import { AuthProvider } from '../context/auth';
@@ -8,6 +13,7 @@ import NProgress from 'nprogress';
 import Router from 'next/router';
 import Page from '../components/Page';
 import theme from '../styles/theme';
+
 import '@fontsource/martel-sans/300.css';
 import '@fontsource/martel-sans/400.css';
 import '@fontsource/martel-sans/600.css';
@@ -32,8 +38,13 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 	if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
+const url =
+	process.env.NODE_ENV === 'development'
+		? 'http://localhost:3000'
+		: 'https://mercado-app.vercel.app';
+
 const apiLink = new HttpLink({
-	uri: '/api/graphql',
+	uri: `${url}/api/graphql`,
 	credentials: 'include',
 });
 

@@ -11,7 +11,10 @@ import { validateToken } from '../../helpers/util';
 
 connectDB();
 
-const cors = Cors();
+const cors = Cors({
+  origin: ["https://studio.apollographql.com", "http://localhost:3000", "https://mercado-app.vercel.app"],
+  allowCredentials: true,
+})
 
 const schema = makeExecutableSchema({
   typeDefs,
