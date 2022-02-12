@@ -24,6 +24,7 @@ const schema = makeExecutableSchema({
 
 const apolloServer = new ApolloServer({
   schema,
+  introspection: true,
   context: async ({ req, res }: { req: NextApiRequest, res: NextApiResponse }) => {
     try {
       const token = getCookie(req);
