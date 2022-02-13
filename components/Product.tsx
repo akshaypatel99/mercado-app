@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import { Box, Center, Heading, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import formatPrice from '../lib/formatPrice';
+import ProductForm from './ProductForm';
 
 type Product = {
 	_id: string;
@@ -50,9 +51,18 @@ export default function Product({ id }: { id: string }) {
 				<Link href='/products'>Back to all products</Link>
 			</Box>
 			<Box w='100%' display={{ lg: 'flex' }}>
-				<Center>
+				<Box>
 					<Image src={product.image} alt={product.name} />
-				</Center>
+					<Box
+						color='brand.800'
+						fontWeight='semibold'
+						letterSpacing='wide'
+						fontSize='xs'
+						textTransform='uppercase'
+					>
+						Seller: {product.user.name}
+					</Box>
+				</Box>
 				<Box ml={{ sm: '6', lg: '4' }}>
 					<Box
 						color='brand.800'
@@ -68,14 +78,12 @@ export default function Product({ id }: { id: string }) {
 						{formatPrice(product.price)}
 					</Heading>
 					<Box my='16'>{product.description}</Box>
-					<Box
-						color='brand.800'
-						fontWeight='semibold'
-						letterSpacing='wide'
-						fontSize='xs'
-						textTransform='uppercase'
-					>
-						Seller: {product.user.name}
+
+					<Box mt='4'>
+						<Heading fontSize='2xl' my='4'>
+							Edit Product
+						</Heading>
+						<ProductForm product={product} />
 					</Box>
 				</Box>
 			</Box>
