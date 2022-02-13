@@ -91,9 +91,9 @@ const productMutations = {
       return error;
     }
   },
-  uploadPhoto: async (parent, args, context) => {
+  uploadPhoto: async (parent, args, { req }) => {
     try {
-      const result = await uploadFile(args.file);
+      const result = await uploadFile(req.body.filePayload);
       console.log('mutation result', result);
 
       return {

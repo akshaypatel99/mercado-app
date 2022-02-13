@@ -5,7 +5,8 @@ import typeDefs from '../../graphql/typedefs';
 import resolvers from '../../graphql/resolvers';
 import connectDB from '../../db/config';
 import Cors from 'micro-cors';
-import { NextApiRequest , NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { processRequest } from 'graphql-upload';
 import { getCookie } from '../../helpers/cookies';
 import { validateToken } from '../../helpers/util';
 
@@ -38,27 +39,22 @@ const apolloServer = new ApolloServer({
 
 const startServer = apolloServer.start()
 
-/* eslint-disable */
 export default cors(async function (req: NextApiRequest, res: NextApiResponse) {
-  // res.setHeader('Access-Control-Allow-Credentials', 'true');
-  // res.setHeader(
-  //   'Access-Control-Allow-Headers',
-  //   'Origin, X-Requested-With, Content-Type, Accept'
-  // );
-  // res.setHeader(
-  //   'Access-Control-Allow-Origin',
-  //   'https://studio.apollographql.com'
-  // );
-  // res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, PATCH, DELETE, OPTIONS');
+  // Preflight request
   if (req.method === 'OPTIONS') {
     return res.end();
   };
+  
+  // Check if the request is an image upload (multipart/form-data)
+  const contentType = req.headers['content-type'];
+  if (contentType && contentType.includes('multipart/form-data')) {
+    req.body.filePayload = await processRequest(req);
+  }
 
   await startServer;
 
   await apolloServer.createHandler({ path: '/api/graphql' })(req, res);
 })
-/* eslint-enable */
 
   
 export const config: PageConfig = {
