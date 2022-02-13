@@ -44,6 +44,15 @@ const theme = extendTheme({
         fontFamily: 'heading',
         fontSize: '1.4rem',
         fontWeight: 'bold',
+      },
+      button: {
+        alignItems: 'center',
+        paddingTop: '0.25rem',
+      },
+      input: {
+        alignItems: 'center',
+        lineHeight: '1',
+        paddingTop: '0.25rem',
       }
     }
   }
