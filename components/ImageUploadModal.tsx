@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { gql, useMutation } from '@apollo/client';
 import {
 	Button,
 	Center,
@@ -14,12 +15,22 @@ import {
 } from '@chakra-ui/react';
 import { FiFile } from 'react-icons/fi';
 
+const UPLOAD_PHOTO = gql`
+	mutation UploadPhoto($file: Upload!) {
+		uploadPhoto(file: $file) {
+			publicId
+			url
+		}
+	}
+`;
+
 type ImageSrc = string | ArrayBuffer;
 
-export default function ImageModal({ isOpen, onClose }) {
+export default function ImageUploadModal({ isOpen, onClose, setProductInfo }) {
 	const [imageSrc, setImageSrc] = useState<ImageSrc>();
 	const [imageAlt, setImageAlt] = useState<string>();
-	const [uploadData, setUploadData] = useState();
+	const [uploadData, setUploadData] = useState<FormData>();
+	const [uploadPhoto, { data, loading, error }] = useMutation(UPLOAD_PHOTO);
 
 	const handleOnChange = (changeEvent) => {
 		const reader = new FileReader();
@@ -33,8 +44,16 @@ export default function ImageModal({ isOpen, onClose }) {
 		setImageAlt(changeEvent.target.files[0].name);
 	};
 
-	const handleOnSubmit = (event) => {
+	const handleOnSubmit = async (event) => {
 		event.preventDefault();
+		const form = event.currentTarget;
+		const fileInput = form.querySelector('input[type="file"]');
+		const file = fileInput.files[0];
+		const formData = new FormData();
+		formData.append('file', file);
+		setUploadData(formData);
+		// const {data} = await uploadPhoto({ variables: { file: uploadData } });
+		// setProductInfo({ ...productInfo, image: data.uploadPhoto.url });
 	};
 
 	const clearImage = () => {
@@ -76,7 +95,11 @@ export default function ImageModal({ isOpen, onClose }) {
 							)}
 
 							{imageSrc && !uploadData && (
-								<Button leftIcon={<Icon as={FiFile} />} justifyContent='center'>
+								<Button
+									leftIcon={<Icon as={FiFile} />}
+									justifyContent='center'
+									type='submit'
+								>
 									Upload
 								</Button>
 							)}

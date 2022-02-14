@@ -20,8 +20,7 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import { FiFile } from 'react-icons/fi';
-import ImageUpload from './ImageUpload';
-import ImageModal from './ImageModal';
+import ImageUploadModal from './ImageUploadModal';
 
 const schema = z.object({
 	name: z
@@ -64,7 +63,7 @@ export default function ProductForm({ product }) {
 		formState: { errors, isSubmitting },
 	} = useForm({ mode: 'onTouched', resolver: zodResolver(schema) });
 
-	console.log(errors);
+	console.log('errors', errors);
 
 	const validateFiles = (value: FileList) => {
 		if (value.length < 1) {
@@ -90,85 +89,89 @@ export default function ProductForm({ product }) {
 	}
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<FormControl mt='6' isInvalid={errors.name}>
-				<FormLabel htmlFor='name'>Product name</FormLabel>
-				<Input
-					id='name'
-					{...register('name')}
-					defaultValue={productInfo.name}
-				/>
-				<FormErrorMessage>
-					{errors.name?.message && <p>{errors.name?.message}</p>}
-				</FormErrorMessage>
-			</FormControl>
-			<FormControl mt='6' isInvalid={errors.description}>
-				<FormLabel htmlFor='description'>Description</FormLabel>
-				<Textarea
-					id='description'
-					{...register('description')}
-					defaultValue={productInfo.description}
-				/>
-				<FormErrorMessage>
-					{errors.description?.message && <p>{errors.description?.message}</p>}
-				</FormErrorMessage>
-			</FormControl>
-			<FormControl mt='6' isInvalid={errors.category}>
-				<FormLabel htmlFor='category'>Category</FormLabel>
-				<Select
-					id='category'
-					placeholder='Select category'
-					defaultValue={productInfo.category}
-					{...register('category')}
-				>
-					<option value='Clothing'>Clothing</option>
-					<option value='Electronics'>Electronics</option>
-					<option value='Jewellery'>Jewellery</option>
-					<option value='Accessories'>Accessories</option>
-					<option value='Musical Instruments'>Musical Instruments</option>
-					<option value='Furniture'>Furniture</option>
-					<option value='Sports'>Sports</option>
-					<option value='Books'>Books</option>
-					<option value='Other'>Other</option>
-				</Select>
-				<FormErrorMessage>
-					{errors.category?.message && <p>{errors.category?.message}</p>}
-				</FormErrorMessage>
-			</FormControl>
-			<FormControl mt='6' isInvalid={errors.price}>
-				<FormLabel htmlFor='price'>Price</FormLabel>
-				<NumberInput
-					id='price'
-					defaultValue={productInfo.price}
-					min={0}
-					precision={2}
-					step={0.2}
-					allowMouseWheel
-				>
-					<NumberInputField {...register('price')} />
-					<NumberInputStepper>
-						<NumberIncrementStepper />
-						<NumberDecrementStepper />
-					</NumberInputStepper>
-				</NumberInput>
-				<FormErrorMessage>
-					{errors.price?.message && <p>{errors.price?.message}</p>}
-				</FormErrorMessage>
-			</FormControl>
-			<FormControl mt='6' isInvalid={errors.image}>
-				<FormLabel htmlFor='image'>Image</FormLabel>
-				<Input
-					id='image'
-					{...register('image')}
-					defaultValue={productInfo.image}
-				/>
-				<FormErrorMessage>
-					{errors.image?.message && <p>{errors.image?.message}</p>}
-				</FormErrorMessage>
-				<Button onClick={onOpen}>Upload Image</Button>
-				<ImageModal onClose={onClose} isOpen={isOpen} />
-			</FormControl>
-			{/* <FormControl mt='6' isInvalid={!!errors.image} isRequired>
+		<>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<FormControl mt='6' isInvalid={errors.name}>
+					<FormLabel htmlFor='name'>Product name</FormLabel>
+					<Input
+						id='name'
+						{...register('name')}
+						defaultValue={productInfo.name}
+					/>
+					<FormErrorMessage>
+						{errors.name?.message && <p>{errors.name?.message}</p>}
+					</FormErrorMessage>
+				</FormControl>
+				<FormControl mt='6' isInvalid={errors.description}>
+					<FormLabel htmlFor='description'>Description</FormLabel>
+					<Textarea
+						id='description'
+						{...register('description')}
+						defaultValue={productInfo.description}
+					/>
+					<FormErrorMessage>
+						{errors.description?.message && (
+							<p>{errors.description?.message}</p>
+						)}
+					</FormErrorMessage>
+				</FormControl>
+				<FormControl mt='6' isInvalid={errors.category}>
+					<FormLabel htmlFor='category'>Category</FormLabel>
+					<Select
+						id='category'
+						placeholder='Select category'
+						defaultValue={productInfo.category}
+						{...register('category')}
+					>
+						<option value='Clothing'>Clothing</option>
+						<option value='Electronics'>Electronics</option>
+						<option value='Jewellery'>Jewellery</option>
+						<option value='Accessories'>Accessories</option>
+						<option value='Musical Instruments'>Musical Instruments</option>
+						<option value='Furniture'>Furniture</option>
+						<option value='Sports'>Sports</option>
+						<option value='Books'>Books</option>
+						<option value='Other'>Other</option>
+					</Select>
+					<FormErrorMessage>
+						{errors.category?.message && <p>{errors.category?.message}</p>}
+					</FormErrorMessage>
+				</FormControl>
+				<FormControl mt='6' isInvalid={errors.price}>
+					<FormLabel htmlFor='price'>Price</FormLabel>
+					<NumberInput
+						id='price'
+						defaultValue={productInfo.price}
+						min={0}
+						precision={2}
+						step={0.2}
+						allowMouseWheel
+					>
+						<NumberInputField {...register('price')} />
+						<NumberInputStepper>
+							<NumberIncrementStepper />
+							<NumberDecrementStepper />
+						</NumberInputStepper>
+					</NumberInput>
+					<FormErrorMessage>
+						{errors.price?.message && <p>{errors.price?.message}</p>}
+					</FormErrorMessage>
+				</FormControl>
+				<FormControl mt='6' isInvalid={errors.image}>
+					<FormLabel htmlFor='image'>Image</FormLabel>
+					<Input
+						id='image'
+						{...register('image')}
+						defaultValue={productInfo.image}
+					/>
+					<FormErrorMessage>
+						{errors.image?.message && <p>{errors.image?.message}</p>}
+					</FormErrorMessage>
+					<Button mt='4' onClick={onOpen}>
+						Upload Image
+					</Button>
+				</FormControl>
+				{/* <FormControl mt='6' isInvalid={!!errors.image} isRequired>
 				<FormLabel htmlFor='imageFile'>Image upload</FormLabel>
 				<ImageUpload
 					id='imageFile'
@@ -181,9 +184,20 @@ export default function ProductForm({ product }) {
 				<Image src={imageSrc} alt={imageSrc} />
 			</FormControl> */}
 
-			<Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
-				Submit
-			</Button>
-		</form>
+				<Button
+					mt={8}
+					colorScheme='teal'
+					isLoading={isSubmitting}
+					type='submit'
+				>
+					Submit
+				</Button>
+			</form>
+			<ImageUploadModal
+				onClose={onClose}
+				isOpen={isOpen}
+				setProductInfo={setProductInfo}
+			/>
+		</>
 	);
 }
