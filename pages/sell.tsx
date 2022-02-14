@@ -1,5 +1,13 @@
-import Page from '../components/Page';
+import { Center, Heading } from '@chakra-ui/react';
+import CreateProduct from '../components/CreateProduct';
 
 export default function Sell() {
-	return <div>I am the Sell Page</div>;
+	return (
+		<>
+			<Center>
+				<Heading color='brand.600'>Sell Your Unwanted Items</Heading>
+			</Center>
+			<CreateProduct />
+		</>
+	);
 }

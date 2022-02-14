@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import AccountInfo from '../components/AccountInfo';
 import { AuthContext } from '../context/auth';
+import AccountInfo from '../components/AccountInfo';
 
 export default function Account({ token }) {
 	const auth = useContext(AuthContext);
