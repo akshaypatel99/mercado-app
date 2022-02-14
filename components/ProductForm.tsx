@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -21,6 +21,12 @@ import {
 } from '@chakra-ui/react';
 import { FiFile } from 'react-icons/fi';
 import ImageUploadModal from './ImageUploadModal';
+import {
+	ApolloCache,
+	DefaultContext,
+	FetchResult,
+	MutationFunctionOptions,
+} from '@apollo/client';
 
 const schema = z.object({
 	name: z
@@ -53,31 +59,34 @@ type FormValues = {
 	imageFile: FileList;
 };
 
-export default function ProductForm({ product }) {
+type Product = {
+	name: string;
+	description: string;
+	image: string;
+	category: string;
+	price: number;
+};
+
+type ProductFormProps = {
+	product?: Product;
+	mutationFn: () => {};
+	updatedProduct?: Product;
+	setUpdatedProduct: Dispatch<any>;
+};
+
+export default function ProductForm({
+	product,
+	mutationFn,
+	updatedProduct,
+	setUpdatedProduct,
+}: ProductFormProps) {
 	const [productInfo, setProductInfo] = useState(product);
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [imageSrc, setImageSrc] = useState();
 	const {
 		handleSubmit,
 		register,
 		formState: { errors, isSubmitting },
 	} = useForm({ mode: 'onTouched', resolver: zodResolver(schema) });
-
-	console.log('errors', errors);
-
-	const validateFiles = (value: FileList) => {
-		if (value.length < 1) {
-			return 'Files is required';
-		}
-		for (const file of Array.from(value)) {
-			const fsMb = file.size / (1024 * 1024);
-			const MAX_FILE_SIZE = 5;
-			if (fsMb > MAX_FILE_SIZE) {
-				return 'Max file size 5mb';
-			}
-		}
-		return true;
-	};
 
 	function onSubmit(values: FormValues) {
 		return new Promise((resolve) => {
@@ -96,7 +105,13 @@ export default function ProductForm({ product }) {
 					<Input
 						id='name'
 						{...register('name')}
-						defaultValue={productInfo.name}
+						defaultValue={productInfo ? productInfo.name : ''}
+						onChange={(e) =>
+							setUpdatedProduct({
+								...updatedProduct,
+								name: e.target.value,
+							})
+						}
 					/>
 					<FormErrorMessage>
 						{errors.name?.message && <p>{errors.name?.message}</p>}
@@ -107,7 +122,13 @@ export default function ProductForm({ product }) {
 					<Textarea
 						id='description'
 						{...register('description')}
-						defaultValue={productInfo.description}
+						defaultValue={productInfo ? productInfo.description : ''}
+						onChange={(e) =>
+							setUpdatedProduct({
+								...updatedProduct,
+								description: e.target.value,
+							})
+						}
 					/>
 					<FormErrorMessage>
 						{errors.description?.message && (
@@ -120,8 +141,14 @@ export default function ProductForm({ product }) {
 					<Select
 						id='category'
 						placeholder='Select category'
-						defaultValue={productInfo.category}
+						defaultValue={productInfo ? productInfo.category : ''}
 						{...register('category')}
+						onChange={(e) =>
+							setUpdatedProduct({
+								...updatedProduct,
+								category: e.target.value,
+							})
+						}
 					>
 						<option value='Clothing'>Clothing</option>
 						<option value='Electronics'>Electronics</option>
@@ -141,11 +168,17 @@ export default function ProductForm({ product }) {
 					<FormLabel htmlFor='price'>Price</FormLabel>
 					<NumberInput
 						id='price'
-						defaultValue={productInfo.price}
+						defaultValue={productInfo ? productInfo.price : 0}
 						min={0}
 						precision={2}
 						step={0.2}
 						allowMouseWheel
+						onChange={(event) =>
+							setUpdatedProduct({
+								...updatedProduct,
+								price: parseFloat(event),
+							})
+						}
 					>
 						<NumberInputField {...register('price')} />
 						<NumberInputStepper>
@@ -160,9 +193,16 @@ export default function ProductForm({ product }) {
 				<FormControl mt='6' isInvalid={errors.image}>
 					<FormLabel htmlFor='image'>Image</FormLabel>
 					<Input
+						isReadOnly
 						id='image'
 						{...register('image')}
-						defaultValue={productInfo.image}
+						value={updatedProduct ? updatedProduct.image : ''}
+						onChange={(e) =>
+							setUpdatedProduct({
+								...updatedProduct,
+								image: e.target.value,
+							})
+						}
 					/>
 					<FormErrorMessage>
 						{errors.image?.message && <p>{errors.image?.message}</p>}
@@ -171,18 +211,6 @@ export default function ProductForm({ product }) {
 						Upload Image
 					</Button>
 				</FormControl>
-				{/* <FormControl mt='6' isInvalid={!!errors.image} isRequired>
-				<FormLabel htmlFor='imageFile'>Image upload</FormLabel>
-				<ImageUpload
-					id='imageFile'
-					accept={'image/*'}
-					multiple={false}
-					register={register('imageFile', { validate: validateFiles })}
-				>
-					<Button leftIcon={<Icon as={FiFile} />}>Upload</Button>
-				</ImageUpload>
-				<Image src={imageSrc} alt={imageSrc} />
-			</FormControl> */}
 
 				<Button
 					mt={8}
@@ -192,11 +220,22 @@ export default function ProductForm({ product }) {
 				>
 					Submit
 				</Button>
+
+				<Button
+					mt={8}
+					ml={4}
+					colorScheme='yellow'
+					type='reset'
+					onClick={() => setUpdatedProduct(productInfo)}
+				>
+					Reset
+				</Button>
 			</form>
 			<ImageUploadModal
 				onClose={onClose}
 				isOpen={isOpen}
-				setProductInfo={setProductInfo}
+				updatedProduct={updatedProduct}
+				setUpdatedProduct={setUpdatedProduct}
 			/>
 		</>
 	);
