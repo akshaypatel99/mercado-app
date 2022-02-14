@@ -93,7 +93,7 @@ const productMutations = {
   },
   uploadPhoto: async (parent, args, { req }) => {
     try {
-      const result = await uploadFile(req.body.filePayload);
+      const result = await uploadFile(args.file);
       console.log('mutation result', result);
 
       return {
