@@ -20,6 +20,7 @@
     "@hookform/resolvers": "^2.8.8",
     "@types/nprogress": "^0.2.0",
     "apollo-server-micro": "^3.6.3",
+    "apollo-upload-client": "^17.0.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.28.1",
     "cookie": "^0.4.2",

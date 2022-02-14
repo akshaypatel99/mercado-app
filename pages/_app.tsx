@@ -6,6 +6,7 @@ import {
 	ApolloProvider,
 	HttpLink,
 } from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
 import { onError } from '@apollo/client/link/error';
 import { ChakraProvider } from '@chakra-ui/react';
 import { AuthProvider } from '../context/auth';
@@ -38,19 +39,14 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 	if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-const url =
-	process.env.NODE_ENV === 'development'
-		? 'http://localhost:3000'
-		: 'https://mercado-app.vercel.app';
-
-const httpLink = new HttpLink({
+const uploadLink = createUploadLink({
 	uri: '/api/graphql',
 	credentials: 'include',
 });
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
-	uri: '/api/graphql',
+	link: from([errorLink, uploadLink]),
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
