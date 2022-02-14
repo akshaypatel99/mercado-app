@@ -10,6 +10,10 @@ import { processRequest } from 'graphql-upload';
 import { getCookie } from '../../helpers/cookies';
 import { validateToken } from '../../helpers/util';
 
+type NextApiRequestWithFilePayload = NextApiRequest & {
+  filePayload: any
+}
+
 connectDB();
 
 const cors = Cors({
@@ -26,7 +30,7 @@ const schema = makeExecutableSchema({
 const apolloServer = new ApolloServer({
   schema,
   introspection: true,
-  context: async ({ req, res }: { req: NextApiRequest, res: NextApiResponse }) => {
+  context: async ({ req, res }: { req: NextApiRequestWithFilePayload, res: NextApiResponse }) => {
     try {
       const token = getCookie(req);
       const decoded = validateToken(token);
@@ -39,21 +43,18 @@ const apolloServer = new ApolloServer({
 
 const startServer = apolloServer.start()
 
-export default cors(async function (req: NextApiRequest, res: NextApiResponse) {
-  // Preflight request
+export default cors(async (req: NextApiRequestWithFilePayload, res: NextApiResponse) => {
   if (req.method === 'OPTIONS') {
     return res.end();
   };
-  
-  // Check if the request is an image upload (multipart/form-data)
-  const contentType = req.headers['content-type'];
-  if (contentType && contentType.includes('multipart/form-data')) {
-    req.body.filePayload = await processRequest(req);
+
+  const contentType = req.headers["content-type"]
+  if (contentType && contentType.startsWith("multipart/form-data")) {
+    req.filePayload = await processRequest(req, res)
   }
 
   await startServer;
-
-  await apolloServer.createHandler({ path: '/api/graphql' })(req, res);
+  return apolloServer.createHandler({ path: "/api/graphql" })(req, res)
 })
 
   
@@ -62,3 +63,4 @@ export const config: PageConfig = {
     bodyParser: false,
   },
 }
+
