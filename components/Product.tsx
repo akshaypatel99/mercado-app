@@ -2,17 +2,20 @@ import { gql, useQuery } from '@apollo/client';
 import { Box, Center, Heading, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import formatPrice from '../lib/formatPrice';
+import EditProduct from './EditProduct';
 import ProductForm from './ProductForm';
 
-type Product = {
-	_id: string;
-	name: string;
-	description: string;
-	image: string;
-	category: string;
-	price: number;
-	user: {
+type SingleProduct = {
+	product: {
+		_id: string;
 		name: string;
+		description: string;
+		image: string;
+		category: string;
+		price: number;
+		user: {
+			name: string;
+		};
 	};
 };
 
@@ -26,7 +29,6 @@ export const SINGLE_PRODUCT = gql`
 			category
 			price
 			user {
-				_id
 				name
 			}
 		}
@@ -34,7 +36,7 @@ export const SINGLE_PRODUCT = gql`
 `;
 
 export default function Product({ id }: { id: string }) {
-	const { data, loading, error } = useQuery(SINGLE_PRODUCT, {
+	const { data, loading, error } = useQuery<SingleProduct>(SINGLE_PRODUCT, {
 		variables: {
 			productId: id,
 		},
@@ -80,10 +82,7 @@ export default function Product({ id }: { id: string }) {
 					<Box my='16'>{product.description}</Box>
 
 					<Box mt='4'>
-						<Heading fontSize='2xl' my='4'>
-							Edit Product
-						</Heading>
-						<ProductForm product={product} />
+						<EditProduct product={product} />
 					</Box>
 				</Box>
 			</Box>

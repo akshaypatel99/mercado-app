@@ -6,8 +6,6 @@ import {
 	FormErrorMessage,
 	FormLabel,
 	FormControl,
-	Icon,
-	Image,
 	Input,
 	Select,
 	Button,
@@ -19,14 +17,7 @@ import {
 	Textarea,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { FiFile } from 'react-icons/fi';
 import ImageUploadModal from './ImageUploadModal';
-import {
-	ApolloCache,
-	DefaultContext,
-	FetchResult,
-	MutationFunctionOptions,
-} from '@apollo/client';
 
 const schema = z.object({
 	name: z
