@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import {
 	Button,
-	Center,
+	FormControl,
+	FormLabel,
+	FormErrorMessage,
+	FormHelperText,
 	Modal,
 	ModalOverlay,
 	ModalContent,
@@ -12,12 +15,15 @@ import {
 	ModalCloseButton,
 	Image,
 	Icon,
+	Heading,
+	Text,
 } from '@chakra-ui/react';
-import { FiFile } from 'react-icons/fi';
+import { FiCheck, FiFile } from 'react-icons/fi';
 
 const UPLOAD_PHOTO = gql`
 	mutation UploadPhoto($file: Upload!) {
 		uploadPhoto(file: $file) {
+			message
 			publicId
 			url
 		}
@@ -26,18 +32,22 @@ const UPLOAD_PHOTO = gql`
 
 type ImageSrc = string | ArrayBuffer;
 
-export default function ImageUploadModal({ isOpen, onClose, setProductInfo }) {
+export default function ImageUploadModal({
+	isOpen,
+	onClose,
+	updatedProduct,
+	setUpdatedProduct,
+}) {
 	const [imageSrc, setImageSrc] = useState<ImageSrc>();
 	const [imageAlt, setImageAlt] = useState<string>();
-	const [uploadData, setUploadData] = useState<FormData>();
-	const [uploadPhoto, { data, loading, error }] = useMutation(UPLOAD_PHOTO);
+	const [uploadPhoto, { data, loading, error, reset }] =
+		useMutation(UPLOAD_PHOTO);
 
 	const handleOnChange = (changeEvent) => {
 		const reader = new FileReader();
 
 		reader.onload = function (onLoadEvent) {
 			setImageSrc(onLoadEvent.target.result);
-			setUploadData(undefined);
 		};
 
 		reader.readAsDataURL(changeEvent.target.files[0]);
@@ -46,19 +56,25 @@ export default function ImageUploadModal({ isOpen, onClose, setProductInfo }) {
 
 	const handleOnSubmit = async (event) => {
 		event.preventDefault();
-		const form = event.currentTarget;
-		const fileInput = form.querySelector('input[type="file"]');
-		const file = fileInput.files[0];
-		const formData = new FormData();
-		formData.append('file', file);
-		setUploadData(formData);
-		// const {data} = await uploadPhoto({ variables: { file: uploadData } });
-		// setProductInfo({ ...productInfo, image: data.uploadPhoto.url });
+		const form: HTMLFormElement = event.currentTarget;
+		const fileInput: HTMLInputElement =
+			form.querySelector('input[type="file"]');
+		const file: File = fileInput.files[0];
+		const { data } = await uploadPhoto({ variables: { file } });
+		setUpdatedProduct({
+			...updatedProduct,
+			image: data.uploadPhoto.url,
+		});
+		setTimeout(() => {
+			clearImage();
+			onClose();
+		}, 5000);
 	};
 
 	const clearImage = () => {
 		setImageSrc(undefined);
 		setImageAlt(undefined);
+		reset();
 	};
 
 	return (
@@ -66,9 +82,11 @@ export default function ImageUploadModal({ isOpen, onClose, setProductInfo }) {
 			<Modal isOpen={isOpen} onClose={onClose} size='xl' isCentered>
 				<ModalOverlay />
 				<ModalContent>
-					<ModalHeader>Upload Product Image</ModalHeader>
+					<ModalHeader>
+						<Heading fontSize='2xl'>Upload Product Image</Heading>
+					</ModalHeader>
 					<ModalCloseButton />
-					<ModalBody justifyContent='center' minH='200' maxH='80%'>
+					<ModalBody justifyContent='center' minH='250' maxH='80%'>
 						<form
 							method='post'
 							onChange={handleOnChange}
@@ -79,36 +97,62 @@ export default function ImageUploadModal({ isOpen, onClose, setProductInfo }) {
 								alignItems: 'center',
 							}}
 						>
-							<input
-								type='file'
-								name='file'
-								style={{
-									padding: '1rem',
-									border: 'solid 1px gray',
-									borderRadius: '0.5rem',
-									marginTop: '1rem',
-								}}
-							/>
+							<FormControl display='flex' flexDir='column' padding='1rem'>
+								<FormLabel htmlFor='file' mb='0'>
+									Select a product image to upload.
+								</FormLabel>
+								<input
+									type='file'
+									name='file'
+									multiple={false}
+									accept='image/webp,image/png,image/jpeg'
+									style={{
+										padding: '1rem',
+										border: 'solid 1px lightgray',
+										borderRadius: '0.5rem',
+									}}
+								/>
+								<FormHelperText fontSize='sm'>
+									Must be jpeg, png or webp format.
+								</FormHelperText>
 
-							{typeof imageSrc === 'string' && (
-								<Image src={imageSrc} alt={imageAlt} maxH='200px' />
-							)}
+								{typeof imageSrc === 'string' && (
+									<Image
+										src={imageSrc}
+										alt={imageAlt}
+										maxH='200px'
+										maxW='200px'
+										margin={'0% auto'}
+									/>
+								)}
 
-							{imageSrc && !uploadData && (
-								<Button
-									leftIcon={<Icon as={FiFile} />}
-									justifyContent='center'
-									type='submit'
-								>
-									Upload
-								</Button>
-							)}
+								{error && <FormErrorMessage>{error.message}</FormErrorMessage>}
 
-							{uploadData && (
-								<code>
-									<pre>{JSON.stringify(uploadData, null, 2)}</pre>
-								</code>
-							)}
+								{data && data.uploadPhoto.message && (
+									<Text>{data.uploadPhoto.message}</Text>
+								)}
+
+								{imageSrc && (
+									<Button
+										leftIcon={
+											data && data.uploadPhoto.publicId ? (
+												<Icon as={FiCheck} />
+											) : (
+												<Icon as={FiFile} />
+											)
+										}
+										justifyContent='center'
+										type='submit'
+										isLoading={loading}
+										disabled={
+											loading ||
+											data?.uploadPhoto.publicId === 'Photo uploaded!'
+										}
+									>
+										{data && data.uploadPhoto.publicId ? 'Success' : 'Upload'}
+									</Button>
+								)}
+							</FormControl>
 						</form>
 					</ModalBody>
 
