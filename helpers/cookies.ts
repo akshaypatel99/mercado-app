@@ -1,51 +1,53 @@
-import { serialize, CookieSerializeOptions } from 'cookie'
-import { NextApiRequest, NextApiResponse } from 'next'
+import Cookies from 'cookies'
+import { NextApiResponse } from 'next'
+import { NextApiRequestWithFilePayload } from '../pages/api/graphql'
 import { parse } from 'path'
 
 
-const cookieOptions: CookieSerializeOptions = {
+const cookieOptions = {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       path: '/',
-      maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week 
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week 
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     }
 
-export const setCookie = (
+export const setCookies = (
+  req: NextApiRequestWithFilePayload,
   res: NextApiResponse,
-  name: string = 'token',
-  value: unknown,
-  options: CookieSerializeOptions = cookieOptions
+  tokenArray: {name: string, value: any}[],
+  options = cookieOptions
 ) => {
-  const stringValue =
-    typeof value === 'object' ? 'j:' + JSON.stringify(value) : String(value)
-
   if ('maxAge' in options) {
     options.expires = new Date(Date.now() + options.maxAge)
     options.maxAge /= 1000
   }
 
-  res.setHeader('Set-Cookie', serialize(name, stringValue, cookieOptions));
+  const cookies = new Cookies(req, res)
+  tokenArray.forEach(token => {
+    const stringValue = typeof token.value === 'object' ? 'j:' + JSON.stringify(token.value) : String(token.value)
+    cookies.set(token.name, stringValue, options);
+  });
 }
 
 export const removeCookie = (
+  req: NextApiRequestWithFilePayload,
   res: NextApiResponse,
   name: string = 'token',
 ) => {
-  res.setHeader('Set-Cookie', serialize(name, '', {
-    ...cookieOptions,
-    maxAge: -1,
-  }));
+  const cookies = new Cookies(req, res);
+  cookies.set(name);
 };
 
-export const parseCookie = (req: NextApiRequest) => {
+export const parseCookie = (req: NextApiRequestWithFilePayload) => {
   if (req.cookies) return req.cookies;
 
   const cookie = req.headers.cookie;
   return parse(cookie || '');
 };
 
-export const getCookie = (req: NextApiRequest) => {
+export const getCookie = (req: NextApiRequestWithFilePayload, name: string) => {
   const cookies = parseCookie(req);
-  return cookies['token'];
+  return cookies[name];
 }
