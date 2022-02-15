@@ -27,7 +27,7 @@ const schema = z.object({
 	description: z
 		.string()
 		.min(5, { message: 'Required. Must be at least 5 characters.' })
-		.max(200),
+		.max(500),
 	price: z.union([
 		z.string().regex(/^[1-9]\d*(\.\d+)?$/, { message: 'Must be a number.' }),
 		z.number().nonnegative({ message: 'Must be positive' }),
@@ -79,18 +79,9 @@ export default function ProductForm({
 		formState: { errors, isSubmitting },
 	} = useForm({ mode: 'onTouched', resolver: zodResolver(schema) });
 
-	function onSubmit(values: FormValues) {
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				alert(JSON.stringify(values, null, 2));
-				resolve(values);
-			}, 3000);
-		});
-	}
-
 	return (
 		<>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={handleSubmit(mutationFn)}>
 				<FormControl mt='6' isInvalid={errors.name}>
 					<FormLabel htmlFor='name'>Product name</FormLabel>
 					<Input
@@ -162,7 +153,7 @@ export default function ProductForm({
 						defaultValue={productInfo ? productInfo.price : 0}
 						min={0}
 						precision={2}
-						step={0.2}
+						step={1.0}
 						allowMouseWheel
 						onChange={(event) =>
 							setUpdatedProduct({
