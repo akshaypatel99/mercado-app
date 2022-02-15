@@ -104,7 +104,6 @@ const uploadFile = async (file) => {
   return new Promise<any>((resolve, reject) => {
     const cloudStream = cloudinary.v2.uploader.upload_stream(function (err, result) {
       if (err) {
-        console.log('util', err);
         reject(err);
       }
       console.log('util', result);

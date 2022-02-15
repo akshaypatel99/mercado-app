@@ -14,7 +14,6 @@ export default async function validateTokens(req: NextApiRequestWithFilePayload,
   const decodedAccessToken = validateAccessToken(accessToken);
   
   if (decodedAccessToken) {
-    console.log('access token valid: decodedAccessToken', decodedAccessToken);
     return { req, res, user: decodedAccessToken };
   }
 
@@ -34,7 +33,6 @@ export default async function validateTokens(req: NextApiRequestWithFilePayload,
     // If refresh token is valid, set new tokens and continue
     const { accessToken, refreshToken } = setTokens(user);
     const decodedAccessToken = validateAccessToken(accessToken);
-    console.log('access token is invalid: decodedAccessToken', decodedAccessToken);
     // Update cookies with new tokens
     const tokenArray = [{name: 'access', value: accessToken}, {name: 'refresh', value: refreshToken}];
     setCookies(req, res, tokenArray);
