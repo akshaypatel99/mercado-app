@@ -3,9 +3,13 @@ import bcrypt from 'bcryptjs';
 import cloudinary from 'cloudinary';
 import { AuthenticationError } from 'apollo-server-micro';
 
-export type UserInfo = {
+export type AccessUserInfo = {
   _id: string
   role: string
+}
+
+export type RefreshUserInfo = {
+  _id: string
 }
 
 export type UserData = {
@@ -21,23 +25,39 @@ export type UserData = {
 }
 
 const jwtSecret = process.env.JWT_SECRET;
+const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
+const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
 
 /* AUTH TOKEN HELPERS */
-const setToken = (user) => {
-  const token = jwt.sign(
-    {
-      _id: user._id,
-      role: user.role
-    },
-    jwtSecret,
-    { algorithm: 'HS256', expiresIn: '1d' }
-  );
-  return token;
+const setTokens = (user) => {
+
+  const accessUser: AccessUserInfo = {
+    _id: user._id,
+    role: user.role
+  }
+
+  const refreshUser: RefreshUserInfo = {
+    _id: user._id
+  }
+
+  const accessToken = jwt.sign(accessUser, jwtAccessSecret, { algorithm: 'HS256', expiresIn: '1h' });
+
+  const refreshToken = jwt.sign(refreshUser, jwtRefreshSecret, { algorithm: 'HS256', expiresIn: '7d' });
+
+  return { accessToken, refreshToken };
 }
 
-const validateToken = (token: string) => {
+const validateAccessToken = (token: string) => {
   try {
-    return jwt.verify(token, jwtSecret);
+    return jwt.verify(token, jwtAccessSecret);
+  } catch (error) {
+    return null;
+  }
+};
+
+const validateRefreshToken = (token: string) => {
+  try {
+    return jwt.verify(token, jwtRefreshSecret);
   } catch (error) {
     return null;
   }
@@ -97,7 +117,7 @@ const uploadFile = async (file) => {
 
 
 /* AUTHENTICATION HELPERS */
-const checkUserRole = (user: UserInfo, allowableRoles: string[]) => {
+const checkUserRole = (user: AccessUserInfo, allowableRoles: string[]) => {
 	if (!user || !allowableRoles.includes(user.role)) {
 		throw new AuthenticationError('Not authorized');
 	}
@@ -114,8 +134,9 @@ const safeUserInfo = (user: UserData) => {
 
 
 export {
-  setToken,
-  validateToken,
+  setTokens,
+  validateAccessToken,
+  validateRefreshToken,
   hashPassword,
   verifyPassword,
   uploadFile,

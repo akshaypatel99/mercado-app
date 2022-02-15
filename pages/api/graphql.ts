@@ -7,10 +7,9 @@ import connectDB from '../../db/config';
 import Cors from 'micro-cors';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { processRequest } from 'graphql-upload';
-import { getCookie } from '../../helpers/cookies';
-import { validateToken } from '../../helpers/util';
+import validateTokens from '../../helpers/validateTokens';
 
-type NextApiRequestWithFilePayload = NextApiRequest & {
+export type NextApiRequestWithFilePayload = NextApiRequest & {
   filePayload: any
 }
 
@@ -32,9 +31,8 @@ const apolloServer = new ApolloServer({
   introspection: true,
   context: async ({ req, res }: { req: NextApiRequestWithFilePayload, res: NextApiResponse }) => {
     try {
-      const token = getCookie(req);
-      const decoded = validateToken(token);
-      return { req, res, user: decoded };
+      const result = await validateTokens(req, res);
+      return result;
     } catch (error) {
       return { req, res, user: null };
     }
