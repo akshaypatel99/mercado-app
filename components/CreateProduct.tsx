@@ -1,6 +1,15 @@
 import { useState, useContext } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { Box, Heading, Image, Text, Link } from '@chakra-ui/react';
+import {
+	Box,
+	Heading,
+	Text,
+	Link,
+	Alert,
+	AlertIcon,
+	AlertTitle,
+	AlertDescription,
+} from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { AuthContext } from '../context/auth';
 import ProductForm from './ProductForm';
@@ -63,6 +72,46 @@ export default function CreateProduct() {
 				<Heading fontSize='2xl' my='4' color='brand.800'>
 					Create Product
 				</Heading>
+
+				{data && (
+					<Alert
+						status='success'
+						variant='subtle'
+						flexDirection='column'
+						alignItems='center'
+						justifyContent='center'
+						textAlign='center'
+						height='200px'
+					>
+						<AlertIcon boxSize='40px' mr={0} />
+						<AlertTitle mt={4} mb={1} fontSize='lg'>
+							{data.createProduct.message}
+						</AlertTitle>
+						<AlertDescription maxWidth='sm'>
+							Thank you for choosing{' '}
+							<span style={{ fontFamily: 'Oleo Script', fontSize: '1.25rem' }}>
+								Mercado
+							</span>{' '}
+							to sell your item.{' '}
+							<NextLink
+								href={`/product/${data.createProduct.product._id}`}
+								passHref
+							>
+								<Link fontWeight='bold' color='brand.600'>
+									See your product here.
+								</Link>
+							</NextLink>
+						</AlertDescription>
+					</Alert>
+				)}
+
+				{error && (
+					<Alert status='error' variant='subtle'>
+						<AlertIcon />
+						{error.message}
+					</Alert>
+				)}
+
 				{auth.user ? (
 					<ProductForm
 						mutationFn={create}
@@ -73,22 +122,6 @@ export default function CreateProduct() {
 					<Text>Please login to create a product</Text>
 				)}
 			</Box>
-
-			{data && (
-				<Box>
-					<Text fontSize='sm' fontWeight='semibold' color='brand.700'>
-						{data.createProduct.message}{' '}
-						<NextLink
-							href={`/product/${data.createProduct.product._id}`}
-							passHref
-						>
-							<Link fontWeight='bold' color='brand.800'>
-								See your product here.
-							</Link>
-						</NextLink>
-					</Text>
-				</Box>
-			)}
 		</>
 	);
 }

@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { Box, Center, Heading, Image, Text, Link } from '@chakra-ui/react';
+import { Box, Heading, Alert, AlertIcon } from '@chakra-ui/react';
 import ProductForm from './ProductForm';
 
 type Product = {
@@ -36,7 +36,7 @@ export default function EditProduct({ product }) {
 
 	const [update, { data, loading, error }] = useMutation(UPDATE_PRODUCT, {
 		variables: {
-			id: product._id,
+			updateProductId: product._id,
 			input: {
 				name: updatedProduct.name,
 				description: updatedProduct.description,
@@ -47,6 +47,12 @@ export default function EditProduct({ product }) {
 		},
 	});
 
+	useEffect(() => {
+		if (data) {
+			setUpdatedProduct(data.updateProduct.product);
+		}
+	}, [data]);
+
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error.message}</p>;
 
@@ -56,6 +62,18 @@ export default function EditProduct({ product }) {
 				<Heading fontSize='2xl' my='4' color='brand.800'>
 					Edit Product
 				</Heading>
+				{data && data.updateProduct.message && (
+					<Alert status='success' variant='subtle'>
+						<AlertIcon />
+						{data.updateProduct.message}
+					</Alert>
+				)}
+				{error && (
+					<Alert status='error' variant='subtle'>
+						<AlertIcon />
+						{error.message}
+					</Alert>
+				)}
 				<ProductForm
 					product={product}
 					mutationFn={update}
