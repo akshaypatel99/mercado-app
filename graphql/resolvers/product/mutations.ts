@@ -27,8 +27,8 @@ const productMutations = {
     try {
       const { name, description, category, image, price } = input;
 
-      const product = await Product.findById({ _id: id });
-      const loggedInUser = await User.findById({ _id: user._id });
+      const product = await Product.findById(id);
+      const loggedInUser = await User.findById(user._id);
 
       if (product) {
         if (product.user === user._id || loggedInUser.role === 'ADMIN') {
@@ -56,8 +56,8 @@ const productMutations = {
   },
   deleteProduct: async (parent, { id }, { user }) => {
     try {
-      const product = await Product.findById({ _id: id });
-      const loggedInUser = await User.findById({ _id: user._id });
+      const product = await Product.findById(id);
+      const loggedInUser = await User.findById(user._id);
 
       if (product) {
         if (product.user === user._id || loggedInUser.role === 'ADMIN') {
