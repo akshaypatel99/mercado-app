@@ -144,10 +144,7 @@ export default function ImageUploadModal({
 										justifyContent='center'
 										type='submit'
 										isLoading={loading}
-										disabled={
-											loading ||
-											data?.uploadPhoto.publicId === 'Photo uploaded!'
-										}
+										disabled={loading || data?.uploadPhoto?.publicId}
 									>
 										{data && data.uploadPhoto.publicId ? 'Success' : 'Upload'}
 									</Button>
