@@ -1,10 +1,10 @@
 import { ApolloError, UserInputError } from 'apollo-server-micro';
 import { User } from '../../../db/models';
-import { removeCookie, setCookie } from '../../../helpers/cookies';
-import { hashPassword, verifyPassword, checkUserRole, setToken, safeUserInfo } from '../../../helpers/util';
+import { removeCookie, setCookies } from '../../../helpers/cookies';
+import { hashPassword, verifyPassword, checkUserRole, setTokens, safeUserInfo } from '../../../helpers/util';
 
 const userMutations = {
-  signup: async (parent, { input }, { res }) => {
+  signup: async (parent, { input }, { req, res }) => {
     try {
       const { name, email, password } = input;
 
@@ -31,8 +31,9 @@ const userMutations = {
         const savedUser = await newUser.save();
 
         if (savedUser) {
-          const token = setToken(savedUser);
-          setCookie(res, 'token', token);
+          const {accessToken, refreshToken} = setTokens(savedUser);
+          const tokenArray = [{name: 'access', value: accessToken}, {name: 'refresh', value: refreshToken}];
+          setCookies(req, res, tokenArray);
 
           const savedUserData = safeUserInfo(savedUser);
 
@@ -48,7 +49,7 @@ const userMutations = {
       return error
     }
   },
-  login: async (parent, { input }, { res }) => {
+  login: async (parent, { input }, { req, res }) => {
     try {
       const { email, password } = input;
 
@@ -61,8 +62,9 @@ const userMutations = {
       const passwordValid = await verifyPassword(password, foundUser.password);
       
       if (passwordValid) {
-        const token = setToken(foundUser);
-        setCookie(res, 'token', token);
+        const { accessToken, refreshToken } = setTokens(foundUser);
+        const tokenArray = [{name: 'access', value: accessToken}, {name: 'refresh', value: refreshToken}];
+        setCookies(req, res, tokenArray);
 
         const foundUserData = safeUserInfo(foundUser);
 
@@ -77,9 +79,10 @@ const userMutations = {
       return error
     }
   },
-  logout: async (parent, args, { res }) => {
+  logout: async (parent, args, { req, res }) => {
     try {
-      removeCookie(res, 'token');
+      removeCookie(req, res, 'access');
+      removeCookie(req, res, 'refresh');
 
       return true;
     } catch (error) {
