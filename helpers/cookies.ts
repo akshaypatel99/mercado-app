@@ -10,7 +10,6 @@ const cookieOptions = {
       sameSite: 'strict',
       path: '/',
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week 
-      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     }
 
 export const setCookies = (
@@ -19,11 +18,6 @@ export const setCookies = (
   tokenArray: {name: string, value: any}[],
   options = cookieOptions
 ) => {
-  if ('maxAge' in options) {
-    options.expires = new Date(Date.now() + options.maxAge)
-    options.maxAge /= 1000
-  }
-
   const cookies = new Cookies(req, res)
   tokenArray.forEach(token => {
     const stringValue = typeof token.value === 'object' ? 'j:' + JSON.stringify(token.value) : String(token.value)
