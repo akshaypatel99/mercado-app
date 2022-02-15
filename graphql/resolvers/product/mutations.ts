@@ -3,11 +3,8 @@ import { Product, User } from '../../../db/models';
 import { uploadFile } from '../../../helpers/util';
 
 const productMutations = {
-  createProduct: async (parent, args, { req }) => {
+  createProduct: async (parent, { input }, { user }) => {
     try {
-      const { input } = args;
-      const { user } = req;
-      console.log('user', user);
       const productData = Object.assign({}, input, { user: user._id });
       const newProduct = new Product(productData);
       const productResult = await newProduct.save();
@@ -26,10 +23,8 @@ const productMutations = {
       return error
     }
   },
-  updateProduct: async (parent, args, { req }) => { 
+  updateProduct: async (parent, { id, input }, { user }) => { 
     try {
-      const { id, input } = args;
-      const { user } = req;
       const { name, description, category, image, price } = input;
 
       const product = await Product.findById({ _id: id });
@@ -59,13 +54,10 @@ const productMutations = {
       return error
     }
   },
-  deleteProduct: async (parent, args, { req }) => {
+  deleteProduct: async (parent, { id }, { user }) => {
     try {
-      const { id } = args;
-      const { user } = req;
-
       const product = await Product.findById({ _id: id });
-       const loggedInUser = await User.findById({ _id: user._id });
+      const loggedInUser = await User.findById({ _id: user._id });
 
       if (product) {
         if (product.user === user._id || loggedInUser.role === 'ADMIN') {
@@ -91,9 +83,9 @@ const productMutations = {
       return error;
     }
   },
-  uploadPhoto: async (parent, args, { req }) => {
+  uploadPhoto: async (parent, { file }, { req }) => {
     try {
-      const result = await uploadFile(args.file);
+      const result = await uploadFile(file);
       console.log('mutation result', result);
 
       return {

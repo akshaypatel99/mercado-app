@@ -2,11 +2,8 @@ import { ApolloError } from "apollo-server-micro";
 import { Order, User } from "../../../db/models";
 
 const orderMutations = {
-  createOrder: async (parent, args, { req }) => {
+  createOrder: async (parent, { input }, { user }) => {
     try {
-      const { input } = args;
-      const { user } = req;
-
       const orderData = Object.assign({}, input, { user: user._id });
       const newOrder = new Order(orderData);
       const orderResult = await newOrder.save();
@@ -25,9 +22,8 @@ const orderMutations = {
       return error
     }
   },
-  updateOrder: async (parent, args, context) => {
+  updateOrder: async (parent, { id, input }, context) => {
     try {
-      const { id, input } = args;
       const { orderItems, orderTotal, deliveryCost, totalCost, deliveryAddress, deliveryDate, paymentResult, isPaid, paidAt } = input
 
       const order = await Order.findById({ _id: id });
@@ -56,10 +52,8 @@ const orderMutations = {
       return error
     }
   },
-  deleteOrder: async (parent, args, context) => {
+  deleteOrder: async (parent, { id }, context) => {
     try {
-      const { id } = args;
-
       const order = await Order.findById({ _id: id });
 
       if (order) {
