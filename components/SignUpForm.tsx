@@ -13,7 +13,7 @@ import {
 	Text,
 	Link,
 } from '@chakra-ui/react';
-import { AuthContext } from '../context/auth';
+import { AuthContext } from '../context/AuthContext';
 import NextLink from 'next/link';
 
 const SIGN_UP = gql`

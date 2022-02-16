@@ -6,16 +6,16 @@ import {
 	MenuButton,
 	MenuList,
 	MenuItem,
-	MenuItemOption,
-	MenuGroup,
-	MenuOptionGroup,
-	MenuDivider,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useContext } from 'react';
-import { AuthContext } from '../context/auth';
-import LogoutBtn from './LogoutBtn';
-import { FiChevronDown, FiLogOut } from 'react-icons/fi';
+import { AuthContext } from '../context/AuthContext';
+import {
+	FiChevronDown,
+	FiLogOut,
+	FiShoppingCart,
+	FiUser,
+} from 'react-icons/fi';
 
 export default function Nav() {
 	const auth = useContext(AuthContext);
@@ -43,6 +43,17 @@ export default function Nav() {
 				_expanded={{ bg: 'brand.500' }}
 			>
 				<MenuItem
+					bg='brand.400'
+					_hover={{ bg: 'brand.600' }}
+					_focus={{ bg: 'brand.400' }}
+					minH='48px'
+					fontSize='lg'
+					fontWeight='bold'
+					icon={<FiUser />}
+				>
+					<Link href='/account'>Account</Link>
+				</MenuItem>
+				<MenuItem
 					onClick={auth.logoutUser}
 					bg='brand.400'
 					_hover={{ bg: 'brand.600' }}
@@ -61,11 +72,15 @@ export default function Nav() {
 	return (
 		<nav>
 			<Flex justify='space-between' my='4' alignItems='center'>
-				<Link href='/products'>Products</Link>
+				<Link href='/products'>Buy</Link>
 				<Link href='/sell'>Sell</Link>
 				<Link href='/orders'>Orders</Link>
-				<Link href='/account'>Account</Link>
 				{auth.user ? userMenu : <Link href='/login'>Login</Link>}
+				<Link href='/account' passHref>
+					<a>
+						<FiShoppingCart />
+					</a>
+				</Link>
 			</Flex>
 		</nav>
 	);

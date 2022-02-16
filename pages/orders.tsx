@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthContext } from '../context/auth';
+import { AuthContext } from '../context/AuthContext';
 
 export default function Orders({ token }) {
 	const auth = useContext(AuthContext);

@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { Button, Heading } from '@chakra-ui/react';
 import React, { useContext, useEffect } from 'react';
-import { AuthContext } from '../context/auth';
+import { AuthContext } from '../context/AuthContext';
 
 const LOGOUT = gql`
 	mutation Logout {

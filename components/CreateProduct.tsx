@@ -11,7 +11,7 @@ import {
 	AlertDescription,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { AuthContext } from '../context/auth';
+import { AuthContext } from '../context/AuthContext';
 import ProductForm from './ProductForm';
 
 type Product = {
