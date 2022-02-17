@@ -1,9 +1,11 @@
+import { useContext } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { Box, Center, Heading, Image } from '@chakra-ui/react';
+import { Box, Heading, Image } from '@chakra-ui/react';
+import { AuthContext } from '../context/AuthContext';
 import Link from 'next/link';
 import formatPrice from '../lib/formatPrice';
 import EditProduct from './EditProduct';
-import ProductForm from './ProductForm';
+import ProductUser from './ProductUser';
 
 type SingleProduct = {
 	product: {
@@ -14,6 +16,7 @@ type SingleProduct = {
 		category: string;
 		price: number;
 		user: {
+			_id: string;
 			name: string;
 		};
 	};
@@ -29,6 +32,7 @@ export const SINGLE_PRODUCT = gql`
 			category
 			price
 			user {
+				_id
 				name
 			}
 		}
@@ -41,6 +45,8 @@ export default function Product({ id }: { id: string }) {
 			productId: id,
 		},
 	});
+	const { user } = useContext(AuthContext);
+	console.log('user Prod page authcontext', user);
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error.message}</p>;
@@ -82,7 +88,11 @@ export default function Product({ id }: { id: string }) {
 					<Box my='16'>{product.description}</Box>
 
 					<Box mt='4'>
-						<EditProduct product={product} />
+						{user && user._id === product.user._id ? (
+							<EditProduct product={product} />
+						) : (
+							<ProductUser product={product} />
+						)}
 					</Box>
 				</Box>
 			</Box>

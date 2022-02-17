@@ -7,7 +7,7 @@ import {
 	useState,
 } from 'react';
 import { gql, useMutation } from '@apollo/client';
-
+import Router from 'next/router';
 import { useUser } from '../hooks/useUser';
 
 type User = {
@@ -53,13 +53,20 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 		}
 	};
 
+	const userRedirect = () => {
+		if (!user) {
+			return Router.push('/login');
+		}
+		return;
+	};
+
 	return (
 		<AuthContext.Provider
 			value={{
 				user,
 				setUser,
 				logoutUser,
-				greeting: 'hello',
+				userRedirect,
 			}}
 		>
 			{children}

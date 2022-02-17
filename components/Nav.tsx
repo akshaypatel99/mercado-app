@@ -10,12 +10,7 @@ import {
 import Link from 'next/link';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import {
-	FiChevronDown,
-	FiLogOut,
-	FiShoppingCart,
-	FiUser,
-} from 'react-icons/fi';
+import { FiChevronDown, FiLogOut, FiUser } from 'react-icons/fi';
 
 export default function Nav() {
 	const auth = useContext(AuthContext);
@@ -75,12 +70,10 @@ export default function Nav() {
 				<Link href='/products'>Buy</Link>
 				<Link href='/sell'>Sell</Link>
 				<Link href='/orders'>Orders</Link>
-				{auth.user ? userMenu : <Link href='/login'>Login</Link>}
 				<Link href='/account' passHref>
-					<a>
-						<FiShoppingCart />
-					</a>
+					Watch List
 				</Link>
+				{auth.user ? userMenu : <Link href='/login'>Login</Link>}
 			</Flex>
 		</nav>
 	);
