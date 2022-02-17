@@ -8,6 +8,7 @@ export interface Product {
   category: String;
   price: Number;
   isSold: Boolean;
+  watchedBy: { user: Types.ObjectId }[];
 }
 
 const productSchema = new Schema<Product>({
@@ -42,6 +43,14 @@ const productSchema = new Schema<Product>({
     required: true,
     default: false
   },
+  watchedBy: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    }
+  ]
 },
   {
     timestamps: true,

@@ -6,6 +6,7 @@ export interface User {
   role: String;
   userProducts: { product: Types.ObjectId }[];
   userOrders: { order: Types.ObjectId }[];
+  userWatchList: { product: Types.ObjectId }[];
 }
 
 const userSchema = new Schema<User>({
@@ -40,6 +41,14 @@ const userSchema = new Schema<User>({
       order: {
         type: Schema.Types.ObjectId,
         ref: 'Order'
+      }
+    }
+  ],
+  userWatchList: [
+    {
+      product: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product'
       }
     }
   ],
