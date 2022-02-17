@@ -34,6 +34,8 @@ type Mutation {
 	logout: Boolean
 	updateUserRole(id: ID!, role: String!): UserUpdateResult
 	deleteUser(id: ID!): UserDeleteResult
+	addToWatchList(id: ID!): UserUpdateResult
+	removeFromWatchList(id: ID!): UserUpdateResult
 
 	# Order
 	createOrder(input: OrderInput): OrderResult
@@ -90,6 +92,8 @@ type Product implements Timestamps {
 	image: String
 	category: String!
 	price: Float!
+	isSold: Boolean!
+	watchedBy: [User]
 
 	# Interface required
 	createdAt: Date!
@@ -143,6 +147,7 @@ type User implements Timestamps {
 	role: String!
 	userProducts: [Product!]
 	userOrders: [Order!]
+	userWatchList: [Product!]
 
 	# Interface required
 	createdAt: Date!

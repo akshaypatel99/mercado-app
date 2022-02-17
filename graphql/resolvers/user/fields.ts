@@ -11,7 +11,12 @@ const userFields = {
       const orders = await Order.find({ user: user._id });
 
       return orders;
-    }
+    },
+    userWatchList: async (user) => {
+      const products = await Product.find({ user: user._id });
+
+      return products;
+    },
   }
 }
 

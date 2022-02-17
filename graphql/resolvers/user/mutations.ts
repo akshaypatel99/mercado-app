@@ -1,5 +1,5 @@
 import { ApolloError, UserInputError } from 'apollo-server-micro';
-import { User } from '../../../db/models';
+import { User, Product } from '../../../db/models';
 import { removeCookie, setCookies } from '../../../helpers/cookies';
 import { hashPassword, verifyPassword, checkUserRole, setTokens, safeUserInfo } from '../../../helpers/util';
 
@@ -116,6 +116,48 @@ const userMutations = {
         user: deletedUser
       }
   
+    } catch (error) {
+      return error;
+    }
+  },
+  addToWatchList: async (parent, { productId }, { user }) => {
+    try {
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: user._id }, { $addToSet: { userWatchList: productId } }
+      );
+      const updatedProduct = await Product.findOneAndUpdate(
+        { _id: productId }, { $addToSet: { watchedBy: user._id } }
+      );
+
+      await updatedProduct.save();
+      
+      const savedUser = await updatedUser.save();
+
+      return {
+        message: 'Product added to wishlist',
+        user: savedUser,
+      }
+    } catch (error) {
+      return error;
+    }
+  },
+  removeFromWatchList: async (parent, { productId }, { user }) => {
+    try {
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: user._id }, { $pull: { userWatchList: productId } }
+      );
+      const updatedProduct = await Product.findOneAndUpdate(
+        { _id: productId }, { $pull: { watchedBy: user._id } }
+      );
+
+      await updatedProduct.save();
+
+      const savedUser = await updatedUser.save();
+
+      return {
+        message: 'Product removed from wishlist',
+        user: savedUser,
+      }
     } catch (error) {
       return error;
     }
