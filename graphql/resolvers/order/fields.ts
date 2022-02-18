@@ -7,12 +7,10 @@ const orderFields = {
 
       return user;
     },
-    orderItems: async (order) => {
-      const products = await order.orderItems.map((async (item) => {
-        await Product.findById(item._id);
-      }))
+    product: async (order) => {
+      const product = await Product.findById(order.product);
       
-      return products;
+      return product;
     }
   }
 }

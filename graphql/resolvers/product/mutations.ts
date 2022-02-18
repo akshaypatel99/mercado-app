@@ -6,15 +6,15 @@ const productMutations = {
   createProduct: async (parent, { input }, { user }) => {
     try {
       const productData = Object.assign({}, input, { user: user._id });
+      
       const newProduct = new Product(productData);
       const productResult = await newProduct.save();
 
-      const productCreator = await User.findById(user.id);
-      if (productCreator) {
-        productCreator.userProducts.unshift({ product: productResult._id});
-        await productCreator.save();
-      }
-
+      const productCreator = await User.findOneAndUpdate(
+        { _id: user._id }, { $addToSet: { userProducts: productResult._id } }
+      );
+      await productCreator.save();
+      
       return {
         message: 'Product created!',
         product: productResult
@@ -61,12 +61,11 @@ const productMutations = {
 
       if (product) {
         if (product.user === user._id || loggedInUser.role === 'ADMIN') {
-          const productCreator = await User.findById(product.user);
-          if (productCreator) {
-            const productIndex = productCreator.userProducts.indexOf({ product: product._id });
-            productCreator.userProducts.splice(productIndex, 1);
-            await productCreator.save();
-          }
+          const productCreator = await User.findOneAndUpdate(
+            { _id: user._id }, { $pull: { userProducts: product._id } }
+          );
+          await productCreator.save();
+
           const deletedProduct = await Product.findOneAndDelete({ _id: id });
 
           return {
