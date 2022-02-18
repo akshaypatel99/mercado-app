@@ -4,7 +4,7 @@ export interface User {
   email: String;
   password: String;
   role: String;
-  userProducts: { product: Types.ObjectId }[];
+  userProducts: [Types.ObjectId];
   userOrders: { order: Types.ObjectId }[];
   userWatchList: { product: Types.ObjectId }[];
 }
@@ -30,26 +30,20 @@ const userSchema = new Schema<User>({
   },
   userProducts: [
     {
-      product: {
-        type: Schema.Types.ObjectId,
-        ref: 'Product'
-      }
+      type: Schema.Types.ObjectId,
+      ref: 'Product'
     }
   ],
   userOrders: [
     {
-      order: {
-        type: Schema.Types.ObjectId,
-        ref: 'Order'
-      }
+      type: Schema.Types.ObjectId,
+      ref: 'Order'
     }
   ],
   userWatchList: [
     {
-      product: {
-        type: Schema.Types.ObjectId,
-        ref: 'Product'
-      }
+      type: Schema.Types.ObjectId,
+      ref: 'Product'
     }
   ],
 },

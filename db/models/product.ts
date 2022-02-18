@@ -45,10 +45,8 @@ const productSchema = new Schema<Product>({
   },
   watchedBy: [
     {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
+      type: Schema.Types.ObjectId,
+      ref: 'User'
     }
   ]
 },

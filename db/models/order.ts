@@ -1,8 +1,7 @@
 import { Schema, Types, model, models } from 'mongoose';
 export interface Order {
 	user: Types.ObjectId;
-	orderItems: Types.ObjectId[];
-	orderTotal: Number;
+	product: Types.ObjectId;
 	deliveryCost: Number
 	totalCost: Number
 	deliveryAddress: {
@@ -30,19 +29,10 @@ const orderSchema = new Schema(
 			required: true,
 			ref: 'User',
 		},
-		orderItems: [
-			{
-				product: {
-					type: Schema.Types.ObjectId,
-					required: true,
-					ref: 'Product',
-				},
-			},
-		],
-		orderTotal: {
-			type: Number,
+		product: {
+			type: Schema.Types.ObjectId,
 			required: true,
-			default: 0.0,
+			ref: 'Product',
 		},
 		deliveryCost: {
 			type: Number,
