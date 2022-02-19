@@ -5,7 +5,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "data:import": "ts-node --project tsconfig.seeder.json seeder/index.ts",
+    "data:destroy": "ts-node --project tsconfig.seeder.json seeder/index.ts -d"
   },
   "dependencies": {
     "@apollo/client": "^3.5.8",
@@ -24,6 +26,7 @@
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.28.1",
     "cookies": "^0.8.0",
+    "dotenv": "^16.0.0",
     "framer-motion": "^6.2.4",
     "graphql": "^16.3.0",
     "graphql-upload": "^13.0.0",
