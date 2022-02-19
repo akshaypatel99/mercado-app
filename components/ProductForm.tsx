@@ -32,7 +32,7 @@ const schema = z.object({
 		z.string().regex(/^[1-9]\d*(\.\d+)?$/, { message: 'Must be a number.' }),
 		z.number().nonnegative({ message: 'Must be positive' }),
 	]),
-	image: z.string().nonempty({ message: 'Required ' }).max(500),
+	image: z.string().max(500),
 	category: z.enum([
 		'Clothing',
 		'Electronics',
