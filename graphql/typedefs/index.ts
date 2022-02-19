@@ -224,7 +224,7 @@ type OrderResult {
 }
 
 input OrderInput {
-	product: Product!
+	product: ID!
 	deliveryCost: Float!
 	totalCost: Float!
 	deliveryAddress: AddressInput!

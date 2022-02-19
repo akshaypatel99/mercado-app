@@ -17,7 +17,11 @@ const CURRENT_USER = gql`
 			}
 			userOrders {
 				_id
-				product
+				product {
+					_id
+					name
+					price
+				}
 				deliveryCost
 				totalCost
 				deliveryAddress {
