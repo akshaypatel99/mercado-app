@@ -192,8 +192,7 @@ input LoginInput {
 type Order implements Timestamps {
 	_id: ID!
 	user: User!
-	orderItems: [Product!]!
-	orderTotal: Float!
+	product: Product!
 	deliveryCost: Float!
 	totalCost: Float!
 	deliveryAddress: Address!
@@ -225,8 +224,7 @@ type OrderResult {
 }
 
 input OrderInput {
-	orderItems: [ID]!
-	orderTotal: Float!
+	product: Product!
 	deliveryCost: Float!
 	totalCost: Float!
 	deliveryAddress: AddressInput!

@@ -17,10 +17,7 @@ const CURRENT_USER = gql`
 			}
 			userOrders {
 				_id
-				orderItems {
-					_id
-				}
-				orderTotal
+				product
 				deliveryCost
 				totalCost
 				deliveryAddress {
