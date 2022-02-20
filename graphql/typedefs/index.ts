@@ -34,8 +34,7 @@ type Mutation {
 	logout: Boolean
 	updateUserRole(id: ID!, role: String!): UserUpdateResult
 	deleteUser(id: ID!): UserDeleteResult
-	addToWatchList(id: ID!): UserUpdateResult
-	removeFromWatchList(id: ID!): UserUpdateResult
+	toggleWatchList(id: ID!): UserUpdateResult
 
 	# Order
 	createOrder(input: OrderInput): OrderResult

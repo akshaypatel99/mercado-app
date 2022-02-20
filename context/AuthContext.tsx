@@ -17,6 +17,7 @@ type User = {
 	role: string;
 	userProducts: object[];
 	userOrders: string[];
+	userWatchList: object[];
 };
 
 interface AuthContextInterface {

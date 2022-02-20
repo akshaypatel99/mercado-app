@@ -1,13 +1,58 @@
-import { Box, Button } from '@chakra-ui/react';
+import { useState } from 'react';
+import { gql, useMutation } from '@apollo/client';
+import { Alert, AlertIcon, Box, Button } from '@chakra-ui/react';
 
-export default function ProductUser({ product }) {
+const TOGGLE_WATCHLIST = gql`
+	mutation ToggleWatchList($toggleWatchListId: ID!) {
+		toggleWatchList(id: $toggleWatchListId) {
+			message
+			user {
+				_id
+				userWatchList {
+					_id
+				}
+			}
+		}
+	}
+`;
+
+export default function ProductUser({ product, user }) {
+	const [watchList, setWatchList] = useState<Boolean>(
+		user.userWatchList.includes(product._id)
+	);
+	const [toggleWatchList, { loading, error }] = useMutation(TOGGLE_WATCHLIST, {
+		variables: {
+			toggleWatchListId: product._id,
+		},
+	});
 	const handlePurchase = () => {};
-	const handleWatchList = () => {};
+	const handleWatchList = () => {
+		setWatchList(!watchList);
+		toggleWatchList();
+	};
 
 	return (
-		<Box>
-			<Button onClick={handlePurchase}>Buy Now</Button>
-			<Button onClick={handleWatchList}>Add to Wish List</Button>
-		</Box>
+		<>
+			<Box>
+				<Button onClick={handlePurchase}>Buy Now</Button>
+				<Button
+					ml='4'
+					onClick={handleWatchList}
+					color='brand.white'
+					bg='brand.500'
+					_hover={{ bg: 'brand.600' }}
+					_active={{ bg: 'brand.700' }}
+					isLoading={loading}
+				>
+					{watchList ? 'Remove from Watch List' : 'Add to Watch List'}
+				</Button>
+			</Box>
+			{error && (
+				<Alert status='error' variant='subtle'>
+					<AlertIcon />
+					{error.message}
+				</Alert>
+			)}
+		</>
 	);
 }

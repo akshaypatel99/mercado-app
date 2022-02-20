@@ -120,43 +120,42 @@ const userMutations = {
       return error;
     }
   },
-  addToWatchList: async (parent, { productId }, { user }) => {
+  toggleWatchList: async (parent, { id }, { user }) => {
     try {
-      const updatedUser = await User.findOneAndUpdate(
-        { _id: user._id }, { $addToSet: { userWatchList: productId } }
-      );
-      const updatedProduct = await Product.findOneAndUpdate(
-        { _id: productId }, { $addToSet: { watchedBy: user._id } }
-      );
-
-      await updatedProduct.save();
+      const foundUser = await User.findById(user._id);
+      const foundProduct = await Product.findById(id);
       
-      const savedUser = await updatedUser.save();
-
-      return {
-        message: 'Product added to wishlist',
-        user: savedUser,
+      if (!foundUser) {
+        throw new ApolloError('User not found');
+      };
+      if (!foundProduct) {
+        throw new ApolloError('Product not found');
       }
-    } catch (error) {
-      return error;
-    }
-  },
-  removeFromWatchList: async (parent, { productId }, { user }) => {
-    try {
-      const updatedUser = await User.findOneAndUpdate(
-        { _id: user._id }, { $pull: { userWatchList: productId } }
-      );
-      const updatedProduct = await Product.findOneAndUpdate(
-        { _id: productId }, { $pull: { watchedBy: user._id } }
-      );
 
-      await updatedProduct.save();
+      // If product is already in watch list, remove it
+      if (foundUser.userWatchList.includes(id)) {
+        await foundUser.update({ $pull: { userWatchList: id } });
+        await foundUser.save();
+        
+        await foundProduct.update({ $pull: { watchedBy: user._id } });
+        await foundProduct.save();
 
-      const savedUser = await updatedUser.save();
-
-      return {
-        message: 'Product removed from wishlist',
-        user: savedUser,
+        return {
+          message: 'Product removed from watch list',
+          user: foundUser,
+        }
+      } else {
+        // Add product to watch list
+        await foundUser.update({ $addToSet: { userWatchList: id } });
+        await foundUser.save();
+        
+        await foundProduct.update({ $addToSet: { watchedBy: user._id } });
+        await foundProduct.save();
+        
+        return {
+          message: 'Product added to watch list',
+          user: foundUser,
+        }
       }
     } catch (error) {
       return error;

@@ -40,6 +40,9 @@ const CURRENT_USER = gql`
 				paidAt
 				createdAt
 			}
+			userWatchList {
+				_id
+			}
 		}
 	}
 `;

@@ -19,6 +19,9 @@ type SingleProduct = {
 			_id: string;
 			name: string;
 		};
+		watchedBy: {
+			_id: string;
+		};
 	};
 };
 
@@ -34,6 +37,9 @@ export const SINGLE_PRODUCT = gql`
 			user {
 				_id
 				name
+			}
+			watchedBy {
+				_id
 			}
 		}
 	}
@@ -91,7 +97,7 @@ export default function Product({ id }: { id: string }) {
 						{user && user._id === product.user._id ? (
 							<EditProduct product={product} />
 						) : (
-							<ProductUser product={product} />
+							<ProductUser product={product} user={user} />
 						)}
 					</Box>
 				</Box>
