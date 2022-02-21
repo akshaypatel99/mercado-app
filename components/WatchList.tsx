@@ -12,19 +12,24 @@ import {
 import { WatchListContext } from '../context/WatchListContext';
 
 export default function WatchList() {
-	const { isOpen, onOpen, onClose, watchListState, watchListDispatch } =
-		useContext(WatchListContext);
+	const {
+		watchListIsOpen,
+		watchListOnOpen,
+		watchListOnClose,
+		watchListState,
+		watchListDispatch,
+	} = useContext(WatchListContext);
 	const btnRef = React.useRef();
 
 	return (
 		<>
-			<Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
+			<Button ref={btnRef} colorScheme='teal' onClick={watchListOnOpen}>
 				Open
 			</Button>
 			<Drawer
-				isOpen={isOpen}
+				isOpen={watchListOnOpen}
 				placement='right'
-				onClose={onClose}
+				onClose={watchListOnClose}
 				finalFocusRef={btnRef}
 			>
 				<DrawerOverlay />
@@ -35,7 +40,7 @@ export default function WatchList() {
 					<DrawerBody>{/* Map out watchList items */}</DrawerBody>
 
 					<DrawerFooter>
-						<Button variant='outline' mr={3} onClick={onClose}>
+						<Button variant='outline' mr={3} onClick={watchListOnClose}>
 							Cancel
 						</Button>
 						<Button colorScheme='yellow'>Clear WatchList</Button>

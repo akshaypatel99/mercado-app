@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Alert, AlertIcon, Box, Button } from '@chakra-ui/react';
+import { WatchListContext } from '../context/WatchListContext';
 
 const TOGGLE_WATCHLIST = gql`
 	mutation ToggleWatchList($toggleWatchListId: ID!) {
@@ -20,6 +21,7 @@ export default function ProductUser({ product, user }) {
 	const [watchList, setWatchList] = useState<Boolean>(
 		user.userWatchList.includes(product._id)
 	);
+	const { watchListOnOpen } = useContext(WatchListContext);
 	const [toggleWatchList, { loading, error }] = useMutation(TOGGLE_WATCHLIST, {
 		variables: {
 			toggleWatchListId: product._id,
@@ -29,6 +31,7 @@ export default function ProductUser({ product, user }) {
 	const handleWatchList = () => {
 		setWatchList(!watchList);
 		toggleWatchList();
+		watchListOnOpen();
 	};
 
 	return (
