@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { Box, Heading, Alert, AlertIcon } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 import ProductForm from './ProductForm';
+import ErrorMessage from './ErrorMessage';
+import SuccessMessage from './SuccessMessage';
 
 type Product = {
 	_id: string;
@@ -54,7 +56,6 @@ export default function EditProduct({ product }) {
 	}, [data]);
 
 	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error: {error.message}</p>;
 
 	return (
 		<>
@@ -63,17 +64,9 @@ export default function EditProduct({ product }) {
 					Edit Product
 				</Heading>
 				{data && data.updateProduct.message && (
-					<Alert status='success' variant='subtle'>
-						<AlertIcon />
-						{data.updateProduct.message}
-					</Alert>
+					<SuccessMessage message={data.updateProduct.message} />
 				)}
-				{error && (
-					<Alert status='error' variant='subtle'>
-						<AlertIcon />
-						{error.message}
-					</Alert>
-				)}
+				{error && <ErrorMessage error={error} />}
 				<ProductForm
 					product={product}
 					mutationFn={update}

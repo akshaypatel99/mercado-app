@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { SimpleGrid } from '@chakra-ui/react';
+import ErrorMessage from './ErrorMessage';
 import ProductListItem from './ProductListItem';
 
 type Product = {
@@ -38,7 +39,7 @@ export default function ProductList() {
 	});
 
 	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error: {error.message}</p>;
+	if (error) return <ErrorMessage error={error} />;
 
 	return (
 		<SimpleGrid minChildWidth='350px' spacing='60px' mt='8'>

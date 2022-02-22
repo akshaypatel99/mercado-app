@@ -13,6 +13,7 @@ import {
 import NextLink from 'next/link';
 import { AuthContext } from '../context/AuthContext';
 import ProductForm from './ProductForm';
+import ErrorMessage from './ErrorMessage';
 
 type Product = {
 	name: string;
@@ -63,8 +64,7 @@ export default function CreateProduct() {
 		},
 	});
 
-	if (auth) if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error: {error.message}</p>;
+	if (loading) return <p>Loading...</p>;
 
 	return (
 		<>
@@ -105,12 +105,7 @@ export default function CreateProduct() {
 					</Alert>
 				)}
 
-				{error && (
-					<Alert status='error' variant='subtle'>
-						<AlertIcon />
-						{error.message}
-					</Alert>
-				)}
+				{error && <ErrorMessage error={error} />}
 
 				{auth.user ? (
 					<ProductForm
