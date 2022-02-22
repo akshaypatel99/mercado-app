@@ -23,24 +23,21 @@ export default function WatchList() {
 
 	return (
 		<>
-			<Button ref={btnRef} colorScheme='teal' onClick={watchListOnOpen}>
-				Open
-			</Button>
 			<Drawer
-				isOpen={watchListOnOpen}
+				isOpen={watchListIsOpen}
 				placement='right'
-				onClose={watchListOnClose}
+				onClose={() => watchListOnClose()}
 				finalFocusRef={btnRef}
 			>
 				<DrawerOverlay />
 				<DrawerContent>
 					<DrawerCloseButton />
-					<DrawerHeader>Shopping WatchList</DrawerHeader>
+					<DrawerHeader fontFamily='heading'>My Watch List</DrawerHeader>
 
 					<DrawerBody>{/* Map out watchList items */}</DrawerBody>
 
 					<DrawerFooter>
-						<Button variant='outline' mr={3} onClick={watchListOnClose}>
+						<Button variant='outline' mr={3} onClick={() => watchListOnClose()}>
 							Cancel
 						</Button>
 						<Button colorScheme='yellow'>Clear WatchList</Button>

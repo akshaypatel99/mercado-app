@@ -11,9 +11,12 @@ import Link from 'next/link';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { FiChevronDown, FiLogOut, FiUser } from 'react-icons/fi';
+import { WatchListContext } from '../context/WatchListContext';
 
 export default function Nav() {
 	const auth = useContext(AuthContext);
+	const { watchListIsOpen, watchListOnOpen, watchListOnClose } =
+		useContext(WatchListContext);
 
 	const userMenu = (
 		<Menu>
@@ -70,9 +73,13 @@ export default function Nav() {
 				<Link href='/products'>Buy</Link>
 				<Link href='/sell'>Sell</Link>
 				<Link href='/orders'>Orders</Link>
-				<Link href='/account' passHref>
+				<Heading
+					fontSize='1.4rem'
+					cursor='pointer'
+					onClick={() => watchListOnOpen()}
+				>
 					Watch List
-				</Link>
+				</Heading>
 				{auth.user ? userMenu : <Link href='/login'>Login</Link>}
 			</Flex>
 		</nav>
