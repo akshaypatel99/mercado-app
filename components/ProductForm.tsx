@@ -46,10 +46,6 @@ const schema = z.object({
 	]),
 });
 
-type FormValues = {
-	imageFile: FileList;
-};
-
 type Product = {
 	name: string;
 	description: string;
