@@ -44,6 +44,13 @@ const productQueries = {
     } catch (error) {
       return error
     }
+  },
+  userWatchList: async (parent, args, { user }) => {
+    try {
+      return await Product.find({ watchedBy: user._id })
+    } catch (error) {
+      return error
+    }
   }
 };
 

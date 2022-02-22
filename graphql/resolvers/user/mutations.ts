@@ -134,10 +134,10 @@ const userMutations = {
 
       // If product is already in watch list, remove it
       if (foundUser.userWatchList.includes(id)) {
-        await foundUser.update({ $pull: { userWatchList: id } });
+        await foundUser.updateOne({ $pull: { userWatchList: id } });
         await foundUser.save();
         
-        await foundProduct.update({ $pull: { watchedBy: user._id } });
+        await foundProduct.updateOne({ $pull: { watchedBy: user._id } });
         await foundProduct.save();
 
         return {
@@ -146,10 +146,10 @@ const userMutations = {
         }
       } else {
         // Add product to watch list
-        await foundUser.update({ $addToSet: { userWatchList: id } });
+        await foundUser.updateOne({ $addToSet: { userWatchList: id } });
         await foundUser.save();
         
-        await foundProduct.update({ $addToSet: { watchedBy: user._id } });
+        await foundProduct.updateOne({ $addToSet: { watchedBy: user._id } });
         await foundProduct.save();
         
         return {

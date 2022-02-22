@@ -1,4 +1,4 @@
-import { User } from "../../../db/models";
+import { User, Product } from "../../../db/models";
 import { safeUserInfo } from "../../../helpers/util";
 
 const userQueries = {

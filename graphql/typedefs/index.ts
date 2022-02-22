@@ -9,6 +9,7 @@ type Query {
 	products(params: QueryParams): Products!
 	product(id: ID!): Product
 	userProducts: [Product]!
+	userWatchList: [Product]!
 
 	# User
 	users(params: QueryParams): Users!

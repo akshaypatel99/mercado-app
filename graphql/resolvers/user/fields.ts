@@ -13,7 +13,7 @@ const userFields = {
       return orders;
     },
     userWatchList: async (user) => {
-      const products = await Product.find({ user: user._id });
+      const products = await Product.find({ watchedBy: user._id });
 
       return products;
     },
