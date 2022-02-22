@@ -1,10 +1,6 @@
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
 import AccountInfo from '../components/AccountInfo';
 
-export default function Account({ token }) {
-	const auth = useContext(AuthContext);
-
+export default function Account() {
 	return (
 		<>
 			<div>I am the Account Page</div>
