@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import Link from 'next/link';
 import formatPrice from '../lib/formatPrice';
 import EditProduct from './EditProduct';
-import ProductUser from './ProductUser';
+import ProductCustomerOptions from './ProductCustomerOptions';
 
 type SingleProduct = {
 	product: {
@@ -97,7 +97,7 @@ export default function Product({ id }: { id: string }) {
 						{user && user._id === product.user._id ? (
 							<EditProduct product={product} />
 						) : (
-							<ProductUser product={product} user={user} />
+							<ProductCustomerOptions product={product} user={user} />
 						)}
 					</Box>
 				</Box>
