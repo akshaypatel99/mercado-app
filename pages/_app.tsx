@@ -44,8 +44,20 @@ const uploadLink = createUploadLink({
 	credentials: 'include',
 });
 
+const cache = new InMemoryCache({
+	typePolicies: {
+		User: {
+			fields: {
+				userWatchList: {
+					merge: false,
+				},
+			},
+		},
+	},
+});
+
 const client = new ApolloClient({
-	cache: new InMemoryCache(),
+	cache,
 	link: from([errorLink, uploadLink]),
 });
 
