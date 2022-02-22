@@ -2,12 +2,13 @@ import {
 	Flex,
 	Button,
 	Heading,
+	Link,
 	Menu,
 	MenuButton,
 	MenuList,
 	MenuItem,
 } from '@chakra-ui/react';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { FiChevronDown, FiLogOut, FiUser } from 'react-icons/fi';
@@ -15,8 +16,7 @@ import { WatchListContext } from '../context/WatchListContext';
 
 export default function Nav() {
 	const auth = useContext(AuthContext);
-	const { watchListIsOpen, watchListOnOpen, watchListOnClose } =
-		useContext(WatchListContext);
+	const { watchListOnOpen } = useContext(WatchListContext);
 
 	const userMenu = (
 		<Menu>
@@ -40,17 +40,19 @@ export default function Nav() {
 				_hover={{ bg: 'brand.500' }}
 				_expanded={{ bg: 'brand.500' }}
 			>
-				<MenuItem
-					bg='brand.400'
-					_hover={{ bg: 'brand.600' }}
-					_focus={{ bg: 'brand.400' }}
-					minH='48px'
-					fontSize='lg'
-					fontWeight='bold'
-					icon={<FiUser />}
-				>
-					<Link href='/account'>Account</Link>
-				</MenuItem>
+				<NextLink href='/account' passHref>
+					<MenuItem
+						bg='brand.400'
+						_hover={{ bg: 'brand.600' }}
+						_focus={{ bg: 'brand.400' }}
+						minH='48px'
+						fontSize='lg'
+						fontWeight='bold'
+						icon={<FiUser />}
+					>
+						Account
+					</MenuItem>
+				</NextLink>
 				<MenuItem
 					onClick={auth.logoutUser}
 					bg='brand.400'
