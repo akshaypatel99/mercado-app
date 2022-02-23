@@ -1,7 +1,11 @@
+import { Center, Heading } from '@chakra-ui/react';
+
 export default function Home() {
 	return (
-		<h1 className=''>
-			Welcome to <a href='https://nextjs.org'>Mercado</a>
-		</h1>
+		<Center>
+			<Heading fontFamily='logo' fontSize='8xl'>
+				Welcome to Mercado
+			</Heading>
+		</Center>
 	);
 }
