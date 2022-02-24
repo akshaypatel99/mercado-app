@@ -1,6 +1,7 @@
 import { Box, Button, Heading, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useContext } from 'react';
+import { CheckoutContext } from '../context/CheckoutContext';
 import { WatchListContext } from '../context/WatchListContext';
 import formatPrice from '../lib/formatPrice';
 import ErrorMessage from './ErrorMessage';
@@ -8,6 +9,7 @@ import ErrorMessage from './ErrorMessage';
 export default function WatchListItem({ product }) {
 	const { watchListOnClose, toggleUserWatchList, toggleWatchListError } =
 		useContext(WatchListContext);
+	const { buyNow } = useContext(CheckoutContext);
 
 	return (
 		<>
@@ -33,7 +35,9 @@ export default function WatchListItem({ product }) {
 					<Heading fontSize='xl'>{formatPrice(product.price)}</Heading>
 				</Box>
 				<Box display='flex' flexDir='column'>
-					<Button size='sm'>Buy Now</Button>
+					<Button size='sm' onClick={() => buyNow(product)}>
+						Buy Now
+					</Button>
 					<Button
 						size='sm'
 						my='2'
