@@ -23,6 +23,7 @@ import '@fontsource/rambla/400.css';
 import '@fontsource/rambla/700.css';
 import '@fontsource/oleo-script/400.css';
 import 'nprogress/nprogress.css';
+import { CheckoutProvider } from '../context/CheckoutContext';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -66,11 +67,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 		<ApolloProvider client={client}>
 			<ChakraProvider resetCSS theme={theme}>
 				<AuthProvider>
-					<WatchListProvider>
-						<Page>
-							<Component {...pageProps} />
-						</Page>
-					</WatchListProvider>
+					<CheckoutProvider>
+						<WatchListProvider>
+							<Page>
+								<Component {...pageProps} />
+							</Page>
+						</WatchListProvider>
+					</CheckoutProvider>
 				</AuthProvider>
 			</ChakraProvider>
 		</ApolloProvider>
