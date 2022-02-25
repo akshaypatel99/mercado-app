@@ -45,7 +45,7 @@ export default async function handler(req, res) {
 					productId: item._id,
 				}
 			});
-			res.redirect(303, session.url);
+			res.status(200).json({ id: session.id });
 		} catch (err) {
 			res.status(err.statusCode || 500).json(err.message);
 		}
