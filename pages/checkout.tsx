@@ -3,16 +3,14 @@ import { CheckoutContext } from '../context/CheckoutContext';
 import { AuthContext } from '../context/AuthContext';
 import CheckoutItem from '../components/CheckoutItem';
 import getStripe from '../helpers/get-stripejs';
+import { Box } from '@chakra-ui/react';
+import Link from 'next/link';
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 
-const stripePromise = getStripe();
-
 export default function Checkout() {
 	const [cancelled, setCancelled] = useState(false);
-	const { checkoutItem } = useContext(CheckoutContext);
-	const { user } = useContext(AuthContext);
 
 	useEffect(() => {
 		// Check to see if this is a redirect back from Checkout
@@ -28,6 +26,9 @@ export default function Checkout() {
 
 	return (
 		<>
+			<Box mb='4' fontSize='sm'>
+				<Link href='/products'>Back to all products</Link>
+			</Box>
 			<CheckoutItem />
 		</>
 	);
