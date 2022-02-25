@@ -17,11 +17,17 @@ const CheckoutProvider = ({ children }: { children: ReactNode }) => {
 		}
 	};
 
+	const cancelCheckout = () => {
+		setCheckoutItem(null);
+		Router.push('/products');
+	};
+
 	return (
 		<CheckoutContext.Provider
 			value={{
 				checkoutItem,
 				buyNow,
+				cancelCheckout,
 			}}
 		>
 			{children}
