@@ -1,15 +1,16 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Link from 'next/link';
+import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { CheckoutContext } from '../context/CheckoutContext';
 import { Box, Button, Heading, Image, Text } from '@chakra-ui/react';
+import ErrorMessage from './ErrorMessage';
 import formatPrice from '../lib/formatPrice';
 import getStripe from '../helpers/get-stripejs';
 
-getStripe();
-
 export default function CheckoutItem() {
-	const { checkoutItem } = useContext(CheckoutContext);
+	const [error, setError] = useState(null);
+	const { checkoutItem, cancelCheckout } = useContext(CheckoutContext);
 	const { user } = useContext(AuthContext);
 
 	if (!checkoutItem) {
@@ -17,16 +18,24 @@ export default function CheckoutItem() {
 	}
 
 	const createCheckoutSession = async (checkoutItem) => {
-		await fetch('/api/checkout-sessions', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				item: checkoutItem,
-				user: user,
-			}),
+		// Initialize Stripe.js
+		const stripe = await getStripe();
+
+		// Create a Checkout Session for the order
+		const checkoutSession = await axios.post('/api/checkout-sessions', {
+			item: checkoutItem,
+			user: user,
 		});
+
+		// When Checkout Session is created, redirect to Checkout page
+		const stripeCheckout = await stripe.redirectToCheckout({
+			sessionId: checkoutSession.data.id,
+		});
+
+		// If Checkout Session creation fails, display the error
+		if (stripeCheckout.error) {
+			setError(error);
+		}
 	};
 
 	return (
@@ -43,9 +52,9 @@ export default function CheckoutItem() {
 						/>
 					</Link>
 					<Box
-						ml='2'
+						ml='16'
 						w='100%'
-						h='200px'
+						height='md'
 						display='flex'
 						flexDir='column'
 						justifyContent='space-around'
@@ -57,20 +66,31 @@ export default function CheckoutItem() {
 							</Heading>
 							<Text mt='4'>{checkoutItem.description}</Text>
 						</Box>
-						<Button
-							size='sm'
-							w='50%'
-							my='2'
-							color='brand.white'
-							bg='brand.500'
-							_hover={{ bg: 'brand.600' }}
-							_active={{ bg: 'brand.700' }}
-							onClick={() => createCheckoutSession(checkoutItem)}
-						>
-							Proceed to Checkout
-						</Button>
+						<Box display='flex' flexDir='column'>
+							<Button
+								size='sm'
+								w='50%'
+								my='2'
+								colorScheme='yellow'
+								onClick={() => cancelCheckout()}
+							>
+								Cancel
+							</Button>
+							<Button
+								size='sm'
+								w='50%'
+								my='2'
+								color='brand.white'
+								bg='brand.500'
+								_hover={{ bg: 'brand.600' }}
+								_active={{ bg: 'brand.700' }}
+								onClick={() => createCheckoutSession(checkoutItem)}
+							>
+								Proceed to Checkout
+							</Button>
+						</Box>
 					</Box>
-					<Box></Box>
+					<ErrorMessage error={error} />
 				</Box>
 			)}
 		</>
