@@ -1,8 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
-import { CheckoutContext } from '../context/CheckoutContext';
-import { AuthContext } from '../context/AuthContext';
+import { useEffect, useState } from 'react';
 import CheckoutItem from '../components/CheckoutItem';
-import getStripe from '../helpers/get-stripejs';
+import InfoMessage from '../components/InfoMessage';
 import { Box } from '@chakra-ui/react';
 import Link from 'next/link';
 
@@ -10,14 +8,18 @@ import Link from 'next/link';
 // recreating the `Stripe` object on every render.
 
 export default function Checkout() {
-	const [cancelled, setCancelled] = useState(false);
+	const [cancel, setCancel] = useState({ isCancelled: false, message: '' });
 
 	useEffect(() => {
 		// Check to see if this is a redirect back from Checkout
 		const query = new URLSearchParams(window.location.search);
 
 		if (query.get('canceled')) {
-			setCancelled(true);
+			setCancel({
+				isCancelled: true,
+				message:
+					'Order canceled - please continue to shop around and checkout when you’re ready.',
+			});
 			console.log(
 				'Order canceled -- continue to shop around and checkout when you’re ready.'
 			);
@@ -29,6 +31,7 @@ export default function Checkout() {
 			<Box mb='4' fontSize='sm'>
 				<Link href='/products'>Back to all products</Link>
 			</Box>
+			{cancel.isCancelled && <InfoMessage message={cancel.message} />}
 			<CheckoutItem />
 		</>
 	);
