@@ -53,12 +53,14 @@ interface Timestamps {
 
 # Types
 type Address {
+	name: String
 	street: String!
 	city: String!
 	postcode: String!
 }
 
 input AddressInput {
+	name: String
 	street: String!
 	city: String!
 	postcode: String!
@@ -193,10 +195,10 @@ type Order implements Timestamps {
 	_id: ID!
 	user: User!
 	product: Product!
+	subTotal: Float!
 	deliveryCost: Float!
 	totalCost: Float!
 	deliveryAddress: Address!
-	deliveryDate: Date!
 	paymentResult: PaymentResult
 	isPaid: Boolean!
 	paidAt: Date
@@ -214,7 +216,6 @@ type Orders {
 type PaymentResult {
 	id: String
 	status: String
-	updatedAt: String
 	emailAddress: String
 }
 
@@ -225,10 +226,10 @@ type OrderResult {
 
 input OrderInput {
 	product: ID!
+	subTotal: Float!
 	deliveryCost: Float!
 	totalCost: Float!
 	deliveryAddress: AddressInput!
-	deliveryDate: Date!
 	paymentResult: PaymentResultInput
 	isPaid: Boolean!
 	paidAt: Date
@@ -237,7 +238,6 @@ input OrderInput {
 input PaymentResultInput {
 	id: String
 	status: String
-	updatedAt: String
 	emailAddress: String
 }
 

@@ -2,15 +2,15 @@ import { ApolloError } from "apollo-server-micro";
 import { Order, User } from "../../../db/models";
 
 const orderMutations = {
-  createOrder: async (parent, { input }, { user }) => {
+  createOrder: async (parent, { input, customerId }, context) => {
     try {
-      const orderData = Object.assign({}, input, { user: user._id });
+      const orderData = Object.assign({}, input, { user: customerId });
 
       const newOrder = new Order(orderData);
       const orderResult = await newOrder.save();
 
       const orderCreator = await User.findOneAndUpdate(
-        { _id: user._id }, { $addToSet: { userOrders: orderResult._id } }
+        { _id: customerId }, { $addToSet: { userOrders: orderResult._id } }
       );
       await orderCreator.save();
 
@@ -24,16 +24,16 @@ const orderMutations = {
   },
   updateOrder: async (parent, { id, input }, context) => {
     try {
-      const { product, deliveryCost, totalCost, deliveryAddress, deliveryDate, paymentResult, isPaid, paidAt } = input
+      const { product, subTotal, deliveryCost, totalCost, deliveryAddress, paymentResult, isPaid, paidAt } = input
 
       const order = await Order.findById({ _id: id });
 
       if (order) {
         order.product = product;
+        order.subTotal = subTotal;
         order.deliveryCost = deliveryCost;
         order.totalCost = totalCost;
         order.deliveryAddress = deliveryAddress;
-        order.deliveryDate = deliveryDate;
         order.paymentResult = paymentResult;
         order.isPaid = isPaid;
         order.paidAt = paidAt;

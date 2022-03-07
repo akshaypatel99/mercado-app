@@ -2,24 +2,22 @@ import { Schema, Types, model, models } from 'mongoose';
 export interface Order {
 	user: Types.ObjectId;
 	product: Types.ObjectId;
+	subTotal: Number;
 	deliveryCost: Number
 	totalCost: Number
 	deliveryAddress: {
+		name: String
 		street: String
 		city: String
 		postcode: String
 	}
-	deliveryDate: Date
 	paymentResult: {
 		id: String
 		status: String
-		updatedAt: String
 		emailAddress: String
 	}
 	isPaid: Boolean
 	paidAt: Date
-  created_at: Date;
-  updated_at: Date;
 }
 
 const orderSchema = new Schema(
@@ -34,6 +32,11 @@ const orderSchema = new Schema(
 			required: true,
 			ref: 'Product',
 		},
+		subTotal: {
+			type: Number,
+			required: true,
+			default: 0.0,
+		},
 		deliveryCost: {
 			type: Number,
 			required: true,
@@ -45,6 +48,10 @@ const orderSchema = new Schema(
 			default: 0.0,
 		},
 		deliveryAddress: {
+			name: {
+				type: String,
+				required: true,
+			},
 			street: {
 				type: String,
 				required: true,
@@ -58,18 +65,11 @@ const orderSchema = new Schema(
 				required: true,
 			},
 		},
-		deliveryDate: {
-			type: Date,
-			required: true,
-		},
 		paymentResult: {
 			id: {
 				type: String,
 			},
 			status: {
-				type: String,
-			},
-			update_time: {
 				type: String,
 			},
 			email_address: {

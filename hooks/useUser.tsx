@@ -22,18 +22,18 @@ const CURRENT_USER = gql`
 					name
 					price
 				}
+				subTotal
 				deliveryCost
 				totalCost
 				deliveryAddress {
+					name
 					street
 					city
 					postcode
 				}
-				deliveryDate
 				paymentResult {
 					id
 					status
-					updatedAt
 					emailAddress
 				}
 				isPaid

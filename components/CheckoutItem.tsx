@@ -90,9 +90,9 @@ export default function CheckoutItem() {
 							</Button>
 						</Box>
 					</Box>
-					<ErrorMessage error={error} />
 				</Box>
 			)}
+			{error && <ErrorMessage error={error} />}
 		</>
 	);
 }

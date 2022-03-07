@@ -1,9 +1,8 @@
 import dotenv from 'dotenv';
 import products from './products';
 import users from './users';
-import {Product} from '../db/models';
-import {User} from '../db/models';
-import {Order} from '../db/models';
+import { Order, Product, User } from '../db/models';
+
 import connectDB from '../db/config';
 
 dotenv.config(
