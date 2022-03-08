@@ -27,9 +27,9 @@ export default function WatchList() {
 		>
 			<DrawerOverlay />
 			<DrawerContent>
-				<DrawerCloseButton />
+				<DrawerCloseButton color='brand.white' />
 				<DrawerHeader fontFamily='heading' fontSize='2xl'>
-					My Watch List
+					Watch List
 				</DrawerHeader>
 
 				<DrawerBody>
@@ -37,7 +37,12 @@ export default function WatchList() {
 				</DrawerBody>
 
 				<DrawerFooter>
-					<Button variant='outline' mr={3} onClick={() => watchListOnClose()}>
+					<Button
+						variant='solid'
+						mr={3}
+						colorScheme='yellow'
+						onClick={() => watchListOnClose()}
+					>
 						Close
 					</Button>
 				</DrawerFooter>

@@ -69,7 +69,7 @@ export default function CreateProduct() {
 	return (
 		<>
 			<Box mt='4'>
-				<Heading fontSize='2xl' my='4' color='brand.800'>
+				<Heading fontSize='2xl' my='4' color='brand.teal'>
 					Create Product
 				</Heading>
 
@@ -97,7 +97,7 @@ export default function CreateProduct() {
 								href={`/product/${data.createProduct.product._id}`}
 								passHref
 							>
-								<Link fontWeight='bold' color='brand.600'>
+								<Link fontWeight='bold' color='brand.teal'>
 									See your product here.
 								</Link>
 							</NextLink>

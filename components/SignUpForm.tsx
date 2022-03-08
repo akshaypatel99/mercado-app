@@ -123,10 +123,10 @@ export default function SignUpForm() {
 				</form>
 			</Center>
 			<Center mt='8'>
-				<Text fontSize='sm' fontWeight='semibold' color='brand.700'>
+				<Text fontSize='sm' fontWeight='semibold' color='brand.teal'>
 					Already have an account?{' '}
 					<NextLink href='/login' passHref>
-						<Link fontWeight='bold' color='brand.800'>
+						<Link fontWeight='bold' color='brand.green'>
 							Log in here
 						</Link>
 					</NextLink>

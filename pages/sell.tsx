@@ -5,7 +5,7 @@ export default function Sell() {
 	return (
 		<>
 			<Center>
-				<Heading color='brand.600'>Sell Your Unwanted Items</Heading>
+				<Heading color='brand.teal'>Sell Your Unwanted Items</Heading>
 			</Center>
 			<CreateProduct />
 		</>

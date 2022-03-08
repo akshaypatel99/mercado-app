@@ -42,9 +42,9 @@ export default function WatchListItem({ product }) {
 						size='sm'
 						my='2'
 						color='brand.white'
-						bg='brand.500'
-						_hover={{ bg: 'brand.600' }}
-						_active={{ bg: 'brand.700' }}
+						bg='brand.red'
+						_hover={{ bg: 'brand.yellow' }}
+						_active={{ bg: 'brand.yellow' }}
 						onClick={() => toggleUserWatchList(product._id)}
 					>
 						Remove

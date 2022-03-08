@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import CheckoutItem from '../components/CheckoutItem';
 import InfoMessage from '../components/InfoMessage';
-import { Box } from '@chakra-ui/react';
+import { Box, Center, Heading } from '@chakra-ui/react';
 import Link from 'next/link';
+import BackToAll from '../components/BackToAll';
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -28,9 +29,10 @@ export default function Checkout() {
 
 	return (
 		<>
-			<Box mb='4' fontSize='sm'>
-				<Link href='/products'>Back to all products</Link>
-			</Box>
+			<BackToAll />
+			<Center>
+				<Heading color='brand.teal'>Your Basket</Heading>
+			</Center>
 			{cancel.isCancelled && <InfoMessage message={cancel.message} />}
 			<CheckoutItem />
 		</>

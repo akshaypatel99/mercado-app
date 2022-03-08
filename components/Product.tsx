@@ -6,6 +6,7 @@ import Link from 'next/link';
 import formatPrice from '../lib/formatPrice';
 import EditProduct from './EditProduct';
 import ProductCustomerOptions from './ProductCustomerOptions';
+import BackToAll from './BackToAll';
 
 type SingleProduct = {
 	product: {
@@ -61,14 +62,12 @@ export default function Product({ id }: { id: string }) {
 
 	return (
 		<>
-			<Box mb='4' fontSize='sm'>
-				<Link href='/products'>Back to all products</Link>
-			</Box>
+			<BackToAll />
 			<Box w='100%' display={{ lg: 'flex' }}>
 				<Box>
 					<Image src={product.image} alt={product.name} />
 					<Box
-						color='brand.800'
+						color='brand.teal'
 						fontWeight='semibold'
 						letterSpacing='wide'
 						fontSize='xs'
@@ -79,8 +78,8 @@ export default function Product({ id }: { id: string }) {
 				</Box>
 				<Box ml={{ sm: '6', lg: '4' }}>
 					<Box
-						color='brand.800'
-						fontWeight='semibold'
+						color='brand.teal'
+						fontWeight='bold'
 						letterSpacing='wide'
 						fontSize='xs'
 						textTransform='uppercase'

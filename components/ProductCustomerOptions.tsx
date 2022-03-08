@@ -27,9 +27,9 @@ export default function ProductCustomerOptions({ product, user }) {
 					ml='4'
 					onClick={handleWatchList}
 					color='brand.white'
-					bg='brand.500'
-					_hover={{ bg: 'brand.600' }}
-					_active={{ bg: 'brand.700' }}
+					bg='brand.teal'
+					_hover={{ bg: 'brand.teal' }}
+					_active={{ bg: 'brand.green' }}
 					isLoading={toggleWatchListLoading}
 				>
 					{watchListData.userWatchList.some((item) => item._id === product._id)

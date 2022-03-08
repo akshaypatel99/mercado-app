@@ -4,12 +4,12 @@ const theme = extendTheme({
   colors: {
     brand: {
       white: '#FFFFFF',
-      black: '#36363D',
-      beige: ' #FDD5C0',
-      pink: '#FB8289',
-      red: '#F46161',
-      orange: '#F89D5B',
-      yellow: '#FFCF62',
+      black: '#000000',
+      teal: '#227C9D',
+      green: '#17C3B2',
+      yellow: '#FFCB77',
+      cream: ' #FEF9EF',
+      red: '#FE6D73',
       50: '#fef7f7', 
       100: '#feefef',
       150: '#FDE4E4',
@@ -24,9 +24,9 @@ const theme = extendTheme({
     }
   },
   fonts: {
-    logo: 'Oleo Script',
-    heading: 'Rambla',
-    body: 'Martel Sans',
+    logo: 'Inter',
+    heading: 'Inter',
+    body: 'Inter',
   },
   styles: {
     global: {
@@ -36,23 +36,29 @@ const theme = extendTheme({
         height: "100vh",
       },
       header: {
-        bg: 'brand.red',
+        bg: 'brand.teal',
         color: 'brand.white',
         padding: '1rem 0',
       },
-      nav: {
-        fontFamily: 'heading',
-        fontSize: '1.4rem',
-        fontWeight: 'bold',
-      },
       button: {
         alignItems: 'center',
-        paddingTop: '0.25rem',
       },
       input: {
         alignItems: 'center',
         lineHeight: '1',
         paddingTop: '0.25rem',
+      },
+      a: {
+        _hover: {
+          textDecoration: 'none',
+        }
+      }
+    }
+  },
+  components: {
+    Link: {
+      _hover: {
+        textDecoration: 'none',
       }
     }
   }

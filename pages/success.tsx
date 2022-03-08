@@ -19,6 +19,7 @@ export default function Success() {
 				justifyContent='center'
 				textAlign='center'
 				height='200px'
+				colorScheme={'brand.green'}
 			>
 				<AlertIcon boxSize='40px' mr={0} />
 				<AlertTitle mt={4} mb={1} fontSize='lg'>
@@ -27,7 +28,7 @@ export default function Success() {
 				<AlertDescription maxWidth='lg'>
 					Your order has been placed. You will receive an email confirmation.{' '}
 					<NextLink href={`/orders/`} passHref>
-						<Link fontWeight='bold' color='brand.600'>
+						<Link fontWeight='bold' color='brand.cream'>
 							See your orders.
 						</Link>
 					</NextLink>

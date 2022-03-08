@@ -42,15 +42,17 @@ export default function CheckoutItem() {
 		<>
 			{checkoutItem && (
 				<Box display='flex' alignItems='center' p='2' mb='4'>
-					<Link href={`/product/${checkoutItem._id}`} passHref>
-						<Image
-							boxSize='600px'
-							objectFit='cover'
-							src={checkoutItem.image}
-							alt={checkoutItem.name}
-							cursor='pointer'
-						/>
-					</Link>
+					<Box w='66%'>
+						<Link href={`/product/${checkoutItem._id}`} passHref>
+							<Image
+								boxSize='400px'
+								objectFit='cover'
+								src={checkoutItem.image}
+								alt={checkoutItem.name}
+								cursor='pointer'
+							/>
+						</Link>
+					</Box>
 					<Box
 						ml='16'
 						w='100%'
@@ -65,6 +67,9 @@ export default function CheckoutItem() {
 								{formatPrice(checkoutItem.price)}
 							</Heading>
 							<Text mt='4'>{checkoutItem.description}</Text>
+							<Text mt='4' fontWeight='semibold'>
+								Delivery cost: £6.99
+							</Text>
 						</Box>
 						<Box display='flex' flexDir='column'>
 							<Button
@@ -81,9 +86,9 @@ export default function CheckoutItem() {
 								w='50%'
 								my='2'
 								color='brand.white'
-								bg='brand.500'
-								_hover={{ bg: 'brand.600' }}
-								_active={{ bg: 'brand.700' }}
+								bg='brand.teal'
+								_hover={{ bg: 'brand.green' }}
+								_active={{ bg: 'brand.green' }}
 								onClick={() => createCheckoutSession(checkoutItem)}
 							>
 								Proceed to Checkout

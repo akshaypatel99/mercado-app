@@ -9,13 +9,12 @@ const Header = () => {
 				maxW='container.xl'
 				px={{ sm: '2rem', md: '1rem', xl: '0rem' }}
 			>
-				<Center>
-					<Heading as='h1' size='3xl' fontFamily='logo' my='2'>
+				<Box display='flex' justifyContent='space-between' alignItems='center'>
+					<Heading as='h1' size='2xl' fontFamily='heading' my='2'>
 						<Link href='/products'>Mercado</Link>
 					</Heading>
-				</Center>
-				<Nav />
-				<div>Search</div>
+					<Nav />
+				</Box>
 			</Container>
 		</header>
 	);
