@@ -4,7 +4,7 @@ import ProductList from '../components/ProductList';
 export default function Products() {
 	return (
 		<div>
-			<Heading color='brand.teal'>All Products</Heading>
+			<Heading>All Products</Heading>
 			<ProductList />
 		</div>
 	);

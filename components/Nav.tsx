@@ -26,25 +26,25 @@ export default function Nav() {
 				rightIcon={<FiChevronDown />}
 				p='0'
 				ml='6'
-				bg='brand.teal'
-				_hover={{ bg: 'brand.teal', color: 'brand.yellow' }}
-				_expanded={{ bg: 'brand.teal' }}
-				_focus={{ bg: 'brand.teal' }}
-				_active={{ bg: 'brand.teal' }}
+				bg='brand.blue'
+				_hover={{ bg: 'brand.blue', color: 'brand.yellow' }}
+				_expanded={{ bg: 'brand.blue' }}
+				_focus={{ bg: 'brand.blue' }}
+				_active={{ bg: 'brand.blue' }}
 			>
 				<Text fontSize='xl'>{auth?.user?.name}</Text>
 			</MenuButton>
 			<MenuList
 				p='0.5'
-				bg='brand.teal'
-				_hover={{ bg: 'brand.teal' }}
-				_expanded={{ bg: 'brand.teal' }}
+				bg='brand.400'
+				_hover={{ bg: 'brand.400' }}
+				_expanded={{ bg: 'brand.400' }}
 			>
 				<NextLink href='/account' passHref>
 					<MenuItem
-						bg='brand.teal'
-						_hover={{ bg: 'brand.green' }}
-						_focus={{ bg: 'brand.green' }}
+						bg='brand.400'
+						_hover={{ bg: 'brand.300' }}
+						_focus={{ bg: 'brand.350' }}
 						minH='48px'
 						fontSize='lg'
 						fontWeight='semibold'
@@ -55,9 +55,9 @@ export default function Nav() {
 				</NextLink>
 				<MenuItem
 					onClick={auth.logoutUser}
-					bg='brand.teal'
-					_hover={{ bg: 'brand.green' }}
-					_focus={{ bg: 'brand.green' }}
+					bg='brand.400'
+					_hover={{ bg: 'brand.300' }}
+					_focus={{ bg: 'brand.350' }}
 					minH='48px'
 					fontSize='lg'
 					fontWeight='semibold'

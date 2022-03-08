@@ -62,8 +62,10 @@ export default function CheckoutItem() {
 						justifyContent='space-around'
 					>
 						<Box>
-							<Heading fontSize='3xl'>{checkoutItem.name}</Heading>
-							<Heading fontSize='3xl' mt='2'>
+							<Heading fontSize='3xl' variant='product'>
+								{checkoutItem.name}
+							</Heading>
+							<Heading fontSize='3xl' variant='product' mt='2'>
 								{formatPrice(checkoutItem.price)}
 							</Heading>
 							<Text mt='4'>{checkoutItem.description}</Text>
@@ -73,22 +75,19 @@ export default function CheckoutItem() {
 						</Box>
 						<Box display='flex' flexDir='column'>
 							<Button
-								size='sm'
+								size='md'
 								w='50%'
 								my='2'
 								colorScheme='yellow'
-								onClick={() => cancelCheckout()}
+								onClick={() => cancelCheckout(checkoutItem._id)}
 							>
 								Cancel
 							</Button>
 							<Button
-								size='sm'
+								size='md'
 								w='50%'
 								my='2'
-								color='brand.white'
-								bg='brand.teal'
-								_hover={{ bg: 'brand.green' }}
-								_active={{ bg: 'brand.green' }}
+								variant='primary'
 								onClick={() => createCheckoutSession(checkoutItem)}
 							>
 								Proceed to Checkout

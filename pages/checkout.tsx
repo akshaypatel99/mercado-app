@@ -31,7 +31,7 @@ export default function Checkout() {
 		<>
 			<BackToAll />
 			<Center>
-				<Heading color='brand.teal'>Your Basket</Heading>
+				<Heading>Your Basket</Heading>
 			</Center>
 			{cancel.isCancelled && <InfoMessage message={cancel.message} />}
 			<CheckoutItem />

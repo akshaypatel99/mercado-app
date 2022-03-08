@@ -16,7 +16,8 @@ export default function WatchListItem({ product }) {
 			<Box
 				display='flex'
 				alignItems='center'
-				borderBottom='1px solid lightgray'
+				borderBottom='1px solid'
+				borderColor='brand.150'
 				p='2'
 				mb='4'
 			>
@@ -31,20 +32,21 @@ export default function WatchListItem({ product }) {
 					/>
 				</Link>
 				<Box ml='2' w='100%'>
-					<Heading fontSize='xl'>{product.name}</Heading>
-					<Heading fontSize='xl'>{formatPrice(product.price)}</Heading>
+					<Heading fontSize='lg' mb='2' variant='product'>
+						{product.name}
+					</Heading>
+					<Heading fontSize='lg' variant='product'>
+						{formatPrice(product.price)}
+					</Heading>
 				</Box>
 				<Box display='flex' flexDir='column'>
-					<Button size='sm' onClick={() => buyNow(product)}>
+					<Button size='sm' onClick={() => buyNow(product)} variant='primary'>
 						Buy Now
 					</Button>
 					<Button
 						size='sm'
 						my='2'
-						color='brand.white'
-						bg='brand.red'
-						_hover={{ bg: 'brand.yellow' }}
-						_active={{ bg: 'brand.yellow' }}
+						variant='negative'
 						onClick={() => toggleUserWatchList(product._id)}
 					>
 						Remove

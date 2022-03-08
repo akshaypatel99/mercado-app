@@ -10,11 +10,11 @@ export default function BackToAll() {
 					<Box
 						mb='4'
 						fontSize='md'
-						color='brand.teal'
+						color='brand.500'
 						fontWeight='semibold'
 						display='flex'
 						alignItems='center'
-						_hover={{ textDecoration: 'none' }}
+						_hover={{ textDecoration: 'none', color: 'brand.700' }}
 					>
 						<FiArrowLeft /> <Text ml='1'>Back to all products</Text>
 					</Box>

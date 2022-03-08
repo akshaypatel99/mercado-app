@@ -8,6 +8,7 @@ import {
 	DrawerOverlay,
 	DrawerContent,
 	DrawerCloseButton,
+	Heading,
 } from '@chakra-ui/react';
 import { WatchListContext } from '../context/WatchListContext';
 import WatchListContent from './WatchListContent';
@@ -26,21 +27,23 @@ export default function WatchList() {
 			size='md'
 		>
 			<DrawerOverlay />
-			<DrawerContent>
-				<DrawerCloseButton color='brand.white' />
-				<DrawerHeader fontFamily='heading' fontSize='2xl'>
-					Watch List
+			<DrawerContent bg='brand.50'>
+				<DrawerCloseButton color='brand.white' mt='1' />
+				<DrawerHeader>
+					<Heading fontSize='2xl' variant='light'>
+						Watch List
+					</Heading>
 				</DrawerHeader>
 
 				<DrawerBody>
 					<WatchListContent />
 				</DrawerBody>
 
-				<DrawerFooter>
+				<DrawerFooter borderTop='1px solid' borderColor='brand.150'>
 					<Button
-						variant='solid'
-						mr={3}
-						colorScheme='yellow'
+						variant='secondary'
+						width='100%'
+						m='auto'
 						onClick={() => watchListOnClose()}
 					>
 						Close

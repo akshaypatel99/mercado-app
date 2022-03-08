@@ -83,9 +83,11 @@ export default function ImageUploadModal({
 				<ModalOverlay />
 				<ModalContent>
 					<ModalHeader>
-						<Heading fontSize='2xl'>Upload Product Image</Heading>
+						<Heading fontSize='2xl' variant='light'>
+							Upload Product Image
+						</Heading>
 					</ModalHeader>
-					<ModalCloseButton />
+					<ModalCloseButton color='brand.white' mt='1' />
 					<ModalBody justifyContent='center' minH='250' maxH='80%'>
 						<form
 							method='post'
@@ -98,7 +100,7 @@ export default function ImageUploadModal({
 							}}
 						>
 							<FormControl display='flex' flexDir='column' padding='1rem'>
-								<FormLabel htmlFor='file' mb='0'>
+								<FormLabel htmlFor='file' mb='0' color='brand.700'>
 									Select a product image to upload.
 								</FormLabel>
 								<input
@@ -108,11 +110,12 @@ export default function ImageUploadModal({
 									accept='image/webp,image/png,image/jpeg'
 									style={{
 										padding: '1rem',
-										border: 'solid 1px lightgray',
+										border: 'solid 1px #a7cbd8',
 										borderRadius: '0.5rem',
+										color: '#0e323f',
 									}}
 								/>
-								<FormHelperText fontSize='sm'>
+								<FormHelperText fontSize='sm' color='brand.700'>
 									Must be jpeg, png or webp format.
 								</FormHelperText>
 
@@ -143,6 +146,7 @@ export default function ImageUploadModal({
 										}
 										justifyContent='center'
 										type='submit'
+										variant='primary'
 										isLoading={loading}
 										disabled={loading || data?.uploadPhoto?.publicId}
 									>
@@ -154,8 +158,10 @@ export default function ImageUploadModal({
 					</ModalBody>
 
 					<ModalFooter justifyContent='space-between'>
-						<Button onClick={() => clearImage()}>Clear Image</Button>
-						<Button colorScheme='teal' onClick={onClose}>
+						<Button onClick={() => clearImage()} variant='negative'>
+							Clear Image
+						</Button>
+						<Button colorScheme='yellow' onClick={onClose}>
 							Close
 						</Button>
 					</ModalFooter>

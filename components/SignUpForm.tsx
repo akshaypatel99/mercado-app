@@ -112,18 +112,13 @@ export default function SignUpForm() {
 							<FormErrorMessage>Password is required.</FormErrorMessage>
 						)}
 					</FormControl>
-					<Button
-						type='submit'
-						variant='solid'
-						isLoading={loading}
-						colorScheme='teal'
-					>
+					<Button type='submit' variant='primary' isLoading={loading}>
 						Sign Up
 					</Button>
 				</form>
 			</Center>
 			<Center mt='8'>
-				<Text fontSize='sm' fontWeight='semibold' color='brand.teal'>
+				<Text fontSize='sm' fontWeight='semibold' color='brand.500'>
 					Already have an account?{' '}
 					<NextLink href='/login' passHref>
 						<Link fontWeight='bold' color='brand.green'>

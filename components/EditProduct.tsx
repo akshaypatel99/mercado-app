@@ -60,7 +60,7 @@ export default function EditProduct({ product }) {
 	return (
 		<>
 			<Box mt='4'>
-				<Heading fontSize='2xl' my='4' color='brand.teal'>
+				<Heading fontSize='2xl' my='4'>
 					Edit Product
 				</Heading>
 				{data && data.updateProduct.message && (

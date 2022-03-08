@@ -19,7 +19,7 @@ export default function Success() {
 				justifyContent='center'
 				textAlign='center'
 				height='200px'
-				colorScheme={'brand.green'}
+				colorScheme='brand.green'
 			>
 				<AlertIcon boxSize='40px' mr={0} />
 				<AlertTitle mt={4} mb={1} fontSize='lg'>

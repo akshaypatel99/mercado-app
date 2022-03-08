@@ -17,9 +17,9 @@ const CheckoutProvider = ({ children }: { children: ReactNode }) => {
 		}
 	};
 
-	const cancelCheckout = () => {
+	const cancelCheckout = (id: string) => {
 		setCheckoutItem(null);
-		Router.push('/products');
+		Router.push('/product/[id]', `/product/${id}`);
 	};
 
 	return (

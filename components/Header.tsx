@@ -10,7 +10,7 @@ const Header = () => {
 				px={{ sm: '2rem', md: '1rem', xl: '0rem' }}
 			>
 				<Box display='flex' justifyContent='space-between' alignItems='center'>
-					<Heading as='h1' size='2xl' fontFamily='heading' my='2'>
+					<Heading as='h1' size='2xl' my='2' variant='light'>
 						<Link href='/products'>Mercado</Link>
 					</Heading>
 					<Nav />

@@ -67,7 +67,7 @@ export default function Product({ id }: { id: string }) {
 				<Box>
 					<Image src={product.image} alt={product.name} />
 					<Box
-						color='brand.teal'
+						color='brand.blue'
 						fontWeight='semibold'
 						letterSpacing='wide'
 						fontSize='xs'
@@ -78,7 +78,7 @@ export default function Product({ id }: { id: string }) {
 				</Box>
 				<Box ml={{ sm: '6', lg: '4' }}>
 					<Box
-						color='brand.teal'
+						color='brand.blue'
 						fontWeight='bold'
 						letterSpacing='wide'
 						fontSize='xs'
@@ -86,10 +86,10 @@ export default function Product({ id }: { id: string }) {
 					>
 						{product.category}
 					</Box>
-					<Heading my='8'>{product.name}</Heading>
-					<Heading textColor='brand.black'>
-						{formatPrice(product.price)}
+					<Heading my='8' variant='product'>
+						{product.name}
 					</Heading>
+					<Heading variant='product'>{formatPrice(product.price)}</Heading>
 					<Box my='16'>{product.description}</Box>
 
 					<Box mt='4'>

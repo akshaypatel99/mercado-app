@@ -22,14 +22,13 @@ export default function ProductCustomerOptions({ product, user }) {
 	return (
 		<>
 			<Box>
-				<Button onClick={() => buyNow(product)}>Buy Now</Button>
+				<Button onClick={() => buyNow(product)} variant='primary'>
+					Buy Now
+				</Button>
 				<Button
 					ml='4'
 					onClick={handleWatchList}
-					color='brand.white'
-					bg='brand.teal'
-					_hover={{ bg: 'brand.teal' }}
-					_active={{ bg: 'brand.green' }}
+					variant='secondary'
 					isLoading={toggleWatchListLoading}
 				>
 					{watchListData.userWatchList.some((item) => item._id === product._id)

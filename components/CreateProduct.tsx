@@ -69,7 +69,7 @@ export default function CreateProduct() {
 	return (
 		<>
 			<Box mt='4'>
-				<Heading fontSize='2xl' my='4' color='brand.teal'>
+				<Heading fontSize='2xl' my='4'>
 					Create Product
 				</Heading>
 
@@ -82,22 +82,25 @@ export default function CreateProduct() {
 						justifyContent='center'
 						textAlign='center'
 						height='200px'
+						bg='brand.green'
 					>
-						<AlertIcon boxSize='40px' mr={0} />
+						<AlertIcon boxSize='40px' mr={0} color='brand.800' />
 						<AlertTitle mt={4} mb={1} fontSize='lg'>
 							{data.createProduct.message}
 						</AlertTitle>
 						<AlertDescription maxWidth='sm'>
 							Thank you for choosing{' '}
-							<span style={{ fontFamily: 'Oleo Script', fontSize: '1.25rem' }}>
-								Mercado
-							</span>{' '}
-							to sell your item.{' '}
+							<span style={{ fontWeight: 'bold' }}>Mercado</span> to sell your
+							item.{' '}
 							<NextLink
 								href={`/product/${data.createProduct.product._id}`}
 								passHref
 							>
-								<Link fontWeight='bold' color='brand.teal'>
+								<Link
+									fontWeight='bold'
+									color='brand.750'
+									_hover={{ color: 'brand.cream' }}
+								>
 									See your product here.
 								</Link>
 							</NextLink>

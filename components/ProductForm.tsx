@@ -185,17 +185,12 @@ export default function ProductForm({
 					<FormErrorMessage>
 						{errors.image?.message && <p>{errors.image?.message}</p>}
 					</FormErrorMessage>
-					<Button mt='4' onClick={onOpen}>
+					<Button mt='4' onClick={onOpen} variant='secondary'>
 						Upload Image
 					</Button>
 				</FormControl>
 
-				<Button
-					mt={8}
-					colorScheme='teal'
-					isLoading={isSubmitting}
-					type='submit'
-				>
+				<Button mt={8} variant='primary' isLoading={isSubmitting} type='submit'>
 					Submit
 				</Button>
 
