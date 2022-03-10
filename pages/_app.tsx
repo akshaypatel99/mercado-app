@@ -15,13 +15,13 @@ import Router from 'next/router';
 import Page from '../components/Page';
 import theme from '../styles/theme';
 
-import '@fontsource/martel-sans/300.css';
-import '@fontsource/martel-sans/400.css';
-import '@fontsource/martel-sans/600.css';
-import '@fontsource/martel-sans/700.css';
-import '@fontsource/rambla/400.css';
-import '@fontsource/rambla/700.css';
-import '@fontsource/oleo-script/400.css';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/inter/800.css';
+import '@fontsource/inter/900.css';
 import 'nprogress/nprogress.css';
 import { CheckoutProvider } from '../context/CheckoutContext';
 
