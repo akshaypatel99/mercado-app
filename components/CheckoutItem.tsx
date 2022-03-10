@@ -7,6 +7,7 @@ import { Box, Button, Heading, Image, Text } from '@chakra-ui/react';
 import ErrorMessage from './ErrorMessage';
 import formatPrice from '../lib/formatPrice';
 import getStripe from '../helpers/get-stripejs';
+import Policy from './Policy';
 
 export default function CheckoutItem() {
 	const [error, setError] = useState(null);
@@ -56,7 +57,7 @@ export default function CheckoutItem() {
 					<Box
 						ml='16'
 						w='100%'
-						height='md'
+						height='lg'
 						display='flex'
 						flexDir='column'
 						justifyContent='space-around'
@@ -93,6 +94,7 @@ export default function CheckoutItem() {
 								Proceed to Checkout
 							</Button>
 						</Box>
+						<Policy />
 					</Box>
 				</Box>
 			)}

@@ -4,6 +4,7 @@ import { CheckoutContext } from '../context/CheckoutContext';
 import { WatchListContext } from '../context/WatchListContext';
 import { useWatchList } from '../hooks/useWatchList';
 import ErrorMessage from './ErrorMessage';
+import Policy from './Policy';
 
 export default function ProductCustomerOptions({ product, user }) {
 	const { toggleUserWatchList, toggleWatchListLoading, toggleWatchListError } =
@@ -17,6 +18,7 @@ export default function ProductCustomerOptions({ product, user }) {
 
 	return (
 		<>
+			{toggleWatchListError && <ErrorMessage error={toggleWatchListError} />}
 			<Box>
 				<Button onClick={() => buyNow(product)} variant='primary'>
 					Buy Now
@@ -36,7 +38,7 @@ export default function ProductCustomerOptions({ product, user }) {
 						: 'Add to Watch List'}
 				</Button>
 			</Box>
-			{toggleWatchListError && <ErrorMessage error={toggleWatchListError} />}
+			<Policy />
 		</>
 	);
 }
