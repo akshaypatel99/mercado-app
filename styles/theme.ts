@@ -32,7 +32,6 @@ const theme = extendTheme({
     }
   },
   fonts: {
-    logo: 'Inter',
     heading: 'Inter',
     body: 'Inter',
   },
