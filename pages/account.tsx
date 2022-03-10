@@ -1,18 +1,11 @@
 import AccountInfo from '../components/AccountInfo';
+import Title from '../components/Title';
 
 export default function Account() {
 	return (
 		<>
-			<div>I am the Account Page</div>
+			<Title title='My Account' />
 			<AccountInfo />
 		</>
 	);
-}
-
-export async function getServerSideProps({ req, res }) {
-	return {
-		props: {
-			token: req.cookies['token'] || '',
-		},
-	};
 }

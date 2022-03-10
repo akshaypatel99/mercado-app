@@ -23,7 +23,7 @@ export default function WatchListItem({ product }) {
 			>
 				<Link href={`/product/${product._id}`} passHref>
 					<Image
-						boxSize='100px'
+						boxSize='80px'
 						objectFit='cover'
 						src={product.image}
 						alt={product.name}
@@ -31,11 +31,11 @@ export default function WatchListItem({ product }) {
 						cursor='pointer'
 					/>
 				</Link>
-				<Box ml='2' w='100%'>
-					<Heading fontSize='lg' mb='2' variant='product'>
+				<Box ml='4' w='100%'>
+					<Heading fontSize='lg' fontWeight='semibold' mb='2' variant='product'>
 						{product.name}
 					</Heading>
-					<Heading fontSize='lg' variant='product'>
+					<Heading fontSize='lg' fontWeight='semibold' variant='product'>
 						{formatPrice(product.price)}
 					</Heading>
 				</Box>

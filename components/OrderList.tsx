@@ -3,7 +3,7 @@ import { gql, useQuery } from '@apollo/client';
 import { Box, Center, Spinner } from '@chakra-ui/react';
 import { AuthContext } from '../context/AuthContext';
 import LoginRedirect from './LoginRedirect';
-import { localDate } from '../helpers/localDate';
+import { localDate } from '../lib/localDate';
 import ErrorMessage from './ErrorMessage';
 
 export const USER_ORDERS = gql`

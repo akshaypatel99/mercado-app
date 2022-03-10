@@ -1,11 +1,12 @@
 import { Heading } from '@chakra-ui/react';
 import ProductList from '../components/ProductList';
+import Title from '../components/Title';
 
 export default function Products() {
 	return (
-		<div>
-			<Heading>All Products</Heading>
+		<>
+			<Title title='Find your next best bargain today...' />
 			<ProductList />
-		</div>
+		</>
 	);
 }

@@ -33,17 +33,19 @@ const schema = z.object({
 		z.number().nonnegative({ message: 'Must be positive' }),
 	]),
 	image: z.string().max(500),
-	category: z.enum([
-		'Clothing',
-		'Electronics',
-		'Jewellery',
-		'Accessories',
-		'Musical Instruments',
-		'Furniture',
-		'Sports',
-		'Books',
-		'Other',
-	]),
+	category: z
+		.enum([
+			'Clothing',
+			'Electronics',
+			'Jewellery',
+			'Accessories',
+			'Musical Instruments',
+			'Furniture',
+			'Sports',
+			'Books',
+			'Other',
+		])
+		.default('Other'),
 });
 
 type Product = {

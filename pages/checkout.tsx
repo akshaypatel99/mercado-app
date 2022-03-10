@@ -4,9 +4,7 @@ import InfoMessage from '../components/InfoMessage';
 import { Box, Center, Heading } from '@chakra-ui/react';
 import Link from 'next/link';
 import BackToAll from '../components/BackToAll';
-
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
+import Title from '../components/Title';
 
 export default function Checkout() {
 	const [cancel, setCancel] = useState({ isCancelled: false, message: '' });
@@ -21,18 +19,13 @@ export default function Checkout() {
 				message:
 					'Order canceled - please continue to shop around and checkout when you’re ready.',
 			});
-			console.log(
-				'Order canceled -- continue to shop around and checkout when you’re ready.'
-			);
 		}
 	}, []);
 
 	return (
 		<>
 			<BackToAll />
-			<Center>
-				<Heading>Your Basket</Heading>
-			</Center>
+			<Title title='Checkout' />
 			{cancel.isCancelled && <InfoMessage message={cancel.message} />}
 			<CheckoutItem />
 		</>

@@ -16,6 +16,7 @@ import {
 import { AuthContext } from '../context/AuthContext';
 import NextLink from 'next/link';
 import ErrorMessage from './ErrorMessage';
+import Title from './Title';
 
 export default function SignUpForm() {
 	const [name, setName] = useState('');
@@ -42,9 +43,7 @@ export default function SignUpForm() {
 
 	return (
 		<Box>
-			<Center mb='16'>
-				<Heading>{user ? `Welcome ${user.name}!` : 'Sign Up'}</Heading>
-			</Center>
+			<Title title={user ? `Welcome ${user.name}!` : 'Sign Up'} />
 			<Center mb='4'>
 				{signupError && <ErrorMessage error={signupError} />}
 			</Center>

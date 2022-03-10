@@ -63,7 +63,7 @@ export default function Product({ id }: { id: string }) {
 	return (
 		<>
 			<BackToAll />
-			<Box w='100%' display={{ lg: 'flex' }}>
+			<Box w='100%' display={{ lg: 'flex' }} my='6'>
 				<Box>
 					<Image src={product.image} alt={product.name} />
 					<Box
@@ -72,6 +72,7 @@ export default function Product({ id }: { id: string }) {
 						letterSpacing='wide'
 						fontSize='xs'
 						textTransform='uppercase'
+						mt='2'
 					>
 						Seller: {product.user.name}
 					</Box>
@@ -93,11 +94,6 @@ export default function Product({ id }: { id: string }) {
 					<Box my='16'>{product.description}</Box>
 
 					<Box mt='4'>
-						{/* {user && user._id === product.user._id ? (
-							<EditProduct product={product} />
-						) : (
-							<ProductCustomerOptions product={product} user={user} />
-						)} */}
 						{!user ? (
 							<ProductCustomerOptions product={product} user={user} />
 						) : (user && user._id === product.user._id) ||

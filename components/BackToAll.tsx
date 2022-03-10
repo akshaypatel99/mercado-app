@@ -8,7 +8,7 @@ export default function BackToAll() {
 			<NextLink href='/products' passHref>
 				<Link _hover={{ textDecoration: 'none' }}>
 					<Box
-						mb='4'
+						// mb='4'
 						fontSize='md'
 						color='brand.500'
 						fontWeight='semibold'

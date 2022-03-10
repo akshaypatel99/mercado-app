@@ -1,12 +1,11 @@
 import { Center, Heading } from '@chakra-ui/react';
 import OrderList from '../components/OrderList';
+import Title from '../components/Title';
 
 export default function Orders() {
 	return (
 		<>
-			<Center mb='8'>
-				<Heading>Your Orders</Heading>
-			</Center>
+			<Title title='My Orders' />
 			<OrderList />
 		</>
 	);

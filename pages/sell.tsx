@@ -1,12 +1,10 @@
-import { Center, Heading } from '@chakra-ui/react';
 import CreateProduct from '../components/CreateProduct';
+import Title from '../components/Title';
 
 export default function Sell() {
 	return (
 		<>
-			<Center mb='8'>
-				<Heading>Sell Your Unwanted Items</Heading>
-			</Center>
+			<Title title='Sell your unwanted items' />
 			<CreateProduct />
 		</>
 	);
