@@ -1,8 +1,9 @@
+import { createContext, useContext, ReactNode } from 'react';
+import Router from 'next/router';
 import { useDisclosure } from '@chakra-ui/react';
-import { createContext, useEffect, ReactNode } from 'react';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { CURRENT_USER } from '../hooks/useUser';
-// import { WATCHLIST } from '../components/WatchList';
+import { AuthContext } from './AuthContext';
 
 const TOGGLE_WATCHLIST = gql`
 	mutation ToggleWatchList($toggleWatchListId: ID!) {
@@ -37,6 +38,8 @@ export const WATCHLIST = gql`
 const WatchListContext = createContext(null);
 
 const WatchListProvider = ({ children }: { children: ReactNode }) => {
+	const { user } = useContext(AuthContext);
+
 	const {
 		isOpen: watchListIsOpen,
 		onOpen: watchListOnOpen,
@@ -55,12 +58,16 @@ const WatchListProvider = ({ children }: { children: ReactNode }) => {
 	] = useMutation(TOGGLE_WATCHLIST);
 
 	function toggleUserWatchList(id: string) {
-		toggleWatchList({
-			variables: {
-				toggleWatchListId: id,
-			},
-			refetchQueries: [{ query: CURRENT_USER }, { query: WATCHLIST }],
-		});
+		if (!user) {
+			Router.push('/login');
+		} else {
+			toggleWatchList({
+				variables: {
+					toggleWatchListId: id,
+				},
+				refetchQueries: [{ query: CURRENT_USER }, { query: WATCHLIST }],
+			});
+		}
 	}
 
 	return (

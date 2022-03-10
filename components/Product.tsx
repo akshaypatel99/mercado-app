@@ -93,10 +93,15 @@ export default function Product({ id }: { id: string }) {
 					<Box my='16'>{product.description}</Box>
 
 					<Box mt='4'>
-						{user && user._id === product.user._id ? (
+						{/* {user && user._id === product.user._id ? (
 							<EditProduct product={product} />
 						) : (
 							<ProductCustomerOptions product={product} user={user} />
+						)} */}
+						{!user ? (
+							<ProductCustomerOptions product={product} user={user} />
+						) : (
+							<EditProduct product={product} />
 						)}
 					</Box>
 				</Box>
