@@ -1,23 +1,13 @@
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { Center, Heading } from '@chakra-ui/react';
+import OrderList from '../components/OrderList';
 
-export default function Orders({ refresh, access }) {
-	const { user } = useContext(AuthContext);
-
+export default function Orders() {
 	return (
 		<>
-			<div>I am the Orders Page</div>
-			{refresh}
-			{access}
+			<Center mb='8'>
+				<Heading>Your Orders</Heading>
+			</Center>
+			<OrderList />
 		</>
 	);
-}
-
-export async function getServerSideProps({ req, res }) {
-	return {
-		props: {
-			refresh: req.cookies['refresh'] || '',
-			access: req.cookies['access'] || '',
-		},
-	};
 }
