@@ -50,7 +50,7 @@ export default function CreateProduct() {
 		category: '',
 		price: 0,
 	});
-	const auth = useContext(AuthContext);
+	const { user } = useContext(AuthContext);
 
 	const [create, { data, loading, error }] = useMutation(CREATE_PRODUCT, {
 		variables: {
@@ -70,7 +70,7 @@ export default function CreateProduct() {
 		<>
 			<Box mt='4'>
 				<Heading fontSize='2xl' my='4'>
-					Create Product
+					Enter product details
 				</Heading>
 
 				{data && (
@@ -110,7 +110,7 @@ export default function CreateProduct() {
 
 				{error && <ErrorMessage error={error} />}
 
-				{auth.user ? (
+				{user ? (
 					<ProductForm
 						mutationFn={create}
 						updatedProduct={updatedProduct}

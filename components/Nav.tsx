@@ -16,7 +16,7 @@ import { FiChevronDown, FiLogOut, FiUser } from 'react-icons/fi';
 import { WatchListContext } from '../context/WatchListContext';
 
 export default function Nav() {
-	const auth = useContext(AuthContext);
+	const { user, logoutUser } = useContext(AuthContext);
 	const { watchListOnOpen } = useContext(WatchListContext);
 
 	const userMenu = (
@@ -32,7 +32,7 @@ export default function Nav() {
 				_focus={{ bg: 'brand.blue' }}
 				_active={{ bg: 'brand.blue' }}
 			>
-				<Text fontSize='xl'>{auth?.user?.name}</Text>
+				<Text fontSize='xl'>{user?.name}</Text>
 			</MenuButton>
 			<MenuList
 				p='0.5'
@@ -54,7 +54,7 @@ export default function Nav() {
 					</MenuItem>
 				</NextLink>
 				<MenuItem
-					onClick={auth.logoutUser}
+					onClick={logoutUser}
 					bg='brand.400'
 					_hover={{ bg: 'brand.300' }}
 					_focus={{ bg: 'brand.350' }}
@@ -109,7 +109,7 @@ export default function Nav() {
 				>
 					Watch List
 				</Text>
-				{auth.user ? (
+				{user ? (
 					userMenu
 				) : (
 					<Link

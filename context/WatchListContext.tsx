@@ -1,8 +1,9 @@
 import { createContext, useContext, ReactNode } from 'react';
 import Router from 'next/router';
 import { useDisclosure } from '@chakra-ui/react';
-import { gql, useQuery, useMutation } from '@apollo/client';
-import { CURRENT_USER } from '../hooks/useUser';
+import { gql, useMutation } from '@apollo/client';
+import { CURRENT_USER } from '../hooks/useCurrentUser';
+import { WATCHLIST } from '../hooks/useWatchList';
 import { AuthContext } from './AuthContext';
 
 const TOGGLE_WATCHLIST = gql`
@@ -23,18 +24,6 @@ const TOGGLE_WATCHLIST = gql`
 	}
 `;
 
-export const WATCHLIST = gql`
-	query UserWatchList {
-		userWatchList {
-			_id
-			name
-			price
-			image
-			isSold
-		}
-	}
-`;
-
 const WatchListContext = createContext(null);
 
 const WatchListProvider = ({ children }: { children: ReactNode }) => {
@@ -45,12 +34,6 @@ const WatchListProvider = ({ children }: { children: ReactNode }) => {
 		onOpen: watchListOnOpen,
 		onClose: watchListOnClose,
 	} = useDisclosure();
-
-	const {
-		data: watchListData,
-		loading: watchListLoading,
-		error: watchListError,
-	} = useQuery(WATCHLIST);
 
 	const [
 		toggleWatchList,
@@ -77,9 +60,6 @@ const WatchListProvider = ({ children }: { children: ReactNode }) => {
 				watchListIsOpen,
 				watchListOnOpen,
 				watchListOnClose,
-				watchListData,
-				watchListLoading,
-				watchListError,
 				toggleUserWatchList,
 				toggleWatchListLoading,
 				toggleWatchListError,

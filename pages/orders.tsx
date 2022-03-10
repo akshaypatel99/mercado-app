@@ -1,13 +1,14 @@
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
-export default function Orders({ token }) {
-	const auth = useContext(AuthContext);
+export default function Orders({ refresh, access }) {
+	const { user } = useContext(AuthContext);
 
 	return (
 		<>
 			<div>I am the Orders Page</div>
-			{token}
+			{refresh}
+			{access}
 		</>
 	);
 }
@@ -15,7 +16,8 @@ export default function Orders({ token }) {
 export async function getServerSideProps({ req, res }) {
 	return {
 		props: {
-			token: req.cookies['token'] || '',
+			refresh: req.cookies['refresh'] || '',
+			access: req.cookies['access'] || '',
 		},
 	};
 }

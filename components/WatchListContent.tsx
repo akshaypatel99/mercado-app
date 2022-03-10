@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
-import { WatchListContext } from '../context/WatchListContext';
 import { AuthContext } from '../context/AuthContext';
-import ErrorMessage from './ErrorMessage';
-import WatchListItem from './WatchListItem';
+import { useWatchList } from '../hooks/useWatchList';
 import { Box } from '@chakra-ui/react';
+import WatchListItem from './WatchListItem';
+import ErrorMessage from './ErrorMessage';
 
 export default function WatchListContent() {
 	const { user } = useContext(AuthContext);
-	const { watchListData, watchListLoading, watchListError, watchListOnClose } =
-		useContext(WatchListContext);
+	const { watchListData, watchListLoading, watchListError } = useWatchList();
 
 	if (!user) {
 		return <p>Please login to view your watch list.</p>;

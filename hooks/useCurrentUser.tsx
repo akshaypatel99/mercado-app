@@ -47,10 +47,14 @@ const CURRENT_USER = gql`
 	}
 `;
 
-export function useUser() {
-	const { data, loading, error } = useQuery(CURRENT_USER);
+export function useCurrentUser() {
+	const {
+		data: currentUserData,
+		loading: currentUserLoading,
+		error: currentUserError,
+	} = useQuery(CURRENT_USER);
 
-	return { data, loading, error };
+	return { currentUserData, currentUserLoading, currentUserError };
 }
 
 export { CURRENT_USER };

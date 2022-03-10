@@ -2,15 +2,13 @@ import { useContext } from 'react';
 import { Box, Button } from '@chakra-ui/react';
 import { CheckoutContext } from '../context/CheckoutContext';
 import { WatchListContext } from '../context/WatchListContext';
+import { useWatchList } from '../hooks/useWatchList';
 import ErrorMessage from './ErrorMessage';
 
 export default function ProductCustomerOptions({ product, user }) {
-	const {
-		watchListData,
-		toggleUserWatchList,
-		toggleWatchListLoading,
-		toggleWatchListError,
-	} = useContext(WatchListContext);
+	const { toggleUserWatchList, toggleWatchListLoading, toggleWatchListError } =
+		useContext(WatchListContext);
+	const { watchListData } = useWatchList();
 	const { buyNow } = useContext(CheckoutContext);
 
 	const handleWatchList = () => {

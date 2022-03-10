@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import React, { useState, useContext } from 'react';
 import {
 	FormControl,
 	FormLabel,
@@ -15,38 +14,12 @@ import {
 } from '@chakra-ui/react';
 import { AuthContext } from '../context/AuthContext';
 import NextLink from 'next/link';
-
-const LOGIN = gql`
-	mutation Login($input: LoginInput) {
-		login(input: $input) {
-			message
-			user {
-				_id
-				name
-				email
-				role
-				userProducts {
-					_id
-					name
-				}
-				userOrders {
-					_id
-				}
-			}
-		}
-	}
-`;
+import ErrorMessage from './ErrorMessage';
 
 export default function LoginForm() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const auth = useContext(AuthContext);
-
-	const [login, { data, loading, error, reset }] = useMutation(LOGIN);
-
-	useEffect(() => {
-		auth?.setUser(data?.login?.user);
-	}, [data, auth]);
+	const { login, loginLoading, loginError, user } = useContext(AuthContext);
 
 	async function handleLogin(e: React.SyntheticEvent) {
 		e.preventDefault();
@@ -66,9 +39,11 @@ export default function LoginForm() {
 	return (
 		<Box>
 			<Center mb='16'>
-				<Heading>{auth.user ? `Welcome ${auth.user.name}!` : 'Login'}</Heading>
+				<Heading>{user ? `Welcome ${user.name}!` : 'Login'}</Heading>
 			</Center>
-			<Center mb='4'>{error && <Box>{error?.message}</Box>}</Center>
+			<Center mb='4'>
+				{loginError && <ErrorMessage error={loginError} />}
+			</Center>
 			<Center>
 				<form onSubmit={handleLogin}>
 					<FormControl isRequired isInvalid={isEmailError} my='4'>
@@ -101,7 +76,7 @@ export default function LoginForm() {
 							<FormErrorMessage>Password is required.</FormErrorMessage>
 						)}
 					</FormControl>
-					<Button type='submit' variant='primary' isLoading={loading}>
+					<Button type='submit' variant='primary' isLoading={loginLoading}>
 						Login
 					</Button>
 				</form>

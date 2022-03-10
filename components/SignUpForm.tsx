@@ -15,32 +15,13 @@ import {
 } from '@chakra-ui/react';
 import { AuthContext } from '../context/AuthContext';
 import NextLink from 'next/link';
-
-const SIGN_UP = gql`
-	mutation SignUp($input: SignupInput) {
-		signup(input: $input) {
-			message
-			user {
-				_id
-				name
-				email
-				role
-			}
-		}
-	}
-`;
+import ErrorMessage from './ErrorMessage';
 
 export default function SignUpForm() {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const auth = useContext(AuthContext);
-
-	const [signup, { data, loading, error, reset }] = useMutation(SIGN_UP);
-
-	useEffect(() => {
-		auth?.setUser(data?.signup?.user);
-	}, [data, auth]);
+	const { user, signup, signupLoading, signupError } = useContext(AuthContext);
 
 	async function handleSignup(e: React.SyntheticEvent) {
 		e.preventDefault();
@@ -62,11 +43,11 @@ export default function SignUpForm() {
 	return (
 		<Box>
 			<Center mb='16'>
-				<Heading>
-					{auth.user ? `Welcome ${auth.user.name}!` : 'Sign Up'}
-				</Heading>
+				<Heading>{user ? `Welcome ${user.name}!` : 'Sign Up'}</Heading>
 			</Center>
-			<Center mb='4'>{error && <Box>{error?.message}</Box>}</Center>
+			<Center mb='4'>
+				{signupError && <ErrorMessage error={signupError} />}
+			</Center>
 			<Center>
 				<form onSubmit={handleSignup}>
 					<FormControl isRequired isInvalid={isNameError} my='4'>
@@ -112,7 +93,7 @@ export default function SignUpForm() {
 							<FormErrorMessage>Password is required.</FormErrorMessage>
 						)}
 					</FormControl>
-					<Button type='submit' variant='primary' isLoading={loading}>
+					<Button type='submit' variant='primary' isLoading={signupLoading}>
 						Sign Up
 					</Button>
 				</form>

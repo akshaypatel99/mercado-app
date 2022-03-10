@@ -1,6 +1,6 @@
 import { Alert, AlertIcon } from '@chakra-ui/react';
 
-export default function ErrorMessage({ message }) {
+export default function InfoMessage({ message }) {
 	return (
 		<Alert status='info' variant='subtle'>
 			<AlertIcon />
