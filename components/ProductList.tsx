@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { SimpleGrid } from '@chakra-ui/react';
+import { SimpleGrid, Skeleton } from '@chakra-ui/react';
 import ErrorMessage from './ErrorMessage';
 import ProductListItem from './ProductListItem';
 
@@ -38,7 +38,24 @@ export default function ProductList() {
 		},
 	});
 
-	if (loading) return <p>Loading...</p>;
+	if (loading) {
+		return (
+			<SimpleGrid minChildWidth='350px' spacing='60px' mt='8'>
+				{new Array(6).fill(0).map((_, i) => (
+					<Skeleton
+						key={i}
+						h='484px'
+						startColor='brand.300'
+						endColor='brand.600'
+						fadeDuration={0.8}
+						borderRadius='xl'
+						boxShadow='lg'
+					/>
+				))}
+			</SimpleGrid>
+		);
+	}
+
 	if (error) return <ErrorMessage error={error} />;
 
 	return (
