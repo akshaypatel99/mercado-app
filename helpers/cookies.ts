@@ -18,7 +18,7 @@ export const setCookies = (
   tokenArray: {name: string, value: any}[],
   options = cookieOptions
 ) => {
-  const cookies = new Cookies(req, res)
+  const cookies = new Cookies(req, res, cookieOptions)
   tokenArray.forEach(token => {
     const stringValue = typeof token.value === 'object' ? 'j:' + JSON.stringify(token.value) : String(token.value)
     cookies.set(token.name, stringValue, options);
