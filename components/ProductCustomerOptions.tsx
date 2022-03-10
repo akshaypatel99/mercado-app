@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Box, Button } from '@chakra-ui/react';
 import { CheckoutContext } from '../context/CheckoutContext';
 import { WatchListContext } from '../context/WatchListContext';
@@ -6,7 +6,6 @@ import ErrorMessage from './ErrorMessage';
 
 export default function ProductCustomerOptions({ product, user }) {
 	const {
-		watchListOnOpen,
 		watchListData,
 		toggleUserWatchList,
 		toggleWatchListLoading,
@@ -16,7 +15,6 @@ export default function ProductCustomerOptions({ product, user }) {
 
 	const handleWatchList = () => {
 		toggleUserWatchList(product._id);
-		setTimeout(() => watchListOnOpen(), 500);
 	};
 
 	return (
@@ -31,7 +29,11 @@ export default function ProductCustomerOptions({ product, user }) {
 					variant='secondary'
 					isLoading={toggleWatchListLoading}
 				>
-					{watchListData.userWatchList.some((item) => item._id === product._id)
+					{!watchListData
+						? 'Add to Watch List'
+						: watchListData.userWatchList.some(
+								(item) => item._id === product._id
+						  )
 						? 'Remove from Watch List'
 						: 'Add to Watch List'}
 				</Button>

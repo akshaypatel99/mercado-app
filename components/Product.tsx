@@ -100,8 +100,11 @@ export default function Product({ id }: { id: string }) {
 						)} */}
 						{!user ? (
 							<ProductCustomerOptions product={product} user={user} />
-						) : (
+						) : (user && user._id === product.user._id) ||
+						  user.role === 'ADMIN' ? (
 							<EditProduct product={product} />
+						) : (
+							<ProductCustomerOptions product={product} user={user} />
 						)}
 					</Box>
 				</Box>

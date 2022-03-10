@@ -67,6 +67,7 @@ const WatchListProvider = ({ children }: { children: ReactNode }) => {
 				},
 				refetchQueries: [{ query: CURRENT_USER }, { query: WATCHLIST }],
 			});
+			setTimeout(() => watchListOnOpen(), 500);
 		}
 	}
 
