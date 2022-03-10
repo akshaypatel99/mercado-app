@@ -166,6 +166,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 		try {
 			logout();
 			setUser(null);
+			// Router.reload();
 		} catch (error) {
 			logoutReset();
 		}
