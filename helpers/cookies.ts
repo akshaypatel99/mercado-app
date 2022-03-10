@@ -6,7 +6,7 @@ import { parse } from 'path'
 
 const cookieOptions = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === 'production' ? true : false,
       sameSite: 'strict',
       path: '/',
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week 
