@@ -3,7 +3,6 @@ import { gql, useMutation } from '@apollo/client';
 import {
 	Box,
 	Heading,
-	Text,
 	Link,
 	Alert,
 	AlertIcon,
@@ -14,6 +13,7 @@ import NextLink from 'next/link';
 import { AuthContext } from '../context/AuthContext';
 import ProductForm from './ProductForm';
 import ErrorMessage from './ErrorMessage';
+import LoginRedirect from './LoginRedirect';
 
 type Product = {
 	name: string;
@@ -64,6 +64,10 @@ export default function CreateProduct() {
 		},
 	});
 
+	if (!user) {
+		return <LoginRedirect message='create a product' />;
+	}
+
 	if (loading) return <p>Loading...</p>;
 
 	return (
@@ -110,15 +114,11 @@ export default function CreateProduct() {
 
 				{error && <ErrorMessage error={error} />}
 
-				{user ? (
-					<ProductForm
-						mutationFn={create}
-						updatedProduct={updatedProduct}
-						setUpdatedProduct={setUpdatedProduct}
-					/>
-				) : (
-					<Text>Please login to create a product</Text>
-				)}
+				<ProductForm
+					mutationFn={create}
+					updatedProduct={updatedProduct}
+					setUpdatedProduct={setUpdatedProduct}
+				/>
 			</Box>
 		</>
 	);

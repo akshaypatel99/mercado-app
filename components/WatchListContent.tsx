@@ -4,13 +4,14 @@ import { useWatchList } from '../hooks/useWatchList';
 import { Box } from '@chakra-ui/react';
 import WatchListItem from './WatchListItem';
 import ErrorMessage from './ErrorMessage';
+import LoginRedirect from './LoginRedirect';
 
 export default function WatchListContent() {
 	const { user } = useContext(AuthContext);
 	const { watchListData, watchListLoading, watchListError } = useWatchList();
 
 	if (!user) {
-		return <p>Please login to view your watch list.</p>;
+		return <LoginRedirect message='view your watch list' />;
 	}
 
 	if (!watchListData) {
