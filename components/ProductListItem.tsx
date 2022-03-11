@@ -8,15 +8,10 @@ type ProductProps = {
 	image: string;
 	category: string;
 	price: number;
+	isNew: boolean;
 };
 
-export default function Product({
-	product,
-	isNew,
-}: {
-	product: ProductProps;
-	isNew: number;
-}) {
+export default function Product({ product }: { product: ProductProps }) {
 	return (
 		<LinkBox
 			maxW='sm'
@@ -54,7 +49,7 @@ export default function Product({
 					>
 						{product.category}
 					</Box>
-					{isNew > 0.5 ? (
+					{product.isNew && (
 						<Badge
 							borderRadius='full'
 							px='2'
@@ -63,7 +58,7 @@ export default function Product({
 						>
 							New
 						</Badge>
-					) : null}
+					)}
 				</Box>
 
 				<Box display='flex' pt='3' justifyContent='space-between'>
