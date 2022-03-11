@@ -1,19 +1,40 @@
 import { gql } from '@apollo/client';
 import client from '../lib/apollo-client';
 import ProductList from '../components/ProductList';
-import Title from '../components/Title';
+import { GetServerSideProps } from 'next';
+import { Box, Center, Heading } from '@chakra-ui/react';
 
-export default function Products({ products, loading, error }) {
+export default function Products({ products, error }) {
 	return (
 		<>
-			<Title title='Find your next best bargain today...' />
-			<ProductList products={products} loading={loading} error={error} />
+			<Box
+				as='section'
+				w='100%'
+				h='200px'
+				cursor='pointer'
+				backgroundImage={`url('/images/all-products.jpeg')`}
+				backgroundPosition='center'
+				backgroundRepeat='no-repeat'
+				backgroundSize='cover'
+				boxShadow='md'
+			>
+				<Center
+					boxSize='full'
+					backdropFilter='auto'
+					backdropContrast='80%'
+					bgColor='rgba(20, 74, 94, 0.4)'
+					backdropBlur='1px'
+				>
+					<Heading variant='light'>Find your next bargain today...</Heading>
+				</Center>
+			</Box>
+			<ProductList products={products} error={error} />
 		</>
 	);
 }
 
-export async function getServerSideProps() {
-	const { data, loading, error } = await client.query({
+export const getServerSideProps: GetServerSideProps = async () => {
+	const { data, error } = await client.query({
 		query: gql`
 			query AllProducts($params: QueryParams) {
 				products(params: $params) {
@@ -46,8 +67,7 @@ export async function getServerSideProps() {
 	return {
 		props: {
 			products: isNewProducts,
-			loading,
 			error: error || null,
 		},
 	};
-}
+};
