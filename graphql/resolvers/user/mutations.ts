@@ -1,7 +1,7 @@
 import { ApolloError, UserInputError } from 'apollo-server-micro';
 import { User, Product } from '../../../db/models';
-import { removeCookie, setCookies } from '../../../helpers/cookies';
-import { hashPassword, verifyPassword, checkUserRole, setTokens, safeUserInfo } from '../../../helpers/util';
+import { removeCookie, setCookies } from '../../../lib/cookies';
+import { hashPassword, verifyPassword, checkUserRole, setTokens, safeUserInfo } from '../../../lib/api-util';
 
 const userMutations = {
   signup: async (parent, { input }, { req, res }) => {

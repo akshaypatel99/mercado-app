@@ -25,7 +25,6 @@ export type UserData = {
   updatedAt: string;
 }
 
-const jwtSecret = process.env.JWT_SECRET;
 const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
 const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
 

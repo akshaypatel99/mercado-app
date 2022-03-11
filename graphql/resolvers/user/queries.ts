@@ -1,5 +1,5 @@
 import { User, Product } from "../../../db/models";
-import { safeUserInfo } from "../../../helpers/util";
+import { safeUserInfo } from "../../../lib/api-util";
 
 const userQueries = {
   users: async (parent, args, context) => {

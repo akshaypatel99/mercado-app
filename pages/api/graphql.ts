@@ -7,7 +7,7 @@ import connectDB from '../../db/config';
 import Cors from 'micro-cors';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { processRequest } from 'graphql-upload';
-import validateTokens from '../../helpers/validateTokens';
+import validateTokens from '../../lib/validateTokens';
 
 export type NextApiRequestWithFilePayload = NextApiRequest & {
   filePayload: any

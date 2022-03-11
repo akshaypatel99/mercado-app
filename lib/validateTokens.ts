@@ -1,4 +1,4 @@
-import { setTokens, validateAccessToken, validateRefreshToken } from "./util";
+import { setTokens, validateAccessToken, validateRefreshToken } from "./api-util";
 import { User } from "../db/models";
 import { NextApiResponse } from 'next';
 import { NextApiRequestWithFilePayload } from '../pages/api/graphql'
