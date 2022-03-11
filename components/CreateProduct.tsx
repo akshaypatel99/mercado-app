@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import {
 	Box,
@@ -10,10 +10,8 @@ import {
 	AlertDescription,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { AuthContext } from '../context/AuthContext';
 import ProductForm from './ProductForm';
 import ErrorMessage from './ErrorMessage';
-import LoginRedirect from './LoginRedirect';
 
 type Product = {
 	name: string;
@@ -50,7 +48,6 @@ export default function CreateProduct() {
 		category: '',
 		price: 0,
 	});
-	const { user } = useContext(AuthContext);
 
 	const [create, { data, loading, error }] = useMutation(CREATE_PRODUCT, {
 		variables: {
@@ -63,10 +60,6 @@ export default function CreateProduct() {
 			},
 		},
 	});
-
-	if (!user) {
-		return <LoginRedirect message='create a product' />;
-	}
 
 	if (loading) return <p>Loading...</p>;
 

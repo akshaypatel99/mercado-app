@@ -6,7 +6,7 @@ import { CheckoutContext } from '../context/CheckoutContext';
 import { Box, Button, Heading, Image, Text } from '@chakra-ui/react';
 import ErrorMessage from './ErrorMessage';
 import formatPrice from '../lib/formatPrice';
-import getStripe from '../helpers/get-stripejs';
+import getStripe from '../lib/get-stripejs';
 import Policy from './Policy';
 
 export default function CheckoutItem() {
