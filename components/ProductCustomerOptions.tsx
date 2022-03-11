@@ -6,7 +6,7 @@ import { useWatchList } from '../hooks/useWatchList';
 import ErrorMessage from './ErrorMessage';
 import Policy from './Policy';
 
-export default function ProductCustomerOptions({ product, user }) {
+export default function ProductCustomerOptions({ product }) {
 	const { toggleUserWatchList, toggleWatchListLoading, toggleWatchListError } =
 		useContext(WatchListContext);
 	const { watchListData } = useWatchList();

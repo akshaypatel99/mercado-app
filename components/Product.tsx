@@ -1,12 +1,8 @@
-import { useContext } from 'react';
-import { gql, useQuery } from '@apollo/client';
 import { Box, Heading, Image } from '@chakra-ui/react';
-import { AuthContext } from '../context/AuthContext';
-import Link from 'next/link';
 import formatPrice from '../lib/formatPrice';
 import EditProduct from './EditProduct';
 import ProductCustomerOptions from './ProductCustomerOptions';
-import BackToAll from './BackToAll';
+import BackTo from './BackTo';
 
 type SingleProduct = {
 	product: {
@@ -26,43 +22,12 @@ type SingleProduct = {
 	};
 };
 
-export const SINGLE_PRODUCT = gql`
-	query SingleProduct($productId: ID!) {
-		product(id: $productId) {
-			_id
-			name
-			description
-			image
-			category
-			price
-			user {
-				_id
-				name
-			}
-			watchedBy {
-				_id
-			}
-		}
-	}
-`;
-
-export default function Product({ id }: { id: string }) {
-	const { data, loading, error } = useQuery<SingleProduct>(SINGLE_PRODUCT, {
-		variables: {
-			productId: id,
-		},
-	});
-	const { user } = useContext(AuthContext);
-	console.log('user Prod page authcontext', user);
-
-	if (loading) return <p>Loading...</p>;
+export default function Product({ product, error, user }) {
 	if (error) return <p>Error: {error.message}</p>;
-
-	const { product } = data;
 
 	return (
 		<>
-			<BackToAll />
+			<BackTo text='all products' href='products' />
 			<Box w='100%' display={{ lg: 'flex' }} my='6'>
 				<Box>
 					<Image src={product.image} alt={product.name} />
@@ -95,12 +60,12 @@ export default function Product({ id }: { id: string }) {
 
 					<Box mt='4'>
 						{!user ? (
-							<ProductCustomerOptions product={product} user={user} />
+							<ProductCustomerOptions product={product} />
 						) : (user && user._id === product.user._id) ||
 						  user.role === 'ADMIN' ? (
 							<EditProduct product={product} />
 						) : (
-							<ProductCustomerOptions product={product} user={user} />
+							<ProductCustomerOptions product={product} />
 						)}
 					</Box>
 				</Box>
