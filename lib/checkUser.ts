@@ -1,20 +1,26 @@
 import { gql } from '@apollo/client';
-import { NextPageContext } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import client from './apollo-client';
 
-export interface MyPageContext extends NextPageContext {
+export interface MyPageContext extends GetServerSidePropsContext {
   user: any | null;
+  error: Error | null;
 }
 
-const checkUser = async (context: MyPageContext, message: string) => {
+const checkUser = async (context: MyPageContext, redirect: boolean, message?: string) => {
   const Cookie = context.req.headers.cookie;
 
-  if (!Cookie) {
+  if (!Cookie && redirect) {
     context.user = null;
-    	context.res.writeHead(302, {
+    context.res.writeHead(302, {
 			Location: message ? `/login?message=${message}` : '/login',
 		});
     context.res.end();
+    return;
+  }
+  
+  if (!Cookie) {
+    context.user = null;
     return;
   }
 
@@ -75,7 +81,7 @@ const checkUser = async (context: MyPageContext, message: string) => {
   }
 
   if (error) {
-    context.err = error;
+    context.error = error;
   }
 
   return context;
