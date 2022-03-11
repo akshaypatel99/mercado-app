@@ -1,15 +1,10 @@
 import type { AppProps } from 'next/app';
-import {
-	ApolloClient,
-	from,
-	InMemoryCache,
-	ApolloProvider,
-} from '@apollo/client';
-import { createUploadLink } from 'apollo-upload-client';
-import { onError } from '@apollo/client/link/error';
+import { ApolloProvider } from '@apollo/client';
 import { ChakraProvider } from '@chakra-ui/react';
 import { AuthProvider } from '../context/AuthContext';
+import { CheckoutProvider } from '../context/CheckoutContext';
 import { WatchListProvider } from '../context/WatchListContext';
+import client from '../lib/apollo-client';
 import NProgress from 'nprogress';
 import Router from 'next/router';
 import Page from '../components/Page';
@@ -23,44 +18,10 @@ import '@fontsource/inter/700.css';
 import '@fontsource/inter/800.css';
 import '@fontsource/inter/900.css';
 import 'nprogress/nprogress.css';
-import { CheckoutProvider } from '../context/CheckoutContext';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
-
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-	if (graphQLErrors)
-		graphQLErrors.forEach(({ message, locations, path }) =>
-			console.log(
-				`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-			)
-		);
-
-	if (networkError) console.log(`[Network error]: ${networkError}`);
-});
-
-const uploadLink = createUploadLink({
-	uri: '/api/graphql',
-	credentials: 'include',
-});
-
-const cache = new InMemoryCache({
-	typePolicies: {
-		User: {
-			fields: {
-				userWatchList: {
-					merge: false,
-				},
-			},
-		},
-	},
-});
-
-const client = new ApolloClient({
-	cache,
-	link: from([errorLink, uploadLink]),
-});
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
