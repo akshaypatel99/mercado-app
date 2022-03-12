@@ -11,7 +11,7 @@ const Page = ({ children }: PageProps, { ...props }) => {
 			<Header />
 			<Container
 				maxW='container.xl'
-				my='16'
+				my='8'
 				p={{ sm: '2rem', md: '1rem', lg: '1rem' }}
 			>
 				<WatchList />

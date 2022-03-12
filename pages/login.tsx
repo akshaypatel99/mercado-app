@@ -21,7 +21,7 @@ export default function Login() {
 					<InfoMessage message={message} />
 				</Box>
 			)}
-			<LoginForm />;
+			<LoginForm />
 		</>
 	);
 }
