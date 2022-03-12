@@ -6,7 +6,7 @@ import {
 	useEffect,
 	useState,
 } from 'react';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import Router from 'next/router';
 import { useCurrentUser } from '../hooks/useCurrentUser';
 
@@ -151,11 +151,11 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 	useEffect(() => {
 		if (signupUserData) {
 			setUser(loginUserData.signup.user);
-			setTimeout(() => Router.push('/products'), 3000);
+			setTimeout(() => Router.push('/products'), 2000);
 		}
 		if (loginUserData) {
 			setUser(loginUserData.login.user);
-			setTimeout(() => Router.push('/products'), 3000);
+			setTimeout(() => Router.push('/products'), 2000);
 		}
 		if (currentUserData) {
 			setUser(currentUserData.currentUser);
@@ -166,7 +166,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 		try {
 			logout();
 			setUser(null);
-			// Router.reload();
+			Router.push('/products');
 		} catch (error) {
 			logoutReset();
 		}
