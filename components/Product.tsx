@@ -27,7 +27,7 @@ export default function Product({ product, error, user }) {
 
 	return (
 		<>
-			<BackTo text='all products' href='products' />
+			<BackTo text='All Products' href='products' />
 			<Box w='100%' display={{ lg: 'flex' }} my='6'>
 				<Box>
 					<Image src={product.image} alt={product.name} />

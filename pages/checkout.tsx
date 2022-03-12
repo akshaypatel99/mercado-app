@@ -22,7 +22,7 @@ export default function Checkout() {
 
 	return (
 		<>
-			<BackTo text='all products' href='products' />
+			<BackTo text='All Products' href='products' />
 			<Title title='Checkout' />
 			{cancel.isCancelled && <InfoMessage message={cancel.message} />}
 			<CheckoutItem />
