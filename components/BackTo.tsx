@@ -14,7 +14,8 @@ export default function BackTo({ text, href }: { text: string; href: string }) {
 						fontSize='md'
 						color='brand.500'
 						fontWeight='semibold'
-						display='flex'
+						display='inline-flex'
+						w='max-content'
 						alignItems='center'
 						_hover={{ textDecoration: 'none', color: 'brand.750' }}
 						_focus={{ boxShadow: 'none', color: 'brand.750' }}
