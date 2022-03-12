@@ -10,6 +10,7 @@ export type AccessUserInfo = {
 
 export type RefreshUserInfo = {
   _id: string
+  role: string
 }
 
 export type UserData = {
@@ -37,7 +38,8 @@ const setTokens = (user) => {
   }
 
   const refreshUser: RefreshUserInfo = {
-    _id: user._id
+    _id: user._id,
+    role: user.role
   }
 
   const accessToken = jwt.sign(accessUser, jwtAccessSecret, { algorithm: 'HS256', expiresIn: '1h' });
