@@ -11,7 +11,6 @@ export default function Products({ products, error }) {
 				as='section'
 				w='100%'
 				h='200px'
-				cursor='pointer'
 				backgroundImage={`url('/images/all-products.jpeg')`}
 				backgroundPosition='center'
 				backgroundRepeat='no-repeat'
@@ -25,7 +24,17 @@ export default function Products({ products, error }) {
 					bgColor='rgba(20, 74, 94, 0.4)'
 					backdropBlur='1px'
 				>
-					<Heading variant='light'>Find your next bargain today...</Heading>
+					<Heading variant='light' textTransform='uppercase' fontSize='2.5rem'>
+						Find{' '}
+						<span
+							style={{
+								color: '#17C3B2',
+							}}
+						>
+							your
+						</span>{' '}
+						next bargain today...
+					</Heading>
 				</Center>
 			</Box>
 			<ProductList products={products} error={error} />
