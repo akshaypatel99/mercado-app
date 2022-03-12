@@ -48,6 +48,13 @@ const userQueries = {
     } catch (error) {
       return error
     }
+  },
+  loggedIn: async (parent, args, { user }) => {
+    try {
+      return !!user;
+    } catch (error) {
+      return error
+    }
   }
 };
 

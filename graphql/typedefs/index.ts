@@ -15,6 +15,7 @@ type Query {
 	users(params: QueryParams): Users!
 	user(id: ID!): User
 	currentUser: User
+	loggedIn: Boolean!
 
 	# Order
 	orders(params: QueryParams): Orders!
