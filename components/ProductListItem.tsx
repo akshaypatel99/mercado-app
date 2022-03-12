@@ -16,7 +16,7 @@ export default function Product({ product }: { product: ProductProps }) {
 		<LinkBox
 			maxW='sm'
 			borderWidth='1px'
-			borderRadius='xl'
+			borderRadius='lg'
 			borderColor='brand.blue'
 			bg='brand.blue'
 			overflow='hidden'

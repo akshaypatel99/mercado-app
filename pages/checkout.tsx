@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import CheckoutItem from '../components/CheckoutItem';
 import InfoMessage from '../components/InfoMessage';
-import { Box, Center, Heading } from '@chakra-ui/react';
-import Link from 'next/link';
-import BackToAll from '../components/BackToAll';
+import BackTo from '../components/BackTo';
 import Title from '../components/Title';
 
 export default function Checkout() {
@@ -24,7 +22,7 @@ export default function Checkout() {
 
 	return (
 		<>
-			<BackToAll />
+			<BackTo text='all products' href='products' />
 			<Title title='Checkout' />
 			{cancel.isCancelled && <InfoMessage message={cancel.message} />}
 			<CheckoutItem />

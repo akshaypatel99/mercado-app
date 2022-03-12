@@ -1,4 +1,4 @@
-import Router from 'next/router';
+import { GetServerSideProps } from 'next';
 import CreateProduct from '../components/CreateProduct';
 import Title from '../components/Title';
 import checkUser, { MyPageContext } from '../lib/checkUser';
@@ -12,12 +12,14 @@ export default function Sell() {
 	);
 }
 
-export async function getServerSideProps(context: MyPageContext) {
-	await checkUser(context, 'Please log in to sell your product');
+export const getServerSideProps: GetServerSideProps = async (
+	context: MyPageContext
+) => {
+	await checkUser(context, true, 'Please log in to sell your product');
 
 	return {
 		props: {
 			user: context.user,
 		},
 	};
-}
+};

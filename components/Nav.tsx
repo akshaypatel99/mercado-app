@@ -1,7 +1,6 @@
 import {
 	Flex,
 	Button,
-	Heading,
 	Link,
 	Menu,
 	MenuButton,
@@ -9,10 +8,9 @@ import {
 	MenuItem,
 	Text,
 } from '@chakra-ui/react';
-import NextLink from 'next/link';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { FiChevronDown, FiLogOut, FiUser } from 'react-icons/fi';
+import { FiChevronDown, FiLogOut } from 'react-icons/fi';
 import { WatchListContext } from '../context/WatchListContext';
 
 export default function Nav() {
@@ -40,19 +38,6 @@ export default function Nav() {
 				_hover={{ bg: 'brand.400' }}
 				_expanded={{ bg: 'brand.400' }}
 			>
-				<NextLink href='/account' passHref>
-					<MenuItem
-						bg='brand.400'
-						_hover={{ bg: 'brand.300' }}
-						_focus={{ bg: 'brand.350' }}
-						minH='48px'
-						fontSize='lg'
-						fontWeight='semibold'
-						icon={<FiUser />}
-					>
-						Account
-					</MenuItem>
-				</NextLink>
 				<MenuItem
 					onClick={logoutUser}
 					bg='brand.400'
@@ -91,12 +76,12 @@ export default function Nav() {
 					</Text>
 				</Link>
 				<Link
-					href='/orders'
+					href='/account'
 					ml='6'
 					_hover={{ textDecoration: 'none', color: 'brand.yellow' }}
 				>
 					<Text fontSize='xl' fontWeight='semibold'>
-						Orders
+						Account
 					</Text>
 				</Link>
 				<Text
