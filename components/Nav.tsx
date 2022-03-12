@@ -9,8 +9,9 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { useContext } from 'react';
+import NextLink from 'next/link';
 import { AuthContext } from '../context/AuthContext';
-import { FiChevronDown, FiLogOut } from 'react-icons/fi';
+import { FiChevronDown, FiLogOut, FiUser } from 'react-icons/fi';
 import { WatchListContext } from '../context/WatchListContext';
 
 export default function Nav() {
@@ -38,6 +39,19 @@ export default function Nav() {
 				_hover={{ bg: 'brand.400' }}
 				_expanded={{ bg: 'brand.400' }}
 			>
+				<NextLink href='/admin' passHref>
+					<MenuItem
+						bg='brand.400'
+						_hover={{ bg: 'brand.300' }}
+						_focus={{ bg: 'brand.350' }}
+						minH='48px'
+						fontSize='lg'
+						fontWeight='semibold'
+						icon={<FiUser />}
+					>
+						Admin
+					</MenuItem>
+				</NextLink>
 				<MenuItem
 					onClick={logoutUser}
 					bg='brand.400'
