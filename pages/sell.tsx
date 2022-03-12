@@ -15,7 +15,11 @@ export default function Sell() {
 export const getServerSideProps: GetServerSideProps = async (
 	context: MyPageContext
 ) => {
-	await checkUser(context, true, 'Please log in to sell your product');
+	await checkUser(context, {
+		level: 'USER',
+		redirect: true,
+		message: 'Please log in to view your product',
+	});
 
 	return {
 		props: {

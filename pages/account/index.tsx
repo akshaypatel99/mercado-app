@@ -37,7 +37,11 @@ export default function Account() {
 export const getServerSideProps: GetServerSideProps = async (
 	context: MyPageContext
 ) => {
-	await checkUser(context, true, 'Please log in to view your account');
+	await checkUser(context, {
+		level: 'USER',
+		redirect: true,
+		message: 'Please log in to view your account',
+	});
 
 	return {
 		props: {},

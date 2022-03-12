@@ -6,7 +6,7 @@ import Title from '../../components/Title';
 export default function MyDetails() {
 	return (
 		<>
-			<BackTo text='my account' href='account' />
+			<BackTo text='My Account' href='account' />
 			<Title title='My Details' />
 		</>
 	);
@@ -15,7 +15,11 @@ export default function MyDetails() {
 export const getServerSideProps: GetServerSideProps = async (
 	context: MyPageContext
 ) => {
-	await checkUser(context, true, 'Please log in to view your account details');
+	await checkUser(context, {
+		level: 'USER',
+		redirect: true,
+		message: 'Please log in to view your account details',
+	});
 
 	return {
 		props: {},
