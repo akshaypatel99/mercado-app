@@ -1,31 +1,31 @@
-import { SimpleGrid } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import checkUser, { MyPageContext } from '../../lib/checkUser';
 import Title from '../../components/Title';
-import AccountOption from '../../components/AccountOption';
+import Dashboard from '../../components/Dashboard';
 
 export default function Admin() {
+	const options = [
+		{
+			heading: 'All Products',
+			href: 'admin/products',
+		},
+		{
+			heading: 'All Orders',
+			href: 'admin/orders',
+		},
+		{
+			heading: 'All Users',
+			href: 'admin/users',
+		},
+		{
+			heading: 'All Data',
+			href: 'admin/',
+		},
+	];
 	return (
 		<>
-			<Title title='My Account' />
-			<SimpleGrid columns={2} spacing={10}>
-				<AccountOption
-					heading='All Products'
-					imageUrl='products.jpeg'
-					href='products'
-				/>
-				<AccountOption
-					heading='All Orders'
-					imageUrl='orders.jpeg'
-					href='orders'
-				/>
-				<AccountOption
-					heading='All Users'
-					imageUrl='details.jpeg'
-					href='details'
-				/>
-				<AccountOption heading='All Data' imageUrl='insights.jpeg' href='/' />
-			</SimpleGrid>
+			<Title title='Admin Dashboard' />
+			<Dashboard options={options} />
 		</>
 	);
 }
