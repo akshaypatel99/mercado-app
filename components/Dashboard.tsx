@@ -1,5 +1,5 @@
 import { SimpleGrid } from '@chakra-ui/react';
-import AccountOption from './AccountOption';
+import AccountOption from './DashboardOption';
 
 type Option = {
 	heading: string;
