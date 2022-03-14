@@ -1,4 +1,4 @@
-import { Box, Heading, Image } from '@chakra-ui/react';
+import { Box, Heading, Image, Text } from '@chakra-ui/react';
 import formatPrice from '../lib/formatPrice';
 import EditProduct from './EditProduct';
 import ProductCustomerOptions from './ProductCustomerOptions';
@@ -31,8 +31,8 @@ export default function Product({ product, error, user }) {
 			<Box w='100%' display={{ lg: 'flex' }} my='6'>
 				<Box>
 					<Image src={product.image} alt={product.name} />
-					<Box
-						color='brand.blue'
+					<Text
+						color='brand.700'
 						fontWeight='semibold'
 						letterSpacing='wide'
 						fontSize='xs'
@@ -40,23 +40,28 @@ export default function Product({ product, error, user }) {
 						mt='2'
 					>
 						Seller: {product.user.name}
-					</Box>
+					</Text>
 				</Box>
 				<Box ml={{ sm: '6', lg: '4' }}>
-					<Box
-						color='brand.blue'
+					<Text
+						color='brand.700'
 						fontWeight='bold'
 						letterSpacing='wide'
 						fontSize='xs'
 						textTransform='uppercase'
 					>
 						{product.category}
-					</Box>
+					</Text>
 					<Heading my='8' variant='product'>
 						{product.name}
 					</Heading>
 					<Heading variant='product'>{formatPrice(product.price)}</Heading>
-					<Box my='16'>{product.description}</Box>
+
+					<Text my='8'>{product.description}</Text>
+
+					<Text my='8' fontWeight='semibold'>
+						Watched By: {product.watchedBy.length}
+					</Text>
 
 					<Box mt='4'>
 						{!user ? (
