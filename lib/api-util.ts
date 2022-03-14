@@ -128,8 +128,8 @@ const checkUserRole = (user: AccessUserInfo, allowableRoles: string[]) => {
 
 // Send safe user info (remove password)
 const safeUserInfo = (user: UserData) => {
-  const { _id, name, email, role, userProducts, userOrders, userWatchList } = user;
-  const userInfo = { _id, name, email, role, userProducts, userOrders, userWatchList };
+  const { _id, name, email, role, userProducts, userOrders, userWatchList, createdAt } = user;
+  const userInfo = { _id, name, email, role, userProducts, userOrders, userWatchList, createdAt };
   return userInfo;
 }
 
