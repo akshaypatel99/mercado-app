@@ -3,7 +3,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { CheckoutContext } from '../context/CheckoutContext';
-import { Box, Button, Heading, Image, Text } from '@chakra-ui/react';
+import { Box, Button, Heading, Image, Text, VStack } from '@chakra-ui/react';
 import ErrorMessage from './ErrorMessage';
 import formatPrice from '../lib/formatPrice';
 import getStripe from '../lib/get-stripejs';
@@ -54,46 +54,45 @@ export default function CheckoutItem() {
 							/>
 						</Link>
 					</Box>
-					<Box
-						ml='16'
-						w='100%'
-						height='lg'
-						display='flex'
-						flexDir='column'
-						justifyContent='space-around'
-					>
-						<Box>
+					<Box ml='16' w='100%'>
+						<VStack align='flex-start' spacing={4}>
 							<Heading fontSize='3xl' variant='product'>
 								{checkoutItem.name}
 							</Heading>
 							<Heading fontSize='3xl' variant='product' mt='2'>
 								{formatPrice(checkoutItem.price)}
 							</Heading>
-							<Text mt='4'>{checkoutItem.description}</Text>
-							<Text mt='4' fontWeight='semibold'>
-								Delivery cost: £6.99
+							<Text>
+								Platform fee (3%):{' '}
+								<strong>{formatPrice(checkoutItem.price * 0.03)}</strong>
 							</Text>
-						</Box>
-						<Box display='flex' flexDir='column'>
+							<Text>
+								Delivery cost: <strong>£3.95</strong>
+							</Text>
+							<Heading fontSize='3xl' variant='product'>
+								Total:{' '}
+								<strong>{formatPrice(checkoutItem.price * 1.03 + 3.95)}</strong>
+							</Heading>
+						</VStack>
+
+						<VStack align='flex-start' my='8'>
 							<Button
 								size='md'
 								w='50%'
-								my='2'
-								colorScheme='yellow'
-								onClick={() => cancelCheckout(checkoutItem._id)}
-							>
-								Cancel
-							</Button>
-							<Button
-								size='md'
-								w='50%'
-								my='2'
 								variant='primary'
 								onClick={() => createCheckoutSession(checkoutItem)}
 							>
 								Proceed to Checkout
 							</Button>
-						</Box>
+							<Button
+								size='md'
+								w='50%'
+								colorScheme='yellow'
+								onClick={() => cancelCheckout(checkoutItem._id)}
+							>
+								Cancel
+							</Button>
+						</VStack>
 						<Policy />
 					</Box>
 				</Box>
