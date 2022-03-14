@@ -5,6 +5,9 @@ export default async function handler(req, res) {
 		try {
 			const { item, user } = req.body;
 
+			// Item price plus platform fee in pennies
+			const totalUnitCost = Math.round(parseFloat(item.price) * 1.03 * 100);
+
 			const transformedItem = {
 				price_data: {
 					currency: 'gbp',
@@ -19,7 +22,7 @@ export default async function handler(req, res) {
 							priceAtPurchase: item.price,
 						}
 					},
-					unit_amount: parseInt(item.price) * 100,
+					unit_amount: totalUnitCost,
 				},
 				quantity: 1,
 			}
@@ -31,7 +34,7 @@ export default async function handler(req, res) {
 					transformedItem
 				],
 				customer_email: user.email,
-				shipping_rates: ['shr_1KWkWPKzI3g5BI4tMgN69Qxh'],	
+				shipping_rates: ['shr_1KdM7iKzI3g5BI4tlyov94h2'],	
 				shipping_address_collection: {
 					allowed_countries: ['GB'],
 				},
