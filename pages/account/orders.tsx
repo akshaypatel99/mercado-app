@@ -36,21 +36,11 @@ export const getServerSideProps: GetServerSideProps = async (
 				userOrders {
 					_id
 					product {
+						_id
 						name
-						description
-						image
-						price
 					}
 					createdAt
-					paidAt
-					deliveryAddress {
-						name
-						street
-						city
-						postcode
-					}
 					subTotal
-					deliveryCost
 					totalCost
 				}
 			}
