@@ -19,7 +19,7 @@ export default function Admin() {
 		},
 		{
 			heading: 'All Data',
-			href: 'admin/',
+			href: 'admin/data',
 		},
 	];
 	return (
