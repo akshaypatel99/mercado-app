@@ -39,19 +39,21 @@ export default function Nav() {
 				_hover={{ bg: 'brand.400' }}
 				_expanded={{ bg: 'brand.400' }}
 			>
-				<NextLink href='/admin' passHref>
-					<MenuItem
-						bg='brand.400'
-						_hover={{ bg: 'brand.300' }}
-						_focus={{ bg: 'brand.350' }}
-						minH='48px'
-						fontSize='lg'
-						fontWeight='semibold'
-						icon={<FiUser />}
-					>
-						Admin
-					</MenuItem>
-				</NextLink>
+				{user && user.role === 'ADMIN' && (
+					<NextLink href='/admin' passHref>
+						<MenuItem
+							bg='brand.400'
+							_hover={{ bg: 'brand.300' }}
+							_focus={{ bg: 'brand.350' }}
+							minH='48px'
+							fontSize='lg'
+							fontWeight='semibold'
+							icon={<FiUser />}
+						>
+							Admin
+						</MenuItem>
+					</NextLink>
+				)}
 				<MenuItem
 					onClick={logoutUser}
 					bg='brand.400'
