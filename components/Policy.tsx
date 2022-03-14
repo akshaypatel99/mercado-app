@@ -5,8 +5,13 @@ export default function Policy() {
 	return (
 		<List spacing={2} my='6'>
 			<ListItem>
+				<ListIcon as={FiCheckSquare} color='brand.green' />A platform fee of{' '}
+				<strong>3%</strong> of product price will be charged at checkout.
+			</ListItem>
+			<ListItem>
 				<ListIcon as={FiCheckSquare} color='brand.green' />
-				Delivery is charged at a flat fee of £6.99 and takes 3-5 working days.
+				Delivery is charged at a flat fee of <strong>£3.95</strong> and takes
+				3-5 working days.
 			</ListItem>
 			<ListItem>
 				<ListIcon as={FiCheckSquare} color='brand.green' />
