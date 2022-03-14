@@ -104,14 +104,14 @@ const theme = extendTheme({
           border: '1px solid',
           borderColor: 'brand.300',
           _hover: {
-            bg: 'brand.250',
+            bg: 'brand.300',
             boxShadow: '0 0 2px 2px #efdfde',
           },
           _active: {
-            bg: 'brand.300',
+            bg: 'brand.350',
           },
           _focus: {
-            bg: 'brand.250',
+            bg: 'brand.300',
             boxShadow: '0 0 2px 2px #efdfde',
           }
         },
