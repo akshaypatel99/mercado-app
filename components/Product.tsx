@@ -3,6 +3,7 @@ import formatPrice from '../lib/formatPrice';
 import EditProduct from './EditProduct';
 import ProductCustomerOptions from './ProductCustomerOptions';
 import BackTo from './BackTo';
+import ProductAdminOptions from './ProductAdminOptions';
 
 type SingleProduct = {
 	product: {
@@ -64,6 +65,7 @@ export default function Product({ product, error, user }) {
 					</Text>
 
 					<Box mt='4'>
+						{user.role === 'ADMIN' && <ProductAdminOptions product={product} />}
 						{!user ? (
 							<ProductCustomerOptions product={product} />
 						) : (user && user._id === product.user._id) ||

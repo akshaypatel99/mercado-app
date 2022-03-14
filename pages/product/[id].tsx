@@ -32,6 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (
 					watchedBy {
 						_id
 					}
+					isSold
 				}
 			}
 		`,
