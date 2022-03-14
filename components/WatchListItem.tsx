@@ -13,14 +13,7 @@ export default function WatchListItem({ product }) {
 
 	return (
 		<>
-			<Box
-				display='flex'
-				alignItems='center'
-				borderBottom='1px solid'
-				borderColor='brand.150'
-				p='2'
-				mb='4'
-			>
+			<Box display='flex' alignItems='center' my='1'>
 				<Link href={`/product/${product._id}`} passHref>
 					<Image
 						boxSize='80px'
