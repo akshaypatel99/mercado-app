@@ -29,6 +29,7 @@ type Mutation {
 	updateProduct(id: ID!, input: ProductInput): ProductResult
 	deleteProduct(id: ID!): ProductDeleteResult
 	uploadPhoto(file: Upload!): UploadedFileResponse
+	restock(id: ID!): ProductResult
 
 	# User
 	signup(input: SignupInput): AuthenticationResult
@@ -96,6 +97,7 @@ type Product implements Timestamps {
 	category: String!
 	price: Float!
 	isSold: Boolean!
+	soldAt: Date
 	watchedBy: [User]
 
 	# Interface required
@@ -198,6 +200,7 @@ type Order implements Timestamps {
 	product: Product!
 	subTotal: Float!
 	deliveryCost: Float!
+	platformFee: Float!
 	totalCost: Float!
 	deliveryAddress: Address!
 	paymentResult: PaymentResult
@@ -229,6 +232,7 @@ input OrderInput {
 	product: ID!
 	subTotal: Float!
 	deliveryCost: Float!
+	platformFee: Float!
 	totalCost: Float!
 	deliveryAddress: AddressInput!
 	paymentResult: PaymentResultInput

@@ -1,9 +1,10 @@
 import { Schema, Types, model, models } from 'mongoose';
 export interface Order {
-	user: Types.ObjectId;
-	product: Types.ObjectId;
-	subTotal: Number;
+	user: Types.ObjectId
+	product: Types.ObjectId
+	subTotal: Number
 	deliveryCost: Number
+	platformFee: Number
 	totalCost: Number
 	deliveryAddress: {
 		name: String
@@ -38,6 +39,11 @@ const orderSchema = new Schema(
 			default: 0.0,
 		},
 		deliveryCost: {
+			type: Number,
+			required: true,
+			default: 0.0,
+		},
+		platformFee: {
 			type: Number,
 			required: true,
 			default: 0.0,

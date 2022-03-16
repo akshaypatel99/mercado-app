@@ -8,6 +8,7 @@ export interface Product {
   category: String;
   price: Number;
   isSold: Boolean;
+  soldAt: Date;
   watchedBy: { user: Types.ObjectId }[];
 }
 
@@ -42,6 +43,10 @@ const productSchema = new Schema<Product>({
     type: Boolean,
     required: true,
     default: false
+  },
+  soldAt: {
+    type: Date,
+    required: false,
   },
   watchedBy: [
     {
