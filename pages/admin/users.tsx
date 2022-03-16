@@ -44,9 +44,15 @@ export const getServerSideProps: GetServerSideProps = async (
 						role
 						userProducts {
 							_id
+							price
+							isSold
+							watchedBy {
+								_id
+							}
 						}
 						userOrders {
 							_id
+							totalCost
 						}
 						userWatchList {
 							_id

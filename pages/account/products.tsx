@@ -36,16 +36,13 @@ export const getServerSideProps: GetServerSideProps = async (
 				userProducts {
 					_id
 					name
-					description
 					image
-					category
 					price
 					isSold
 					watchedBy {
 						_id
 					}
 					createdAt
-					updatedAt
 				}
 			}
 		`,

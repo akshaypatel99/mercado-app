@@ -50,19 +50,11 @@ export const getServerSideProps: GetServerSideProps = async (
 							name
 						}
 						subTotal
-						deliveryCost
+						platformFee
 						totalCost
-						deliveryAddress {
-							postcode
-						}
-						paymentResult {
-							id
-							status
-						}
 						isPaid
 						paidAt
 						createdAt
-						updatedAt
 					}
 				}
 			}

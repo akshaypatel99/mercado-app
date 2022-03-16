@@ -51,6 +51,7 @@ export const getServerSideProps: GetServerSideProps = async (
 						category
 						price
 						isSold
+						soldAt
 						watchedBy {
 							_id
 							name
