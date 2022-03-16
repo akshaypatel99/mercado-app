@@ -14,7 +14,7 @@ import {
 import NextLink from 'next/link';
 import Router from 'next/router';
 import { localDate } from '../lib/localDate';
-import { FiCheck, FiInfo, FiX } from 'react-icons/fi';
+import { FiCheck, FiInfo, FiTrash2, FiX } from 'react-icons/fi';
 
 export default function UserProducts({ products }) {
 	return (
@@ -30,6 +30,7 @@ export default function UserProducts({ products }) {
 					<Th isNumeric>Price (£)</Th>
 					<Th>Sold</Th>
 					<Th>Info</Th>
+					<Th>Delete</Th>
 				</Tr>
 			</Thead>
 			<Tbody>
@@ -40,7 +41,11 @@ export default function UserProducts({ products }) {
 							<Td>
 								<LinkBox>
 									<NextLink href={`/product/${product._id}`} passHref>
-										<LinkOverlay display='flex' alignItems='center'>
+										<LinkOverlay
+											display='flex'
+											alignItems='center'
+											_hover={{ textDecoration: 'underline' }}
+										>
 											<Image
 												src={product.image}
 												alt={product.name}
@@ -61,6 +66,13 @@ export default function UserProducts({ products }) {
 									icon={<FiInfo />}
 									aria-label='More information'
 									onClick={() => Router.push(`/product/${product._id}`)}
+								/>
+							</Td>
+							<Td>
+								<IconButton
+									icon={<FiTrash2 />}
+									aria-label='Delete product'
+									onClick={() => {}}
 								/>
 							</Td>
 						</Tr>
