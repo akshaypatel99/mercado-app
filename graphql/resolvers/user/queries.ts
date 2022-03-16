@@ -1,3 +1,4 @@
+import { AuthenticationError } from "apollo-server-micro";
 import { User, Product } from "../../../db/models";
 import { safeUserInfo } from "../../../lib/api-util";
 
@@ -42,6 +43,9 @@ const userQueries = {
   },
   currentUser: async (parent, args, { user }) => {
     try {
+      if (!user) {
+        throw new AuthenticationError("Not logged in");
+      }
       const data = await User.findById(user._id)
       const currentUserData = safeUserInfo(data);
       return currentUserData;
