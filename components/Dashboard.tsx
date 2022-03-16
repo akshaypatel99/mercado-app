@@ -1,5 +1,5 @@
 import { SimpleGrid } from '@chakra-ui/react';
-import AccountOption from './DashboardOption';
+import DashboardOption from './DashboardOption';
 
 type Option = {
 	heading: string;
@@ -9,9 +9,9 @@ type Option = {
 
 export default function Dashboard({ options }: { options: Option[] }) {
 	return (
-		<SimpleGrid columns={2} spacing={10}>
+		<SimpleGrid minChildWidth='172px' spacingX={40} spacingY={20} mt='10'>
 			{options.map((option) => (
-				<AccountOption key={option.href} {...option} />
+				<DashboardOption key={option.href} {...option} />
 			))}
 		</SimpleGrid>
 	);
