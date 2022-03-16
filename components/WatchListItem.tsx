@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useContext } from 'react';
 import { CheckoutContext } from '../context/CheckoutContext';
 import { WatchListContext } from '../context/WatchListContext';
-import formatPrice from '../lib/formatPrice';
+import formatCurrency from '../lib/formatCurrency';
 import ErrorMessage from './ErrorMessage';
 
 export default function WatchListItem({ product }) {
@@ -29,7 +29,7 @@ export default function WatchListItem({ product }) {
 						{product.name}
 					</Heading>
 					<Heading fontSize='lg' fontWeight='semibold' variant='product'>
-						{formatPrice(product.price)}
+						{formatCurrency(product.price)}
 					</Heading>
 				</Box>
 				<Box display='flex' flexDir='column'>

@@ -1,6 +1,6 @@
 import { Badge, Box, Image, LinkBox, LinkOverlay } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import formatPrice from '../lib/formatPrice';
+import formatCurrency from '../lib/formatCurrency';
 
 type ProductProps = {
 	_id: string;
@@ -76,7 +76,7 @@ export default function Product({ product }: { product: ProductProps }) {
 						lineHeight='tight'
 						isTruncated
 					>
-						{formatPrice(product.price)}
+						{formatCurrency(product.price)}
 					</Box>
 				</Box>
 			</Box>

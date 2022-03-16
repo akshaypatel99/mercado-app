@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import { CheckoutContext } from '../context/CheckoutContext';
 import { Box, Button, Heading, Image, Text, VStack } from '@chakra-ui/react';
 import ErrorMessage from './ErrorMessage';
-import formatPrice from '../lib/formatPrice';
+import formatCurrency from '../lib/formatCurrency';
 import getStripe from '../lib/get-stripejs';
 import Policy from './Policy';
 
@@ -60,18 +60,20 @@ export default function CheckoutItem() {
 								{checkoutItem.name}
 							</Heading>
 							<Heading fontSize='3xl' variant='product' mt='2'>
-								{formatPrice(checkoutItem.price)}
+								{formatCurrency(checkoutItem.price)}
 							</Heading>
 							<Text>
 								Platform fee (3%):{' '}
-								<strong>{formatPrice(checkoutItem.price * 0.03)}</strong>
+								<strong>{formatCurrency(checkoutItem.price * 0.03)}</strong>
 							</Text>
 							<Text>
 								Delivery cost: <strong>£3.95</strong>
 							</Text>
 							<Heading fontSize='3xl' variant='product'>
 								Total:{' '}
-								<strong>{formatPrice(checkoutItem.price * 1.03 + 3.95)}</strong>
+								<strong>
+									{formatCurrency(checkoutItem.price * 1.03 + 3.95)}
+								</strong>
 							</Heading>
 						</VStack>
 
