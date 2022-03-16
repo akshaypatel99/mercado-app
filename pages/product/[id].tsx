@@ -3,9 +3,17 @@ import client from '../../lib/apollo-client';
 import Product from '../../components/Product';
 import checkUser, { MyPageContext } from '../../lib/checkUser';
 import { GetServerSideProps } from 'next';
+import ErrorMessage from '../../components/ErrorMessage';
+import BackLink from '../../components/BackLink';
 
 export default function ProductPage({ product, error, user }) {
-	return <Product product={product} error={error} user={user} />;
+	return (
+		<>
+			<BackLink />
+			{error && <ErrorMessage error={error} />}
+			<Product product={product} user={user} />
+		</>
+	);
 }
 
 export const getServerSideProps: GetServerSideProps = async (
