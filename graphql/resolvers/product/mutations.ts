@@ -54,6 +54,30 @@ const productMutations = {
       return error
     }
   },
+  restock: async (parent, { id }, { user }) => {
+    try {
+      const product = await Product.findById(id);
+
+      if (product) {
+        if (product.user === user._id || user.role === 'ADMIN') {
+          product.sold = false;
+          product.soldAt = null;
+          const updatedProduct = await product.save();
+
+          return {
+            message: 'Product returned to sale!',
+            product: updatedProduct
+          }
+        } else {
+          throw new ApolloError('Unauthorized update action')
+        }
+      } else {
+        throw new ApolloError('Product not found')
+      }
+    } catch (error) {
+      return error
+    }
+  },  
   deleteProduct: async (parent, { id }, { user }) => {
     try {
       const product = await Product.findById(id);
