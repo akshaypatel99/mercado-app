@@ -16,7 +16,7 @@ import {
 import NextLink from 'next/link';
 import Router from 'next/router';
 import { localDate } from '../lib/localDate';
-import { FiCheck, FiInfo, FiX } from 'react-icons/fi';
+import { FiCheck, FiInfo, FiRotateCcw, FiTrash2, FiX } from 'react-icons/fi';
 
 export default function AdminProducts({ products, count }) {
 	return (
@@ -33,8 +33,10 @@ export default function AdminProducts({ products, count }) {
 						<Th>Created</Th>
 						<Th isNumeric>Price (£)</Th>
 						<Th>Sold</Th>
+						<Th>Restock</Th>
 						<Th>User</Th>
 						<Th>Info</Th>
+						<Th>Delete</Th>
 					</Tr>
 				</Thead>
 				<Tbody>
@@ -45,7 +47,11 @@ export default function AdminProducts({ products, count }) {
 								<Td>
 									<LinkBox>
 										<NextLink href={`/product/${product._id}`} passHref>
-											<LinkOverlay display='flex' alignItems='center'>
+											<LinkOverlay
+												display='flex'
+												alignItems='center'
+												_hover={{ textDecoration: 'underline' }}
+											>
 												<Image
 													src={product.image}
 													alt={product.name}
@@ -62,6 +68,13 @@ export default function AdminProducts({ products, count }) {
 								<Td isNumeric>{product.price.toFixed(2)}</Td>
 								<Td>{product.isSold ? <FiCheck /> : <FiX />}</Td>
 								<Td>
+									<IconButton
+										icon={<FiRotateCcw />}
+										aria-label='Return to stock'
+										onClick={() => {}}
+									/>
+								</Td>
+								<Td>
 									<NextLink href={`/admin/user/${product.user._id}`}>
 										<Link>{product.user.name}</Link>
 									</NextLink>
@@ -71,6 +84,14 @@ export default function AdminProducts({ products, count }) {
 										icon={<FiInfo />}
 										aria-label='More information'
 										onClick={() => Router.push(`/product/${product._id}`)}
+									/>
+								</Td>
+
+								<Td>
+									<IconButton
+										icon={<FiTrash2 />}
+										aria-label='Delete product'
+										onClick={() => {}}
 									/>
 								</Td>
 							</Tr>
