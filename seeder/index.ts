@@ -58,8 +58,56 @@ const destroyData = async () => {
   }
 };
 
-if (process.argv[4] === '-d') {
-  destroyData();
-} else {
-  importData();
-}
+const addField = async () => {
+  try {
+    await Order.updateMany({}, { $set: { platformFee: 0.03 } });
+    console.log('Field added...');
+    process.exit();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
+
+addField();
+
+const updateField = async () => {
+  try {
+    await Product.updateMany({}, { $set: { isSold: false } });
+    console.log('Field updated...');
+    process.exit();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
+
+// updateField();
+
+const insertProductsToDelete = async () => {
+  try {
+    const adminUser = await User.findOne({ role: 'ADMIN' });
+    const testProducts = products.slice(0, 5);
+    const productsToDelete = testProducts.map(product => ({
+      ...product,
+      user: adminUser.id,
+      name: `DELETE-${product.name}`
+    }))
+
+    await Product.insertMany(productsToDelete)
+    console.log('Products inserted...');
+    process.exit();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
+
+// insertProductsToDelete();
+
+
+// if (process.argv[4] === '-d') {
+//   destroyData();
+// } else {
+//   importData();
+// }

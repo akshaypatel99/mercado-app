@@ -5,6 +5,7 @@ type ProductData = {
   category: string;
   price: number;
   isSold: boolean;
+  soldAt: Date;
   watchedBy: object[];
 }
 
@@ -16,6 +17,7 @@ const products: ProductData[] = [
     category: "Electronics",
     price: 12,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -25,6 +27,7 @@ const products: ProductData[] = [
     category: "Clothing",
     price: 20,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -34,6 +37,7 @@ const products: ProductData[] = [
     category: "Clothing",
     price: 25,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -43,6 +47,7 @@ const products: ProductData[] = [
     category: "Clothing",
     price: 30,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -52,6 +57,7 @@ const products: ProductData[] = [
     category: "Clothing",
     price: 150,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -61,6 +67,7 @@ const products: ProductData[] = [
     category: "Jewellery",
     price: 75,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -70,6 +77,7 @@ const products: ProductData[] = [
     category: "Electronics",
     price: 160,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -79,6 +87,7 @@ const products: ProductData[] = [
     category: "Clothing",
     price: 395,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -88,6 +97,7 @@ const products: ProductData[] = [
     category: "Accessories",
     price: 40,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -97,6 +107,7 @@ const products: ProductData[] = [
     category: "Electronics",
     price: 250,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -106,6 +117,7 @@ const products: ProductData[] = [
     category: "Musical Instruments",
     price: 50,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -115,6 +127,7 @@ const products: ProductData[] = [
     category: "Electronics",
     price: 3450,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -124,6 +137,7 @@ const products: ProductData[] = [
     category: "Electronics",
     price: 365,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
   {
@@ -133,6 +147,7 @@ const products: ProductData[] = [
     category: "Furniture",
     price: 275,
     isSold: false,
+    soldAt: null,
     watchedBy: [],
   },
 ];

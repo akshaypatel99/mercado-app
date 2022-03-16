@@ -7,7 +7,8 @@
     "start": "next start",
     "lint": "next lint",
     "data:import": "ts-node --project tsconfig.seeder.json seeder/index.ts",
-    "data:destroy": "ts-node --project tsconfig.seeder.json seeder/index.ts -d"
+    "data:destroy": "ts-node --project tsconfig.seeder.json seeder/index.ts -d",
+    "data:insert": "ts-node --project tsconfig.seeder.json seeder/index.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.5.8",
