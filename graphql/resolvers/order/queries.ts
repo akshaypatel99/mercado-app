@@ -32,13 +32,11 @@ const orderQueries = {
       return error
     }
   },
-  order: async (parent, args, { user }) => {
+  order: async (parent, { id }, { user }) => {
     try {
-      const { id } = args;
-
       const loggedInUser = await User.findById({ _id: user._id });
       
-      if (loggedInUser.userOrders.includes({ order: id }) || loggedInUser.role === 'ADMIN') {
+      if (loggedInUser.userOrders.includes(id) || loggedInUser.role === 'ADMIN') {
         return await Order.findById(id)
       } else {
         throw new ApolloError('Unauthorized access')
