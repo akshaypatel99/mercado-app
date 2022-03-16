@@ -134,6 +134,16 @@ const theme = extendTheme({
           }
         },
       }
+    },
+    Text: {
+      variants: {
+        'label': {
+          color: 'brand.700',
+          fontWeight: 'semibold',
+          letterSpacing: 'wide',
+          textTransform: 'uppercase',
+        },
+      }
     }
   }
 });
