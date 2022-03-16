@@ -16,14 +16,14 @@ export default function Account() {
 			imageUrl: 'orders.jpeg',
 		},
 		{
-			heading: 'My Details',
-			href: 'account/details',
-			imageUrl: 'details.jpeg',
+			heading: 'My Profile',
+			href: 'account/profile',
+			imageUrl: 'profile.jpeg',
 		},
 		{
-			heading: 'My Insights',
-			href: 'account/insights',
-			imageUrl: 'insights.jpeg',
+			heading: 'Contact Us',
+			href: 'contact',
+			imageUrl: 'contact.jpeg',
 		},
 	];
 
