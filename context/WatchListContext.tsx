@@ -42,7 +42,9 @@ const WatchListProvider = ({ children }: { children: ReactNode }) => {
 
 	function toggleUserWatchList(id: string) {
 		if (!user) {
-			Router.push('/login');
+			Router.push(
+				'/login?message=Please login or signup to add to your watchlist'
+			);
 		} else {
 			toggleWatchList({
 				variables: {

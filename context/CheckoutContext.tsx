@@ -10,7 +10,7 @@ const CheckoutProvider = ({ children }: { children: ReactNode }) => {
 
 	const buyNow = (product) => {
 		if (!user) {
-			Router.push('/login');
+			Router.push('/login?message=Please login or signup to buy this product');
 		} else {
 			setCheckoutItem(product);
 			Router.push('/checkout');
