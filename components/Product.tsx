@@ -1,8 +1,7 @@
 import { Box, Heading, Image, Text } from '@chakra-ui/react';
-import formatPrice from '../lib/formatPrice';
+import formatCurrency from '../lib/formatCurrency';
 import EditProduct from './EditProduct';
 import ProductCustomerOptions from './ProductCustomerOptions';
-import BackTo from './BackTo';
 import ProductAdminOptions from './ProductAdminOptions';
 
 type SingleProduct = {
@@ -23,14 +22,11 @@ type SingleProduct = {
 	};
 };
 
-export default function Product({ product, error, user }) {
-	if (error) return <p>Error: {error.message}</p>;
-
+export default function Product({ product, user }) {
 	return (
 		<>
-			<BackTo text='All Products' href='products' />
 			<Box w='100%' display={{ lg: 'flex' }} my='6'>
-				<Box>
+				<Box w='100%'>
 					<Image src={product.image} alt={product.name} />
 					<Text
 						color='brand.700'
@@ -43,7 +39,7 @@ export default function Product({ product, error, user }) {
 						Seller: {product.user.name}
 					</Text>
 				</Box>
-				<Box ml={{ sm: '6', lg: '4' }}>
+				<Box w='100%' ml={{ sm: '6', lg: '4' }}>
 					<Text
 						color='brand.700'
 						fontWeight='bold'
@@ -56,7 +52,7 @@ export default function Product({ product, error, user }) {
 					<Heading my='8' variant='product'>
 						{product.name}
 					</Heading>
-					<Heading variant='product'>{formatPrice(product.price)}</Heading>
+					<Heading variant='product'>{formatCurrency(product.price)}</Heading>
 
 					<Text my='8'>{product.description}</Text>
 
@@ -65,7 +61,9 @@ export default function Product({ product, error, user }) {
 					</Text>
 
 					<Box mt='4'>
-						{user.role === 'ADMIN' && <ProductAdminOptions product={product} />}
+						{user && user.role === 'ADMIN' && (
+							<ProductAdminOptions product={product} />
+						)}
 						{!user ? (
 							<ProductCustomerOptions product={product} />
 						) : (user && user._id === product.user._id) ||
