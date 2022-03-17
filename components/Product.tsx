@@ -2,7 +2,6 @@ import { Box, Heading, Image, Text } from '@chakra-ui/react';
 import formatCurrency from '../lib/formatCurrency';
 import EditProduct from './EditProduct';
 import ProductCustomerOptions from './ProductCustomerOptions';
-import ProductAdminOptions from './ProductAdminOptions';
 
 type SingleProduct = {
 	product: {
@@ -62,10 +61,7 @@ export default function Product({ product, user }) {
 
 					<Box mt='4'>
 						{user && user.role === 'ADMIN' && (
-							<>
-								<ProductAdminOptions product={product} />
-								<ProductCustomerOptions product={product} />
-							</>
+							<ProductCustomerOptions product={product} />
 						)}
 						{!user ? (
 							<ProductCustomerOptions product={product} />
