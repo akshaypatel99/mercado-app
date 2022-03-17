@@ -18,7 +18,7 @@ export default function DashboardOption({
 			cursor='pointer'
 			boxShadow='md'
 			bgColor='brand.300'
-			backgroundImage={`url('/images/${imageUrl}')`}
+			backgroundImage={imageUrl ? `url('/images/${imageUrl}')` : undefined}
 			backgroundPosition='center'
 			backgroundRepeat='no-repeat'
 			backgroundSize='cover'
