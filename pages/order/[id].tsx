@@ -45,6 +45,10 @@ export const getServerSideProps: GetServerSideProps = async (
 						name
 						image
 						price
+						user {
+							_id
+							name
+						}
 					}
 					subTotal
 					deliveryCost

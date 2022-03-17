@@ -98,9 +98,16 @@ export default function Order({ order, user }) {
 					</HStack>
 					<HStack spacing='16px'>
 						<Text variant='label' mr='2'>
-							SubTotal:{' '}
+							Vendor:{' '}
 						</Text>
-						<Text>{formatCurrency(order.subTotal)}</Text>
+						<Spacer />
+						{user.role === 'ADMIN' ? (
+							<NextLink href={`/admin/user/${order.product.user._id}`}>
+								<Link fontWeight='semibold'>{order.product.user.name}</Link>
+							</NextLink>
+						) : (
+							<Text>{order.product.user.name}</Text>
+						)}
 					</HStack>
 					<HStack spacing='16px'>
 						<Text variant='label' mr='2'>
@@ -128,7 +135,7 @@ export default function Order({ order, user }) {
 					</HStack>
 					<HStack spacing='16px'>
 						<Text variant='label' mr='2'>
-							Payment Received On:{' '}
+							Payment Received:{' '}
 						</Text>
 						<Text>{localDate(order.paidAt)}</Text>
 					</HStack>
