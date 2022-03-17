@@ -42,7 +42,7 @@ type Mutation {
 	# Order
 	createOrder(input: OrderInput): OrderResult
 	updateOrder(id: ID!, input: OrderInput): Order!
-	deleteOrder(id: ID!): String!
+	deleteOrder(id: ID!): OrderResult
 }
 
 ## Common ##
@@ -97,8 +97,9 @@ type Product implements Timestamps {
 	category: String!
 	price: Float!
 	isSold: Boolean!
-	soldAt: Date
-	watchedBy: [User]
+	soldOn: Date
+	orders: [Order!]
+	watchedBy: [User!]
 
 	# Interface required
 	createdAt: Date!
