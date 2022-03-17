@@ -31,7 +31,7 @@ export default function Success() {
 					<AlertDescription maxWidth='lg'>
 						Your order has been placed! You will receive an email confirmation
 						and your item will be dispatched shortly. <br />
-						<NextLink href={`/orders/`} passHref>
+						<NextLink href={`/account/orders/`} passHref>
 							<Link fontWeight='bold' color='brand.8500'>
 								See your orders here
 							</Link>
