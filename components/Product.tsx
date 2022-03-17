@@ -62,7 +62,10 @@ export default function Product({ product, user }) {
 
 					<Box mt='4'>
 						{user && user.role === 'ADMIN' && (
-							<ProductAdminOptions product={product} />
+							<>
+								<ProductAdminOptions product={product} />
+								<ProductCustomerOptions product={product} />
+							</>
 						)}
 						{!user ? (
 							<ProductCustomerOptions product={product} />
