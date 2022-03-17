@@ -27,7 +27,7 @@ const fulfillOrder = async (session) => {
     product: product._id,
     subTotal: session.amount_subtotal / 100,
     deliveryCost: session.total_details.amount_shipping / 100,
-    platformFee: (session.amount_total - session.amount_subtotal - session.total_details.amount_shipping) / 100,
+    platformFee: (session.amount_subtotal - (session.amount_subtotal / 1.03)) / 100,
     totalCost: session.amount_total / 100,
     deliveryAddress: {
     name: session.shipping.name,
@@ -44,11 +44,12 @@ const fulfillOrder = async (session) => {
     paidAt: new Date(),
   });
 
-  await order.save();
-
   user.userOrders.push(order._id);
   product.isSold = true;
-  product.soldAt = order.paidAt;
+  product.soldOn = order.paidAt;
+  product.orders.push(order._id);
+  
+  await order.save();
   await user.save();
   await product.save();
 
