@@ -1,5 +1,5 @@
 import { ApolloError } from "apollo-server-micro";
-import { Order, User } from "../../../db/models";
+import { Order, User, Product } from "../../../db/models";
 
 const orderMutations = {
   createOrder: async (parent, { input, customerId }, context) => {
@@ -60,6 +60,18 @@ const orderMutations = {
           { _id: order.user }, { $pull: { userOrders: order._id } }
         );
         await orderCreator.save();
+        
+        const product = await Product.findOneAndUpdate(
+          { _id: order.product }, { $pull: { orders: order._id } }
+        );
+
+        await product.save();
+
+        const foundProduct = await Product.findById(order.product);
+        if (foundProduct.orders.length === 0) {
+          await foundProduct.updateOne({ $set: { isSold: false, soldOn: null } });
+          await foundProduct.save();
+        }
 
         const deletedOrder = await Order.findOneAndDelete({ _id: id });
 
