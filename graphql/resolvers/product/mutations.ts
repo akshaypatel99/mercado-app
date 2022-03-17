@@ -60,12 +60,12 @@ const productMutations = {
 
       if (product) {
         if (product.user === user._id || user.role === 'ADMIN') {
-          product.sold = false;
-          product.soldAt = null;
+          product.isSold = false;
+          product.soldOn = null;
           const updatedProduct = await product.save();
 
           return {
-            message: 'Product returned to sale!',
+            message: 'Product restocked!',
             product: updatedProduct
           }
         } else {

@@ -8,8 +8,9 @@ export interface Product {
   category: String;
   price: Number;
   isSold: Boolean;
-  soldAt: Date;
-  watchedBy: { user: Types.ObjectId }[];
+  soldOn: Date;
+  orders: [Types.ObjectId];
+  watchedBy: [Types.ObjectId];
 }
 
 const productSchema = new Schema<Product>({
@@ -44,10 +45,16 @@ const productSchema = new Schema<Product>({
     required: true,
     default: false
   },
-  soldAt: {
+  soldOn: {
     type: Date,
     required: false,
   },
+  orders:  [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Order'
+    }
+  ],
   watchedBy: [
     {
       type: Schema.Types.ObjectId,

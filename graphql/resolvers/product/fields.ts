@@ -1,4 +1,4 @@
-import { User } from '../../../db/models';
+import { User, Order } from '../../../db/models';
 
 const productFields = {
   Product: {
@@ -11,6 +11,11 @@ const productFields = {
       const users = await User.find({ userWatchList: product._id });
 
       return users;
+    },
+    orders: async (product) => {
+      const orders = await Order.find({ product: product._id });
+
+      return orders;
     }
   }
 }
