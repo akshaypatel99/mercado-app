@@ -14,7 +14,7 @@ import {
 import NextLink from 'next/link';
 import Router from 'next/router';
 import { localDate } from '../lib/localDate';
-import { FiCheck, FiInfo, FiTrash2, FiX } from 'react-icons/fi';
+import { FiInfo, FiMinus, FiTrash2 } from 'react-icons/fi';
 
 export default function UserProducts({ products }) {
 	return (
@@ -28,7 +28,7 @@ export default function UserProducts({ products }) {
 					<Th>Name</Th>
 					<Th>Created</Th>
 					<Th isNumeric>Price (£)</Th>
-					<Th>Sold</Th>
+					<Th>Sold On</Th>
 					<Th>Info</Th>
 					<Th>Delete</Th>
 				</Tr>
@@ -60,7 +60,10 @@ export default function UserProducts({ products }) {
 							</Td>
 							<Td>{localDate(product.createdAt)}</Td>
 							<Td isNumeric>{product.price.toFixed(2)}</Td>
-							<Td>{product.isSold ? <FiCheck /> : <FiX />}</Td>
+							<Td>
+								{product.soldOn ? localDate(product.soldOn) : <FiMinus />}
+							</Td>
+
 							<Td>
 								<IconButton
 									icon={<FiInfo />}
