@@ -39,6 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (
 					image
 					price
 					isSold
+					soldOn
 					watchedBy {
 						_id
 					}
@@ -47,6 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (
 			}
 		`,
 	});
+
 	return {
 		props: {
 			products: data.userProducts,

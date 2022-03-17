@@ -68,6 +68,7 @@ export const getServerSideProps: GetServerSideProps = async (
 				page: 1,
 			},
 		},
+		fetchPolicy: 'network-only',
 	});
 
 	return {

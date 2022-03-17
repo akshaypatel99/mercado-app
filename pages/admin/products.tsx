@@ -51,7 +51,11 @@ export const getServerSideProps: GetServerSideProps = async (
 						category
 						price
 						isSold
-						soldAt
+						soldOn
+						orders {
+							_id
+							createdAt
+						}
 						watchedBy {
 							_id
 							name
@@ -68,6 +72,7 @@ export const getServerSideProps: GetServerSideProps = async (
 				page: 1,
 			},
 		},
+		fetchPolicy: 'network-only',
 	});
 
 	return {
