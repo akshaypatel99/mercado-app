@@ -120,26 +120,26 @@ connectDB();
 // renameField();
 
 
-// const insertProductsToDelete = async () => {
-//   try {
-//     const adminUser = await User.findOne({ role: 'ADMIN' });
-//     const testProducts = products.slice(0, 5);
-//     const productsToDelete = testProducts.map(product => ({
-//       ...product,
-//       user: adminUser.id,
-//       name: `DELETE-${product.name}`
-//     }))
+const insertProductsToDelete = async () => {
+  try {
+    const adminUser = await User.findOne({ role: 'ADMIN' });
+    const testProducts = products.slice(0, 10);
+    const productsToDelete = testProducts.map(product => ({
+      ...product,
+      user: adminUser.id,
+      name: `DELETE-${product.name}`
+    }))
 
-//     await Product.insertMany(productsToDelete)
-//     console.log('Products inserted...');
-//     process.exit();
-//   } catch (error) {
-//     console.error(error);
-//     process.exit(1);
-//   }
-// };
+    await Product.insertMany(productsToDelete)
+    console.log('Products inserted...');
+    process.exit();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
 
-// insertProductsToDelete();
+insertProductsToDelete();
 
 
 // if (process.argv[4] === '-d') {
