@@ -10,19 +10,19 @@ import {
 	DrawerCloseButton,
 	Heading,
 } from '@chakra-ui/react';
-import { WatchListContext } from '../context/WatchListContext';
-import WatchListContent from './WatchListContent';
+import { WatchlistContext } from '../context/WatchlistContext';
+import WatchlistContent from './WatchlistContent';
 
-export default function WatchList() {
-	const { watchListIsOpen, watchListOnClose } = useContext(WatchListContext);
+export default function Watchlist() {
+	const { watchlistIsOpen, watchlistOnClose } = useContext(WatchlistContext);
 
 	const btnRef = React.useRef();
 
 	return (
 		<Drawer
-			isOpen={watchListIsOpen}
+			isOpen={watchlistIsOpen}
 			placement='right'
-			onClose={() => watchListOnClose()}
+			onClose={() => watchlistOnClose()}
 			finalFocusRef={btnRef}
 			size='md'
 		>
@@ -31,12 +31,12 @@ export default function WatchList() {
 				<DrawerCloseButton color='brand.white' mt='1' />
 				<DrawerHeader>
 					<Heading fontSize='2xl' variant='light'>
-						Watch List
+						Watchlist
 					</Heading>
 				</DrawerHeader>
 
 				<DrawerBody>
-					<WatchListContent />
+					<WatchlistContent />
 				</DrawerBody>
 
 				<DrawerFooter borderTop='1px solid' borderColor='brand.150'>
@@ -44,7 +44,7 @@ export default function WatchList() {
 						variant='secondary'
 						width='100%'
 						m='auto'
-						onClick={() => watchListOnClose()}
+						onClick={() => watchlistOnClose()}
 					>
 						Close
 					</Button>

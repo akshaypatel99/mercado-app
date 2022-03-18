@@ -17,7 +17,12 @@ export default function ProductList({ products, error }) {
 
 	return (
 		<>
-			<SimpleGrid minChildWidth='350px' spacing='60px' mt='8'>
+			<SimpleGrid
+				minChildWidth='300px'
+				spacing='60px'
+				mt='8'
+				justifyItems='center'
+			>
 				{products.map((product: Product) => (
 					<ProductListItem key={product._id} product={product} />
 				))}

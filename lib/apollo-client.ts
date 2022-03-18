@@ -27,7 +27,7 @@ const cache = new InMemoryCache({
 	typePolicies: {
 		User: {
 			fields: {
-				userWatchList: {
+				userWatchlist: {
 					merge: false,
 				},
 			},

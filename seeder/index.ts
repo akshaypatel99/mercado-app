@@ -106,32 +106,10 @@ connectDB();
 
 // updateField();
 
-// const renameField = async () => {
-//   try {
-//     await Product.updateMany({}, { $rename: { "soldOn": "soldOn" } });
-//     console.log('Field renamed...');
-//     process.exit();
-//   } catch (error) {
-//     console.error(error);
-//     process.exit(1);
-//   }
-// };
-
-// renameField();
-
-
-const insertProductsToDelete = async () => {
+const renameField = async () => {
   try {
-    const adminUser = await User.findOne({ role: 'ADMIN' });
-    const testProducts = products.slice(0, 10);
-    const productsToDelete = testProducts.map(product => ({
-      ...product,
-      user: adminUser.id,
-      name: `DELETE-${product.name}`
-    }))
-
-    await Product.insertMany(productsToDelete)
-    console.log('Products inserted...');
+    await User.updateMany({}, { $rename: { "userWatchList": "userWatchlist" } });
+    console.log('Field renamed...');
     process.exit();
   } catch (error) {
     console.error(error);
@@ -139,7 +117,29 @@ const insertProductsToDelete = async () => {
   }
 };
 
-insertProductsToDelete();
+renameField();
+
+
+// const insertProductsToDelete = async () => {
+//   try {
+//     const adminUser = await User.findOne({ role: 'ADMIN' });
+//     const testProducts = products.slice(0, 10);
+//     const productsToDelete = testProducts.map(product => ({
+//       ...product,
+//       user: adminUser.id,
+//       name: `DELETE-${product.name}`
+//     }))
+
+//     await Product.insertMany(productsToDelete)
+//     console.log('Products inserted...');
+//     process.exit();
+//   } catch (error) {
+//     console.error(error);
+//     process.exit(1);
+//   }
+// };
+
+// insertProductsToDelete();
 
 
 // if (process.argv[4] === '-d') {

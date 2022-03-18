@@ -72,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = async (
 						subTotal
 						totalCost
 					}
-					userWatchList {
+					userWatchlist {
 						_id
 					}
 					createdAt

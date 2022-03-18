@@ -1,47 +1,47 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { useWatchList } from '../hooks/useWatchList';
+import { useWatchlist } from '../hooks/useWatchlist';
 import { StackDivider, VStack } from '@chakra-ui/react';
-import WatchListItem from './WatchListItem';
+import WatchlistItem from './WatchlistItem';
 import ErrorMessage from './ErrorMessage';
 import LoginRedirect from './LoginRedirect';
 
-export default function WatchListContent() {
+export default function WatchlistContent() {
 	const { user } = useContext(AuthContext);
-	const { watchListData, watchListLoading, watchListError } = useWatchList();
+	const { watchlistData, watchlistLoading, watchlistError } = useWatchlist();
 
 	if (!user) {
-		return <LoginRedirect message='view your watch list' />;
+		return <LoginRedirect message='view your watchlist' />;
 	}
 
-	if (!watchListData) {
-		return <p>You have no items in your watch list.</p>;
+	if (!watchlistData) {
+		return <p>You have no items in your watchlist.</p>;
 	}
 
-	if (watchListLoading) {
+	if (watchlistLoading) {
 		return <p>Loading...</p>;
 	}
 
-	if (watchListError) {
-		return <ErrorMessage error={watchListError} />;
+	if (watchlistError) {
+		return <ErrorMessage error={watchlistError} />;
 	}
 
-	if (watchListData.userWatchList.length === 0) {
-		return <p>You have no items in your watch list.</p>;
+	if (watchlistData.userWatchlist.length === 0) {
+		return <p>You have no items in your watchlist.</p>;
 	}
 
-	let reversedWatchList = [...watchListData.userWatchList].reverse();
+	let reversedWatchlist = [...watchlistData.userWatchlist].reverse();
 
 	return (
 		<>
-			{watchListData.userWatchList.length > 0 && (
+			{watchlistData.userWatchlist.length > 0 && (
 				<VStack
 					divider={<StackDivider borderColor='brand.300' />}
 					spacing={4}
 					align='stretch'
 				>
-					{reversedWatchList.map((product) => (
-						<WatchListItem key={product._id} product={product} />
+					{reversedWatchlist.map((product) => (
+						<WatchlistItem key={product._id} product={product} />
 					))}
 				</VStack>
 			)}

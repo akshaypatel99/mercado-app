@@ -12,11 +12,11 @@ import { useContext } from 'react';
 import NextLink from 'next/link';
 import { AuthContext } from '../context/AuthContext';
 import { FiChevronDown, FiLogOut, FiUser } from 'react-icons/fi';
-import { WatchListContext } from '../context/WatchListContext';
+import { WatchlistContext } from '../context/WatchlistContext';
 
 export default function Nav() {
 	const { user, logoutUser } = useContext(AuthContext);
-	const { watchListOnOpen } = useContext(WatchListContext);
+	const { watchlistOnOpen } = useContext(WatchlistContext);
 
 	const userMenu = (
 		<Menu>
@@ -31,13 +31,14 @@ export default function Nav() {
 				_focus={{ bg: 'brand.blue' }}
 				_active={{ bg: 'brand.blue' }}
 			>
-				<Text fontSize='xl'>{user?.name}</Text>
+				<Text fontSize='xl'>{user?.name.split(' ')[0]}</Text>
 			</MenuButton>
 			<MenuList
 				p='0.5'
 				bg='brand.400'
 				_hover={{ bg: 'brand.400' }}
 				_expanded={{ bg: 'brand.400' }}
+				zIndex={2}
 			>
 				{user && user.role === 'ADMIN' && (
 					<NextLink href='/admin' passHref>
@@ -105,10 +106,10 @@ export default function Nav() {
 					fontSize='xl'
 					fontWeight='semibold'
 					cursor='pointer'
-					onClick={() => watchListOnOpen()}
+					onClick={() => watchlistOnOpen()}
 					_hover={{ color: 'brand.yellow' }}
 				>
-					Watch List
+					Watchlist
 				</Text>
 				{user ? (
 					userMenu

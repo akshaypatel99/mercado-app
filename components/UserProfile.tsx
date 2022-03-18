@@ -84,14 +84,14 @@ export default function UserProfile({ user }) {
 						Items Being Watched
 					</StatLabel>
 					<StatNumber fontSize='4xl'>{itemsBeingWatched.length}</StatNumber>
-					<StatHelpText>No. products on all Watch Lists</StatHelpText>
+					<StatHelpText>No. products on all Watchlists</StatHelpText>
 				</Stat>
 				<Stat p='6' minW='200px'>
 					<StatLabel fontWeight='bold' textTransform='uppercase'>
-						Items On My Watch List
+						Items On My Watchlist
 					</StatLabel>
-					<StatNumber fontSize='4xl'>{user.userWatchList.length}</StatNumber>
-					<StatHelpText>No. products on my Watch List</StatHelpText>
+					<StatNumber fontSize='4xl'>{user.userWatchlist.length}</StatNumber>
+					<StatHelpText>No. products on my Watchlist</StatHelpText>
 				</Stat>
 			</StatGroup>
 		</>

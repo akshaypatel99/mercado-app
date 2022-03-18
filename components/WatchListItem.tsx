@@ -2,13 +2,13 @@ import { Box, Button, Heading, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useContext } from 'react';
 import { CheckoutContext } from '../context/CheckoutContext';
-import { WatchListContext } from '../context/WatchListContext';
+import { WatchlistContext } from '../context/WatchlistContext';
 import formatCurrency from '../lib/formatCurrency';
 import ErrorMessage from './ErrorMessage';
 
-export default function WatchListItem({ product }) {
-	const { watchListOnClose, toggleUserWatchList, toggleWatchListError } =
-		useContext(WatchListContext);
+export default function WatchlistItem({ product }) {
+	const { watchlistOnClose, toggleUserWatchlist, toggleWatchlistError } =
+		useContext(WatchlistContext);
 	const { buyNow } = useContext(CheckoutContext);
 
 	return (
@@ -20,7 +20,7 @@ export default function WatchListItem({ product }) {
 						objectFit='cover'
 						src={product.image}
 						alt={product.name}
-						onClick={() => watchListOnClose()}
+						onClick={() => watchlistOnClose()}
 						cursor='pointer'
 					/>
 				</Link>
@@ -40,13 +40,13 @@ export default function WatchListItem({ product }) {
 						size='sm'
 						my='2'
 						variant='negative'
-						onClick={() => toggleUserWatchList(product._id)}
+						onClick={() => toggleUserWatchlist(product._id)}
 					>
 						Remove
 					</Button>
 				</Box>
 			</Box>
-			{toggleWatchListError && <ErrorMessage error={toggleWatchListError} />}
+			{toggleWatchlistError && <ErrorMessage error={toggleWatchlistError} />}
 		</>
 	);
 }

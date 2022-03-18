@@ -19,7 +19,10 @@ export default function ProductPage({ product, error, user }) {
 export const getServerSideProps: GetServerSideProps = async (
 	context: MyPageContext
 ) => {
-	await checkUser(context, { level: 'USER', redirect: false });
+	await checkUser(context, {
+		level: 'USER',
+		redirect: false,
+	});
 
 	const { id } = context.params;
 

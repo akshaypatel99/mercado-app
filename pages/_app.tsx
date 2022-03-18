@@ -3,7 +3,7 @@ import { ApolloProvider } from '@apollo/client';
 import { ChakraProvider } from '@chakra-ui/react';
 import { AuthProvider } from '../context/AuthContext';
 import { CheckoutProvider } from '../context/CheckoutContext';
-import { WatchListProvider } from '../context/WatchListContext';
+import { WatchlistProvider } from '../context/WatchlistContext';
 import client from '../lib/apollo-client';
 import NProgress from 'nprogress';
 import Router from 'next/router';
@@ -29,11 +29,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 			<ChakraProvider resetCSS theme={theme}>
 				<AuthProvider>
 					<CheckoutProvider>
-						<WatchListProvider>
+						<WatchlistProvider>
 							<Page>
 								<Component {...pageProps} />
 							</Page>
-						</WatchListProvider>
+						</WatchlistProvider>
 					</CheckoutProvider>
 				</AuthProvider>
 			</ChakraProvider>

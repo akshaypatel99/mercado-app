@@ -3,16 +3,16 @@ import Router from 'next/router';
 import { useDisclosure } from '@chakra-ui/react';
 import { gql, useMutation } from '@apollo/client';
 import { CURRENT_USER } from '../hooks/useCurrentUser';
-import { WATCHLIST } from '../hooks/useWatchList';
+import { WATCHLIST } from '../hooks/useWatchlist';
 import { AuthContext } from './AuthContext';
 
 const TOGGLE_WATCHLIST = gql`
-	mutation ToggleWatchList($toggleWatchListId: ID!) {
-		toggleWatchList(id: $toggleWatchListId) {
+	mutation ToggleWatchlist($toggleWatchlistId: ID!) {
+		toggleWatchlist(id: $toggleWatchlistId) {
 			message
 			user {
 				_id
-				userWatchList {
+				userWatchlist {
 					_id
 					name
 					image
@@ -24,52 +24,52 @@ const TOGGLE_WATCHLIST = gql`
 	}
 `;
 
-const WatchListContext = createContext(null);
+const WatchlistContext = createContext(null);
 
-const WatchListProvider = ({ children }: { children: ReactNode }) => {
+const WatchlistProvider = ({ children }: { children: ReactNode }) => {
 	const { user } = useContext(AuthContext);
 
 	const {
-		isOpen: watchListIsOpen,
-		onOpen: watchListOnOpen,
-		onClose: watchListOnClose,
+		isOpen: watchlistIsOpen,
+		onOpen: watchlistOnOpen,
+		onClose: watchlistOnClose,
 	} = useDisclosure();
 
 	const [
-		toggleWatchList,
-		{ loading: toggleWatchListLoading, error: toggleWatchListError },
+		toggleWatchlist,
+		{ loading: toggleWatchlistLoading, error: toggleWatchlistError },
 	] = useMutation(TOGGLE_WATCHLIST);
 
-	function toggleUserWatchList(id: string) {
+	function toggleUserWatchlist(id: string) {
 		if (!user) {
 			Router.push(
 				'/login?message=Please login or signup to add to your watchlist'
 			);
 		} else {
-			toggleWatchList({
+			toggleWatchlist({
 				variables: {
-					toggleWatchListId: id,
+					toggleWatchlistId: id,
 				},
 				refetchQueries: [{ query: CURRENT_USER }, { query: WATCHLIST }],
 			});
-			setTimeout(() => watchListOnOpen(), 500);
+			setTimeout(() => watchlistOnOpen(), 500);
 		}
 	}
 
 	return (
-		<WatchListContext.Provider
+		<WatchlistContext.Provider
 			value={{
-				watchListIsOpen,
-				watchListOnOpen,
-				watchListOnClose,
-				toggleUserWatchList,
-				toggleWatchListLoading,
-				toggleWatchListError,
+				watchlistIsOpen,
+				watchlistOnOpen,
+				watchlistOnClose,
+				toggleUserWatchlist,
+				toggleWatchlistLoading,
+				toggleWatchlistError,
 			}}
 		>
 			{children}
-		</WatchListContext.Provider>
+		</WatchlistContext.Provider>
 	);
 };
 
-export { WatchListContext, WatchListProvider };
+export { WatchlistContext, WatchlistProvider };

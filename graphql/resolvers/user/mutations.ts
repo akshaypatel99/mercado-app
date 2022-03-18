@@ -120,7 +120,7 @@ const userMutations = {
       return error;
     }
   },
-  toggleWatchList: async (parent, { id }, { user }) => {
+  toggleWatchlist: async (parent, { id }, { user }) => {
     try {
       const foundUser = await User.findById(user._id);
       const foundProduct = await Product.findById(id);
@@ -132,28 +132,28 @@ const userMutations = {
         throw new ApolloError('Product not found');
       }
 
-      // If product is already in watch list, remove it
-      if (foundUser.userWatchList.includes(id)) {
-        await foundUser.updateOne({ $pull: { userWatchList: id } });
+      // If product is already in watchlist, remove it
+      if (foundUser.userWatchlist.includes(id)) {
+        await foundUser.updateOne({ $pull: { userWatchlist: id } });
         await foundUser.save();
         
         await foundProduct.updateOne({ $pull: { watchedBy: user._id } });
         await foundProduct.save();
 
         return {
-          message: 'Product removed from watch list',
+          message: 'Product removed from watchlist',
           user: foundUser,
         }
       } else {
-        // Add product to watch list
-        await foundUser.updateOne({ $addToSet: { userWatchList: id } });
+        // Add product to watchlist
+        await foundUser.updateOne({ $addToSet: { userWatchlist: id } });
         await foundUser.save();
         
         await foundProduct.updateOne({ $addToSet: { watchedBy: user._id } });
         await foundProduct.save();
         
         return {
-          message: 'Product added to watch list',
+          message: 'Product added to watchlist',
           user: foundUser,
         }
       }

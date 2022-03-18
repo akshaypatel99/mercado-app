@@ -17,7 +17,7 @@ type User = {
 	role: string;
 	userProducts: object[];
 	userOrders: string[];
-	userWatchList: object[];
+	userWatchlist: object[];
 };
 
 interface AuthContextInterface {
@@ -68,7 +68,7 @@ const SIGN_UP = gql`
 					paidAt
 					createdAt
 				}
-				userWatchList {
+				userWatchlist {
 					_id
 				}
 			}
@@ -118,7 +118,7 @@ const LOGIN = gql`
 					paidAt
 					createdAt
 				}
-				userWatchList {
+				userWatchlist {
 					_id
 				}
 			}

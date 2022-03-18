@@ -21,7 +21,7 @@ export type UserData = {
   role: string;
   userProducts: object[];
   userOrders: object[];
-  userWatchList: object[];
+  userWatchlist: object[];
   createdAt: string;
   updatedAt: string;
 }
@@ -128,8 +128,8 @@ const checkUserRole = (user: AccessUserInfo, allowableRoles: string[]) => {
 
 // Send safe user info (remove password)
 const safeUserInfo = (user: UserData) => {
-  const { _id, name, email, role, userProducts, userOrders, userWatchList, createdAt } = user;
-  const userInfo = { _id, name, email, role, userProducts, userOrders, userWatchList, createdAt };
+  const { _id, name, email, role, userProducts, userOrders, userWatchlist, createdAt } = user;
+  const userInfo = { _id, name, email, role, userProducts, userOrders, userWatchlist, createdAt };
   return userInfo;
 }
 

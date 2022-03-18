@@ -1,8 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
 
 const WATCHLIST = gql`
-	query UserWatchList {
-		userWatchList {
+	query UserWatchlist {
+		userWatchlist {
 			_id
 			name
 			price
@@ -12,14 +12,14 @@ const WATCHLIST = gql`
 	}
 `;
 
-export function useWatchList() {
+export function useWatchlist() {
 	const {
-		data: watchListData,
-		loading: watchListLoading,
-		error: watchListError,
+		data: watchlistData,
+		loading: watchlistLoading,
+		error: watchlistError,
 	} = useQuery(WATCHLIST);
 
-	return { watchListData, watchListLoading, watchListError };
+	return { watchlistData, watchlistLoading, watchlistError };
 }
 
 export { WATCHLIST };

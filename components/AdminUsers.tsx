@@ -31,7 +31,7 @@ export default function AdminUsers({ users, count }) {
 						<Th>Role</Th>
 						<Th isNumeric>Products</Th>
 						<Th isNumeric>Orders</Th>
-						<Th isNumeric>Watch List Products</Th>
+						<Th isNumeric>Watchlist Products</Th>
 						<Th>Created</Th>
 						<Th>Info</Th>
 					</Tr>
@@ -50,7 +50,7 @@ export default function AdminUsers({ users, count }) {
 								<Td>{user.role}</Td>
 								<Td isNumeric>{user.userProducts.length}</Td>
 								<Td isNumeric>{user.userOrders.length}</Td>
-								<Td isNumeric>{user.userWatchList.length}</Td>
+								<Td isNumeric>{user.userWatchlist.length}</Td>
 								<Td>{localDate(user.createdAt)}</Td>
 								<Td>
 									<IconButton

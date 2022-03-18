@@ -9,7 +9,7 @@ type Query {
 	products(params: QueryParams): Products!
 	product(id: ID!): Product
 	userProducts: [Product]!
-	userWatchList: [Product]!
+	userWatchlist: [Product]!
 
 	# User
 	users(params: QueryParams): Users!
@@ -37,7 +37,7 @@ type Mutation {
 	logout: Boolean
 	updateUserRole(id: ID!, role: String!): UserUpdateResult
 	deleteUser(id: ID!): UserDeleteResult
-	toggleWatchList(id: ID!): UserUpdateResult
+	toggleWatchlist(id: ID!): UserUpdateResult
 
 	# Order
 	createOrder(input: OrderInput): OrderResult
@@ -153,7 +153,7 @@ type User implements Timestamps {
 	role: String!
 	userProducts: [Product!]
 	userOrders: [Order!]
-	userWatchList: [Product!]
+	userWatchlist: [Product!]
 
 	# Interface required
 	createdAt: Date!

@@ -8,7 +8,7 @@ const productFields = {
       return user;
     },
     watchedBy: async (product) => {
-      const users = await User.find({ userWatchList: product._id });
+      const users = await User.find({ userWatchlist: product._id });
 
       return users;
     },
