@@ -11,9 +11,9 @@ import {
 	VStack,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import formatCurrency from '../lib/formatCurrency';
-import { localDate } from '../lib/localDate';
-import Title from './Title';
+import formatCurrency from '../../lib/formatCurrency';
+import { localDate } from '../../lib/localDate';
+import Title from '../Common/Title';
 
 export default function Order({ order, user }) {
 	return (

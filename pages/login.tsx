@@ -1,7 +1,7 @@
 import { Box, Container } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import InfoMessage from '../components/InfoMessage';
-import LoginForm from '../components/LoginForm';
+import InfoMessage from '../components/Message/InfoMessage';
+import LoginForm from '../components/Auth/LoginForm';
 
 export default function Login() {
 	const [message, setMessage] = useState('');

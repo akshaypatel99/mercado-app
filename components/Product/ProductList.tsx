@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { Box, SimpleGrid, Skeleton } from '@chakra-ui/react';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from './Message/ErrorMessage';
 import ProductListItem from './ProductListItem';
 
 type Product = {

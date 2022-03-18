@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import ProductForm from './ProductForm';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from '../Message/ErrorMessage';
 
 type Product = {
 	name: string;

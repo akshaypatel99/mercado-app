@@ -10,8 +10,8 @@ import {
 	DrawerCloseButton,
 	Heading,
 } from '@chakra-ui/react';
-import { WatchlistContext } from '../context/WatchlistContext';
-import WatchlistContent from './WatchlistContent';
+import { WatchlistContext } from '../../context/WatchlistReactContext';
+import WatchlistContent from './WatchlistDrawerContent';
 
 export default function Watchlist() {
 	const { watchlistIsOpen, watchlistOnClose } = useContext(WatchlistContext);

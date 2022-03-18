@@ -1,10 +1,10 @@
 import { gql } from '@apollo/client';
 import client from '../../lib/apollo-client';
-import Product from '../../components/Product';
+import Product from '../../components/Product/Product';
 import checkUser, { MyPageContext } from '../../lib/checkUser';
 import { GetServerSideProps } from 'next';
-import ErrorMessage from '../../components/ErrorMessage';
-import BackLink from '../../components/BackLink';
+import ErrorMessage from '../../components/Message/ErrorMessage';
+import BackLink from '../../components/Common/BackLink';
 import { Container } from '@chakra-ui/react';
 
 export default function ProductPage({ product, error, user }) {

@@ -8,7 +8,7 @@ import {
 	Link,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import Title from '../components/Title';
+import Title from '../components/Common/Title';
 
 export default function Success() {
 	return (

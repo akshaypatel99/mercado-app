@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { gql, useMutation } from '@apollo/client';
 import {
 	FormControl,
 	FormLabel,
@@ -12,21 +13,23 @@ import {
 	Text,
 	Link,
 } from '@chakra-ui/react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import NextLink from 'next/link';
-import ErrorMessage from './ErrorMessage';
-import Title from './Title';
+import ErrorMessage from '../Message/ErrorMessage';
+import Title from '../Common/Title';
 
-export default function LoginForm() {
+export default function SignUpForm() {
+	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const { login, loginLoading, loginError, user } = useContext(AuthContext);
+	const { user, signup, signupLoading, signupError } = useContext(AuthContext);
 
-	async function handleLogin(e: React.SyntheticEvent) {
+	async function handleSignup(e: React.SyntheticEvent) {
 		e.preventDefault();
-		await login({
+		await signup({
 			variables: {
 				input: {
+					name,
 					email,
 					password,
 				},
@@ -34,17 +37,31 @@ export default function LoginForm() {
 		});
 	}
 
+	const isNameError = name === '';
 	const isEmailError = email === '';
 	const isPasswordError = password === '';
 
 	return (
 		<Box>
-			<Title title={user ? `Welcome ${user.name}!` : 'Login'} />
+			<Title title={user ? `Welcome ${user.name}!` : 'Sign Up'} />
 			<Center mb='4'>
-				{loginError && <ErrorMessage error={loginError} />}
+				{signupError && <ErrorMessage error={signupError} />}
 			</Center>
 			<Center>
-				<form onSubmit={handleLogin}>
+				<form onSubmit={handleSignup}>
+					<FormControl isRequired isInvalid={isNameError} my='4'>
+						<FormLabel htmlFor='name'>Full name</FormLabel>
+						<Input
+							w='sm'
+							id='name'
+							type='text'
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+						/>
+						{isEmailError && (
+							<FormErrorMessage>Full name is required.</FormErrorMessage>
+						)}
+					</FormControl>
 					<FormControl isRequired isInvalid={isEmailError} my='4'>
 						<FormLabel htmlFor='email'>Email address</FormLabel>
 						<Input
@@ -56,7 +73,7 @@ export default function LoginForm() {
 						/>
 						{!isEmailError ? (
 							<FormHelperText>
-								We&apos;ll never share your email.
+								We`&apos`ll never share your email.
 							</FormHelperText>
 						) : (
 							<FormErrorMessage>Email is required.</FormErrorMessage>
@@ -75,17 +92,17 @@ export default function LoginForm() {
 							<FormErrorMessage>Password is required.</FormErrorMessage>
 						)}
 					</FormControl>
-					<Button type='submit' variant='primary' isLoading={loginLoading}>
-						Login
+					<Button type='submit' variant='primary' isLoading={signupLoading}>
+						Sign Up
 					</Button>
 				</form>
 			</Center>
 			<Center mt='8'>
 				<Text fontSize='sm' fontWeight='semibold' color='brand.500'>
-					Don&apos;t have an account?{' '}
-					<NextLink href='/signup' passHref>
+					Already have an account?{' '}
+					<NextLink href='/login' passHref>
 						<Link fontWeight='bold' color='brand.green'>
-							Sign up here
+							Log in here
 						</Link>
 					</NextLink>
 				</Text>

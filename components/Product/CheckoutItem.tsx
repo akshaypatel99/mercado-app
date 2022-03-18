@@ -1,12 +1,12 @@
 import { useContext, useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
-import { CheckoutContext } from '../context/CheckoutContext';
+import { AuthContext } from '../../context/AuthContext';
+import { CheckoutContext } from '../../context/CheckoutContext';
 import { Box, Button, Heading, Image, Text, VStack } from '@chakra-ui/react';
-import ErrorMessage from './ErrorMessage';
-import formatCurrency from '../lib/formatCurrency';
-import getStripe from '../lib/get-stripejs';
+import ErrorMessage from '../Message/ErrorMessage';
+import formatCurrency from '../../lib/formatCurrency';
+import getStripe from '../../lib/get-stripejs';
 import Policy from './Policy';
 
 export default function CheckoutItem() {

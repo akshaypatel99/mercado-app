@@ -1,5 +1,5 @@
 import { Box, Heading, Image, Text } from '@chakra-ui/react';
-import formatCurrency from '../lib/formatCurrency';
+import formatCurrency from '../../lib/formatCurrency';
 import EditProduct from './EditProduct';
 import ProductCustomerOptions from './ProductCustomerOptions';
 

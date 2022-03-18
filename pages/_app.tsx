@@ -3,11 +3,11 @@ import { ApolloProvider } from '@apollo/client';
 import { ChakraProvider } from '@chakra-ui/react';
 import { AuthProvider } from '../context/AuthContext';
 import { CheckoutProvider } from '../context/CheckoutContext';
-import { WatchlistProvider } from '../context/WatchlistContext';
+import { WatchlistProvider } from '../context/WatchlistReactContext';
 import client from '../lib/apollo-client';
 import NProgress from 'nprogress';
 import Router from 'next/router';
-import Page from '../components/Page';
+import Page from '../components/Common/Page';
 import theme from '../styles/theme';
 
 import '@fontsource/inter/300.css';

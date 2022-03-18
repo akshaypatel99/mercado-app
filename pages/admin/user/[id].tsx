@@ -2,10 +2,10 @@ import { gql } from '@apollo/client';
 import client from '../../../lib/apollo-client';
 import checkUser, { MyPageContext } from '../../../lib/checkUser';
 import { GetServerSideProps } from 'next';
-import UserProfile from '../../../components/UserProfile';
-import UserOrders from '../../../components/UserOrders';
-import ErrorMessage from '../../../components/ErrorMessage';
-import UserProducts from '../../../components/UserProducts';
+import UserProfile from '../../../components/User/UserProfile';
+import UserOrders from '../../../components/User/UserOrders';
+import ErrorMessage from '../../../components/Message/ErrorMessage';
+import UserProducts from '../../../components/User/UserProducts';
 import { Box, Container, Heading } from '@chakra-ui/react';
 
 export default function UserPage({ error, user }) {

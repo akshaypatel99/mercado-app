@@ -2,11 +2,11 @@ import { GetServerSideProps } from 'next';
 import checkUser, { MyPageContext } from '../../lib/checkUser';
 import { gql } from '@apollo/client';
 import client from '../../lib/apollo-client';
-import BackTo from '../../components/BackTo';
-import OrderList from '../../components/UserOrders';
-import Title from '../../components/Title';
-import ErrorMessage from '../../components/ErrorMessage';
-import InfoMessage from '../../components/InfoMessage';
+import BackTo from '../../components/Common/BackTo';
+import OrderList from '../../components/User/UserOrders';
+import Title from '../../components/Common/Title';
+import ErrorMessage from '../../components/Message/ErrorMessage';
+import InfoMessage from '../../components/Message/InfoMessage';
 import { Container } from '@chakra-ui/react';
 
 export default function Orders({ orders, error }) {

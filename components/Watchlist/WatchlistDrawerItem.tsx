@@ -1,10 +1,10 @@
 import { Box, Button, Heading, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useContext } from 'react';
-import { CheckoutContext } from '../context/CheckoutContext';
-import { WatchlistContext } from '../context/WatchlistContext';
-import formatCurrency from '../lib/formatCurrency';
-import ErrorMessage from './ErrorMessage';
+import { CheckoutContext } from '../../context/CheckoutContext';
+import { WatchlistContext } from '../../context/WatchlistReactContext';
+import formatCurrency from '../../lib/formatCurrency';
+import ErrorMessage from '../Message/ErrorMessage';
 
 export default function WatchlistItem({ product }) {
 	const { watchlistOnClose, toggleUserWatchlist, toggleWatchlistError } =

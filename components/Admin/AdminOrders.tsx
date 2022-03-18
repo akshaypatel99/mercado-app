@@ -16,12 +16,12 @@ import {
 import { gql, useMutation } from '@apollo/client';
 import Router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
-import { localDate } from '../lib/localDate';
+import { localDate } from '../../lib/localDate';
 import { FiCheck, FiInfo, FiTrash2, FiX } from 'react-icons/fi';
-import formatCurrency from '../lib/formatCurrency';
-import DeleteDialog from './DeleteDialog';
-import ErrorMessage from './ErrorMessage';
-import InfoMessage from './InfoMessage';
+import formatCurrency from '../../lib/formatCurrency';
+import DeleteDialog from '../Common/DeleteDialog';
+import ErrorMessage from '../Message/ErrorMessage';
+import InfoMessage from '../Message/InfoMessage';
 
 const DELETE_ORDER = gql`
 	mutation DeleteOrder($deleteOrderId: ID!) {

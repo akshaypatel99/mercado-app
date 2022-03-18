@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import checkUser, { MyPageContext } from '../../lib/checkUser';
-import Title from '../../components/Title';
-import Dashboard from '../../components/Dashboard';
+import Title from '../../components/Common/Title';
+import Dashboard from '../../components/Dashboard/Dashboard';
 import { Container } from '@chakra-ui/react';
 
 export default function Account() {

@@ -2,10 +2,10 @@ import { GetServerSideProps } from 'next';
 import checkUser, { MyPageContext } from '../../lib/checkUser';
 import { gql } from '@apollo/client';
 import client from '../../lib/apollo-client';
-import BackTo from '../../components/BackTo';
-import Title from '../../components/Title';
-import UserProfile from '../../components/UserProfile';
-import ErrorMessage from '../../components/ErrorMessage';
+import BackTo from '../../components/Common/BackTo';
+import Title from '../../components/Common/Title';
+import UserProfile from '../../components/User/UserProfile';
+import ErrorMessage from '../../components/Message/ErrorMessage';
 import { Container } from '@chakra-ui/react';
 
 export default function MyDetails({ user, error }) {

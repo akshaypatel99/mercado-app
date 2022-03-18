@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
-import { useWatchlist } from '../hooks/useWatchlist';
+import { AuthContext } from '../../context/AuthContext';
+import { useWatchlist } from '../../hooks/useWatchlist';
 import { StackDivider, VStack } from '@chakra-ui/react';
-import WatchlistItem from './WatchlistItem';
-import ErrorMessage from './ErrorMessage';
-import LoginRedirect from './LoginRedirect';
+import WatchlistItem from './WatchlistDrawerItem';
+import ErrorMessage from '../Message/ErrorMessage';
+import LoginRedirect from '../Common/LoginRedirect';
 
 export default function WatchlistContent() {
 	const { user } = useContext(AuthContext);

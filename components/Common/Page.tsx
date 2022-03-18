@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Box, Container } from '@chakra-ui/react';
 import Header from './Header';
-import Watchlist from './Watchlist';
+import Watchlist from '../Watchlist/WatchlistDrawer';
 
 type PageProps = { children: ReactNode };
 

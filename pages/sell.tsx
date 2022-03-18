@@ -1,7 +1,7 @@
 import { Container } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
-import CreateProduct from '../components/CreateProduct';
-import Title from '../components/Title';
+import CreateProduct from '../components/Product/CreateProduct';
+import Title from '../components/Common/Title';
 import checkUser, { MyPageContext } from '../lib/checkUser';
 
 export default function Sell() {

@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Box, Heading } from '@chakra-ui/react';
 import ProductForm from './ProductForm';
-import ErrorMessage from './ErrorMessage';
-import SuccessMessage from './SuccessMessage';
+import ErrorMessage from '../Message/ErrorMessage';
+import SuccessMessage from '../Message/SuccessMessage';
 
 type Product = {
 	_id: string;

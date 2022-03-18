@@ -156,6 +156,7 @@ const theme = extendTheme({
             xl: '1rem',
           },
           maxWidth: 'container.xl',
+          overflowX: 'scroll',
         },
         'header': {
           margin: '0 auto',

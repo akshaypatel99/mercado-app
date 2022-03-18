@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { Box, Button } from '@chakra-ui/react';
-import { CheckoutContext } from '../context/CheckoutContext';
-import { WatchlistContext } from '../context/WatchlistContext';
-import { useWatchlist } from '../hooks/useWatchlist';
-import ErrorMessage from './ErrorMessage';
+import { CheckoutContext } from '../../context/CheckoutContext';
+import { WatchlistContext } from '../../context/WatchlistReactContext';
+import { useWatchlist } from '../../hooks/useWatchlist';
+import ErrorMessage from '../Message/ErrorMessage';
 import Policy from './Policy';
 
 export default function ProductCustomerOptions({ product }) {

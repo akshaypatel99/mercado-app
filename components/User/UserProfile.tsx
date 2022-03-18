@@ -8,8 +8,8 @@ import {
 	StatGroup,
 	Text,
 } from '@chakra-ui/react';
-import formatCurrency from '../lib/formatCurrency';
-import { localDate } from '../lib/localDate';
+import formatCurrency from '../../lib/formatCurrency';
+import { localDate } from '../../lib/localDate';
 
 export default function UserProfile({ user }) {
 	const itemsSold = user.userProducts.filter((item) => item.isSold);

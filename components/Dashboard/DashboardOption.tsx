@@ -13,7 +13,7 @@ export default function DashboardOption({
 	return (
 		<LinkBox
 			borderRadius='lg'
-			w='md'
+			w={['sm', 'md', null, null]}
 			h='xs'
 			cursor='pointer'
 			boxShadow='md'

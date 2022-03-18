@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import CheckoutItem from '../components/CheckoutItem';
-import InfoMessage from '../components/InfoMessage';
-import BackTo from '../components/BackTo';
-import Title from '../components/Title';
+import CheckoutItem from '../components/Product/CheckoutItem';
+import InfoMessage from '../components/Message/InfoMessage';
+import BackTo from '../components/Common/BackTo';
+import Title from '../components/Common/Title';
 import { Container } from '@chakra-ui/react';
 
 export default function Checkout() {

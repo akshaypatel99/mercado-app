@@ -10,9 +10,9 @@ import {
 } from '@chakra-ui/react';
 import { useContext } from 'react';
 import NextLink from 'next/link';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { FiChevronDown, FiLogOut, FiUser } from 'react-icons/fi';
-import { WatchlistContext } from '../context/WatchlistContext';
+import { WatchlistContext } from '../../context/WatchlistReactContext';
 
 export default function Nav() {
 	const { user, logoutUser } = useContext(AuthContext);
@@ -24,14 +24,15 @@ export default function Nav() {
 				as={Button}
 				rightIcon={<FiChevronDown />}
 				p='0'
-				ml='6'
+				ml='4'
 				bg='brand.700'
 				_hover={{ bg: 'brand.700', color: 'brand.yellow' }}
 				_expanded={{ bg: 'brand.700' }}
 				_focus={{ bg: 'brand.700' }}
 				_active={{ bg: 'brand.700' }}
+				fontSize={['md', 'lg', 'xl', null]}
 			>
-				<Text fontSize='xl'>{user?.name.split(' ')[0]}</Text>
+				<Text>{user?.name.split(' ')[0]}</Text>
 			</MenuButton>
 			<MenuList
 				p='0.5'
@@ -39,6 +40,7 @@ export default function Nav() {
 				_hover={{ bg: 'brand.500' }}
 				_expanded={{ bg: 'brand.500' }}
 				zIndex={2}
+				fontSize={['sm', 'md', 'lg', null]}
 			>
 				{user && user.role === 'ADMIN' && (
 					<NextLink href='/admin' passHref>
@@ -46,8 +48,7 @@ export default function Nav() {
 							bg='brand.500'
 							_hover={{ bg: 'brand.400' }}
 							_focus={{ bg: 'brand.450' }}
-							minH='48px'
-							fontSize='lg'
+							minH={['36px', null, '48px', null]}
 							fontWeight='semibold'
 							icon={<FiUser />}
 						>
@@ -60,8 +61,7 @@ export default function Nav() {
 					bg='brand.500'
 					_hover={{ bg: 'brand.400' }}
 					_focus={{ bg: 'brand.450' }}
-					minH='48px'
-					fontSize='lg'
+					minH={['36px', null, '48px', null]}
 					fontWeight='semibold'
 					icon={<FiLogOut />}
 				>
@@ -73,37 +73,35 @@ export default function Nav() {
 
 	return (
 		<nav>
-			<Flex width='100%' justify='space-around' alignItems='center'>
+			<Flex
+				width='100%'
+				justify='space-around'
+				alignItems='center'
+				fontSize={['md', 'lg', 'xl', null]}
+			>
 				<Link
 					href='/products'
-					ml='6'
+					ml='4'
 					_hover={{ textDecoration: 'none', color: 'brand.yellow' }}
 				>
-					<Text fontSize='xl' fontWeight='semibold'>
-						Buy
-					</Text>
+					<Text fontWeight='semibold'>Buy</Text>
 				</Link>
 				<Link
 					href='/sell'
-					ml='6'
+					ml='4'
 					_hover={{ textDecoration: 'none', color: 'brand.yellow' }}
 				>
-					<Text fontSize='xl' fontWeight='semibold'>
-						Sell
-					</Text>
+					<Text fontWeight='semibold'>Sell</Text>
 				</Link>
 				<Link
 					href='/account'
-					ml='6'
+					ml='4'
 					_hover={{ textDecoration: 'none', color: 'brand.yellow' }}
 				>
-					<Text fontSize='xl' fontWeight='semibold'>
-						Account
-					</Text>
+					<Text fontWeight='semibold'>Account</Text>
 				</Link>
 				<Text
 					ml='4'
-					fontSize='xl'
 					fontWeight='semibold'
 					cursor='pointer'
 					onClick={() => watchlistOnOpen()}
@@ -116,12 +114,10 @@ export default function Nav() {
 				) : (
 					<Link
 						href='/login'
-						ml='6'
+						ml='4'
 						_hover={{ textDecoration: 'none', color: 'brand.yellow' }}
 					>
-						<Text fontSize='xl' fontWeight='semibold'>
-							Login
-						</Text>
+						<Text fontWeight='semibold'>Login</Text>
 					</Link>
 				)}
 			</Flex>

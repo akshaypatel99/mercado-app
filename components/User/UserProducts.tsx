@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import Router from 'next/router';
-import { localDate } from '../lib/localDate';
+import { localDate } from '../../lib/localDate';
 import { FiInfo, FiMinus, FiTrash2 } from 'react-icons/fi';
 
 export default function UserProducts({ products }) {
