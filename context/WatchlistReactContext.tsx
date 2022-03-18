@@ -3,7 +3,7 @@ import Router from 'next/router';
 import { useDisclosure } from '@chakra-ui/react';
 import { gql, useMutation } from '@apollo/client';
 import { CURRENT_USER } from '../hooks/useCurrentUser';
-import { WATCHLIST } from '../hooks/useWatchlist';
+import { WATCHLIST } from '../hooks/useWatchlistHook';
 import { AuthContext } from './AuthContext';
 
 const TOGGLE_WATCHLIST = gql`

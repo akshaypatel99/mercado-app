@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useWatchlist } from '../../hooks/useWatchlist';
+import { useWatchlist } from '../../hooks/useWatchlistHook';
 import { StackDivider, VStack } from '@chakra-ui/react';
 import WatchlistItem from './WatchlistDrawerItem';
 import ErrorMessage from '../Message/ErrorMessage';

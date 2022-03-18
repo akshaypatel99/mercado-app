@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Box, Button } from '@chakra-ui/react';
 import { CheckoutContext } from '../../context/CheckoutContext';
 import { WatchlistContext } from '../../context/WatchlistReactContext';
-import { useWatchlist } from '../../hooks/useWatchlist';
+import { useWatchlist } from '../../hooks/useWatchlistHook';
 import ErrorMessage from '../Message/ErrorMessage';
 import Policy from './Policy';
 
