@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import client from '../lib/apollo-client';
-import ProductList from '../components/ProductList';
+import ProductList from '../components/Product/ProductList';
 import { GetServerSideProps } from 'next';
 import { Box, Center, Container, Heading } from '@chakra-ui/react';
 

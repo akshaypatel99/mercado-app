@@ -1,6 +1,6 @@
 import { Badge, Box, Image, LinkBox, LinkOverlay } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import formatCurrency from '../lib/formatCurrency';
+import formatCurrency from '../../lib/formatCurrency';
 
 type ProductProps = {
 	_id: string;
