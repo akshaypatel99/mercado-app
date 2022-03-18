@@ -1,4 +1,5 @@
 import { Product } from '../../../db/models'
+import { checkUserRole } from '../../../lib/api-util';
 
 const productQueries = {
   products: async (parent, { params }, context) => {
@@ -39,6 +40,7 @@ const productQueries = {
     }
   },
   userProducts: async (parent, args, { user }) => {
+    checkUserRole(user, ["ADMIN", "USER"]);
     try {
       return await Product.find({ user: user._id })
     } catch (error) {
@@ -46,6 +48,7 @@ const productQueries = {
     }
   },
   userWatchlist: async (parent, args, { user }) => {
+    checkUserRole(user, ["ADMIN", "USER"]);
     try {
       return await Product.find({ watchedBy: user._id })
     } catch (error) {

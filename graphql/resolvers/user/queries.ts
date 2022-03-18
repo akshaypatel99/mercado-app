@@ -1,11 +1,12 @@
 import { AuthenticationError } from "apollo-server-micro";
-import { User, Product } from "../../../db/models";
-import { safeUserInfo } from "../../../lib/api-util";
+import { User } from "../../../db/models";
+import { checkUserRole, safeUserInfo } from "../../../lib/api-util";
 
 const userQueries = {
-  users: async (parent, args, context) => {
+  users: async (parent, { params }, { user }) => {
+    checkUserRole(user, ["ADMIN"]);
     try {
-      const { pageSize, page } = args.params;
+      const { pageSize, page } = params;
 
       return {
         results: async () => {
@@ -33,9 +34,9 @@ const userQueries = {
       return error
     }
   },
-  user: async (parent, args, context) => {
+  user: async (parent, { id }, { user }) => {
+    checkUserRole(user, ["ADMIN"]);
     try {
-      const { id } = args;
       return await User.findById(id)
     } catch (error) {
       return error

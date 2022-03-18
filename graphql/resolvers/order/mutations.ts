@@ -1,8 +1,11 @@
 import { ApolloError } from "apollo-server-micro";
 import { Order, User, Product } from "../../../db/models";
+import { checkUserRole } from "../../../lib/api-util";
 
 const orderMutations = {
-  createOrder: async (parent, { input, customerId }, context) => {
+  createOrder: async (parent, { input, customerId }, { user }) => {
+    checkUserRole(user, ["ADMIN", "USER"]);
+
     try {
       const orderData = Object.assign({}, input, { user: customerId });
 
@@ -22,7 +25,8 @@ const orderMutations = {
       return error
     }
   },
-  updateOrder: async (parent, { id, input }, context) => {
+  updateOrder: async (parent, { id, input }, { user }) => {
+    checkUserRole(user, ["ADMIN"]);
     try {
       const { product, subTotal, deliveryCost, totalCost, deliveryAddress, paymentResult, isPaid, paidAt } = input
 
@@ -52,6 +56,7 @@ const orderMutations = {
     }
   },
   deleteOrder: async (parent, { id }, { user }) => {
+    checkUserRole(user, ["ADMIN"]);
     try {
       const order = await Order.findById({ _id: id });
 

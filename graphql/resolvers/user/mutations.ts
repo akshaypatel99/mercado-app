@@ -89,7 +89,8 @@ const userMutations = {
       return error
     }
   },
-  updateUserRole: async (parent, { id, role }, context) => {
+  updateUserRole: async (parent, { id, role }, { user }) => {
+    checkUserRole(user, ["ADMIN"]);
     try {
       const allowedRoles = ['USER', 'ADMIN'];
 
@@ -107,7 +108,8 @@ const userMutations = {
       return error;
     }
   },
-  deleteUser: async (parent, { id }, context) => {
+  deleteUser: async (parent, { id }, { user }) => {
+    checkUserRole(user, ["ADMIN"]);
     try {
       const deletedUser = await User.findOneAndDelete({ _id: id });
 
@@ -121,6 +123,7 @@ const userMutations = {
     }
   },
   toggleWatchlist: async (parent, { id }, { user }) => {
+    checkUserRole(user, ["ADMIN", "USER"]);
     try {
       const foundUser = await User.findById(user._id);
       const foundProduct = await Product.findById(id);

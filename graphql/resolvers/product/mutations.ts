@@ -1,9 +1,10 @@
 import { ApolloError } from 'apollo-server-micro';
 import { Product, User } from '../../../db/models';
-import { uploadFile } from '../../../lib/api-util';
+import { checkUserRole, uploadFile } from '../../../lib/api-util';
 
 const productMutations = {
   createProduct: async (parent, { input }, { user }) => {
+    checkUserRole(user, ["ADMIN", "USER"]);
     try {
       const productData = Object.assign({}, input, { user: user._id });
       
@@ -23,7 +24,8 @@ const productMutations = {
       return error
     }
   },
-  updateProduct: async (parent, { id, input }, { user }) => { 
+  updateProduct: async (parent, { id, input }, { user }) => {
+    checkUserRole(user, ["ADMIN", "USER"]);
     try {
       const { name, description, category, image, price } = input;
 
@@ -55,21 +57,18 @@ const productMutations = {
     }
   },
   restock: async (parent, { id }, { user }) => {
+    checkUserRole(user, ["ADMIN"]);
     try {
       const product = await Product.findById(id);
 
       if (product) {
-        if (product.user === user._id || user.role === 'ADMIN') {
-          product.isSold = false;
-          product.soldOn = null;
-          const updatedProduct = await product.save();
+        product.isSold = false;
+        product.soldOn = null;
+        const updatedProduct = await product.save();
 
-          return {
-            message: 'Product restocked!',
-            product: updatedProduct
-          }
-        } else {
-          throw new ApolloError('Unauthorized update action')
+        return {
+          message: 'Product restocked!',
+          product: updatedProduct
         }
       } else {
         throw new ApolloError('Product not found')
@@ -79,6 +78,7 @@ const productMutations = {
     }
   },  
   deleteProduct: async (parent, { id }, { user }) => {
+    checkUserRole(user, ["ADMIN", "USER"]);
     try {
       const product = await Product.findById(id);
       const loggedInUser = await User.findById(user._id);
@@ -106,7 +106,8 @@ const productMutations = {
       return error;
     }
   },
-  uploadPhoto: async (parent, { file }, { req }) => {
+  uploadPhoto: async (parent, { file }, { user }) => {
+    checkUserRole(user, ["ADMIN", "USER"]);
     try {
       const result = await uploadFile(file);
       console.log('mutation result', result);

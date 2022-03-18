@@ -1,10 +1,12 @@
 import { ApolloError } from "apollo-server-micro";
 import { User, Order } from "../../../db/models";
+import { checkUserRole } from "../../../lib/api-util";
 
 const orderQueries = {
-  orders: async (parent, args, context) => {
+  orders: async (parent, { params }, { user}) => {
+    checkUserRole(user, ["ADMIN"]);
     try {
-      const { pageSize, page } = args.params;
+      const { pageSize, page } = params;
 
       return {
         results: async () => {
@@ -33,6 +35,7 @@ const orderQueries = {
     }
   },
   order: async (parent, { id }, { user }) => {
+    checkUserRole(user, ["ADMIN", "USER"]);
     try {
       const loggedInUser = await User.findById({ _id: user._id });
       
@@ -46,6 +49,7 @@ const orderQueries = {
     }
   },
   userOrders: async (parent, args, { user }) => {
+    checkUserRole(user, ["ADMIN", "USER"]);
     try {
       return await Order.find({ user: user._id })
     } catch (error) {
