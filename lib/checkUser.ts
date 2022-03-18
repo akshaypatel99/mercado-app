@@ -13,39 +13,44 @@ type Enum = 'ADMIN' | 'USER';
 const checkUser = async (context: MyPageContext, { level, redirect, message }: { level: Enum, redirect: boolean, message?: string }) => {
   const Cookie = context.req.headers.cookie;
 
-  if (!Cookie && redirect) {
+  const isRefreshToken = Cookie.includes('refreshToken=');
+
+  if (!isRefreshToken && redirect) {
     context.user = null;
     context.res.writeHead(302, {
-			Location: message ? `/login?message=${message}` : '/login',
+			Location: message ? `/login?message=${message}&Crd` : '/login',
 		});
     context.res.end();
-    return;
+    return context;
   }
   
-  if (!Cookie) {
+  if (!isRefreshToken) {
     context.user = null;
-    return;
+    return context;
   }
 
-  const refreshToken = Cookie.substring(Cookie.indexOf('refresh=') + 8);
-  const decodedRefreshToken = validateRefreshToken(refreshToken);
+  if (isRefreshToken) {
+    const refreshToken = Cookie.substring(Cookie.indexOf('refresh=') + 8);
+    const decodedRefreshToken = validateRefreshToken(refreshToken);
 
-  if (!decodedRefreshToken) {
-    context.user = null;
-    context.res.writeHead(302, {
-      Location: message ? `/login?message=${message}` : '/login',
-    });
-    context.res.end();
-    return;
-  } else if (level === 'ADMIN' && decodedRefreshToken.role !== 'ADMIN') {
-    context.user = null;
-    context.res.writeHead(302, {
-      Location: message ? `/login?message=Unauthorized access` : '/login',
-    });
-    context.res.end();
-    return;
-  } else {
-    context.user = decodedRefreshToken;
+    if (!decodedRefreshToken) {
+      context.user = null;
+      context.res.writeHead(302, {
+        Location: message ? `/login?message=${message}&dRT` : '/login',
+      });
+      context.res.end();
+      return context;
+    } else if (level === 'ADMIN' && decodedRefreshToken.role !== 'ADMIN') {
+      context.user = null;
+      context.res.writeHead(302, {
+        Location: message ? `/login?message=Unauthorized access` : '/login',
+      });
+      context.res.end();
+      return context;
+    } else {
+      context.user = decodedRefreshToken;
+      return context;
+    }
   }
 
   return context;
