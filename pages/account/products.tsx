@@ -7,16 +7,17 @@ import Title from '../../components/Title';
 import ErrorMessage from '../../components/ErrorMessage';
 import InfoMessage from '../../components/InfoMessage';
 import UserProducts from '../../components/UserProducts';
+import { Container } from '@chakra-ui/react';
 
 export default function MyProducts({ products, error }) {
 	return (
-		<>
+		<Container variant='page'>
 			<BackTo text='My Account' href='account' />
 			<Title title='My Products' />
 			{products.length < 1 && <InfoMessage message='No products yet' />}
 			{products && products.length > 0 && <UserProducts products={products} />}
 			{error && <ErrorMessage error={error} />}
-		</>
+		</Container>
 	);
 }
 

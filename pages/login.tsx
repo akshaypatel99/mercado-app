@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Container } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import InfoMessage from '../components/InfoMessage';
 import LoginForm from '../components/LoginForm';
@@ -15,13 +15,13 @@ export default function Login() {
 	}, []);
 
 	return (
-		<>
+		<Container variant='page'>
 			{message && (
 				<Box mb='6'>
 					<InfoMessage message={message} />
 				</Box>
 			)}
 			<LoginForm />
-		</>
+		</Container>
 	);
 }

@@ -7,10 +7,11 @@ import Title from '../../components/Title';
 import ErrorMessage from '../../components/ErrorMessage';
 import InfoMessage from '../../components/InfoMessage';
 import AdminProducts from '../../components/AdminProducts';
+import { Container } from '@chakra-ui/react';
 
 export default function AllProducts({ products, error, count }) {
 	return (
-		<>
+		<Container variant='page'>
 			<BackTo text='Admin Dashboard' href='admin' />
 			<Title title='All Products' />
 			{products.length < 1 && <InfoMessage message='No products yet' />}
@@ -18,7 +19,7 @@ export default function AllProducts({ products, error, count }) {
 				<AdminProducts products={products} count={count} />
 			)}
 			{error && <ErrorMessage error={error} />}
-		</>
+		</Container>
 	);
 }
 

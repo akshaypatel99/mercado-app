@@ -3,6 +3,7 @@ import CheckoutItem from '../components/CheckoutItem';
 import InfoMessage from '../components/InfoMessage';
 import BackTo from '../components/BackTo';
 import Title from '../components/Title';
+import { Container } from '@chakra-ui/react';
 
 export default function Checkout() {
 	const [cancel, setCancel] = useState({ isCancelled: false, message: '' });
@@ -21,11 +22,11 @@ export default function Checkout() {
 	}, []);
 
 	return (
-		<>
+		<Container variant='page'>
 			<BackTo text='All Products' href='products' />
 			<Title title='Checkout' />
 			{cancel.isCancelled && <InfoMessage message={cancel.message} />}
 			<CheckoutItem />
-		</>
+		</Container>
 	);
 }

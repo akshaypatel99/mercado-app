@@ -6,15 +6,16 @@ import BackTo from '../../components/BackTo';
 import Title from '../../components/Title';
 import UserProfile from '../../components/UserProfile';
 import ErrorMessage from '../../components/ErrorMessage';
+import { Container } from '@chakra-ui/react';
 
 export default function MyDetails({ user, error }) {
 	return (
-		<>
+		<Container variant='page'>
 			<BackTo text='My Account' href='account' />
 			<Title title='My Details' />
 			{user && <UserProfile user={user} />}
 			{error && <ErrorMessage error={error} />}
-		</>
+		</Container>
 	);
 }
 

@@ -12,7 +12,7 @@ type UserData = {
   role: string;
   userProducts: object[];
   userOrders: object[];
-  userWatchList: object[];
+  userWatchlist: object[];
 }
 
 const genPassword = (password: string) => {
@@ -28,7 +28,7 @@ const users: UserData[] = [
     role: "ADMIN",
     userProducts: [],
     userOrders: [],
-    userWatchList: [],
+    userWatchlist: [],
   },
   {
     name: "Lolly P",
@@ -37,7 +37,7 @@ const users: UserData[] = [
     role: "USER",
     userProducts: [],
     userOrders: [],
-    userWatchList: [],
+    userWatchlist: [],
   },
   {
     name: "Kaskae G",
@@ -46,7 +46,7 @@ const users: UserData[] = [
     role: "USER",
     userProducts: [],
     userOrders: [],
-    userWatchList: [],
+    userWatchlist: [],
   }
 ];
 

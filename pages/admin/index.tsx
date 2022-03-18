@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import checkUser, { MyPageContext } from '../../lib/checkUser';
 import Title from '../../components/Title';
 import Dashboard from '../../components/Dashboard';
+import { Container } from '@chakra-ui/react';
 
 export default function Admin() {
 	const options = [
@@ -23,10 +24,10 @@ export default function Admin() {
 		},
 	];
 	return (
-		<>
+		<Container variant='page'>
 			<Title title='Admin Dashboard' />
 			<Dashboard options={options} />
-		</>
+		</Container>
 	);
 }
 

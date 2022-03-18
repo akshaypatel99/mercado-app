@@ -45,7 +45,7 @@ const theme = extendTheme({
       header: {
         bg: 'brand.blue',
         color: 'brand.white',
-        padding: '1rem 0',
+        padding: '0.5rem 0',
       },
       button: {
         alignItems: 'center',
@@ -143,6 +143,20 @@ const theme = extendTheme({
           letterSpacing: 'wide',
           textTransform: 'uppercase',
         },
+      }
+    },
+    Container: {
+      variants: {
+        'page': {
+          margin: '2rem auto',
+          padding: {
+            sm: '2rem',
+            md: '1rem',
+            lg: '1rem',
+            xl: '1rem',
+          },
+          maxWidth: 'container.xl',
+        }
       }
     }
   }

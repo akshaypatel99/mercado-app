@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import client from '../lib/apollo-client';
 import ProductList from '../components/ProductList';
 import { GetServerSideProps } from 'next';
-import { Box, Center, Heading } from '@chakra-ui/react';
+import { Box, Center, Container, Heading } from '@chakra-ui/react';
 
 export default function Products({ products, error }) {
 	return (
@@ -23,6 +23,7 @@ export default function Products({ products, error }) {
 					backdropContrast='80%'
 					bgColor='rgba(20, 74, 94, 0.4)'
 					backdropBlur='1px'
+					textAlign='center'
 				>
 					<Heading variant='light' textTransform='uppercase' fontSize='2.5rem'>
 						Find{' '}
@@ -37,7 +38,9 @@ export default function Products({ products, error }) {
 					</Heading>
 				</Center>
 			</Box>
-			<ProductList products={products} error={error} />
+			<Container variant='page'>
+				<ProductList products={products} error={error} />
+			</Container>
 		</>
 	);
 }

@@ -5,14 +5,15 @@ import checkUser, { MyPageContext } from '../../lib/checkUser';
 import { GetServerSideProps } from 'next';
 import ErrorMessage from '../../components/ErrorMessage';
 import BackLink from '../../components/BackLink';
+import { Container } from '@chakra-ui/react';
 
 export default function OrderPage({ order, error, user }) {
 	return (
-		<>
+		<Container variant='page'>
 			{error && <ErrorMessage error={error} />}
 			<BackLink />
 			<Order order={order} user={user} />
-		</>
+		</Container>
 	);
 }
 

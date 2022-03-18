@@ -6,11 +6,11 @@ import UserProfile from '../../../components/UserProfile';
 import UserOrders from '../../../components/UserOrders';
 import ErrorMessage from '../../../components/ErrorMessage';
 import UserProducts from '../../../components/UserProducts';
-import { Box, Heading } from '@chakra-ui/react';
+import { Box, Container, Heading } from '@chakra-ui/react';
 
 export default function UserPage({ error, user }) {
 	return (
-		<>
+		<Container variant='page'>
 			{error && <ErrorMessage error={error} />}
 			<Box>
 				<UserProfile user={user} />
@@ -23,7 +23,7 @@ export default function UserPage({ error, user }) {
 				<Heading>Orders</Heading>
 				<UserOrders orders={user.userOrders} />
 			</Box>
-		</>
+		</Container>
 	);
 }
 

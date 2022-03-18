@@ -7,16 +7,17 @@ import OrderList from '../../components/UserOrders';
 import Title from '../../components/Title';
 import ErrorMessage from '../../components/ErrorMessage';
 import InfoMessage from '../../components/InfoMessage';
+import { Container } from '@chakra-ui/react';
 
 export default function Orders({ orders, error }) {
 	return (
-		<>
+		<Container variant='page'>
 			<BackTo text='My Account' href='account' />
 			<Title title='My Orders' />
 			{orders.length < 1 && <InfoMessage message='No orders yet' />}
 			{orders && orders.length > 0 && <OrderList orders={orders} />}
 			{error && <ErrorMessage error={error} />}
-		</>
+		</Container>
 	);
 }
 

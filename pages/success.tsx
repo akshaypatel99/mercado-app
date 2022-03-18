@@ -4,6 +4,7 @@ import {
 	AlertIcon,
 	AlertTitle,
 	Center,
+	Container,
 	Link,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
@@ -11,7 +12,7 @@ import Title from '../components/Title';
 
 export default function Success() {
 	return (
-		<>
+		<Container variant='page'>
 			<Title title='Your order has been placed!' />
 			<Center>
 				<Alert
@@ -39,6 +40,6 @@ export default function Success() {
 					</AlertDescription>
 				</Alert>
 			</Center>
-		</>
+		</Container>
 	);
 }

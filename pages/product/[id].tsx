@@ -5,14 +5,15 @@ import checkUser, { MyPageContext } from '../../lib/checkUser';
 import { GetServerSideProps } from 'next';
 import ErrorMessage from '../../components/ErrorMessage';
 import BackLink from '../../components/BackLink';
+import { Container } from '@chakra-ui/react';
 
 export default function ProductPage({ product, error, user }) {
 	return (
-		<>
+		<Container variant='page'>
 			<BackLink />
 			{error && <ErrorMessage error={error} />}
 			<Product product={product} user={user} />
-		</>
+		</Container>
 	);
 }
 
