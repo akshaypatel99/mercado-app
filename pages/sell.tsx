@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async (
 	await checkUser(context, {
 		level: 'USER',
 		redirect: true,
-		message: 'Please log in to view your product',
+		message: 'Please log in to sell your product',
 	});
 
 	return {

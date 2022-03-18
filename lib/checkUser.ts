@@ -13,7 +13,7 @@ type Enum = 'ADMIN' | 'USER';
 const checkUser = async (context: MyPageContext, { level, redirect, message }: { level: Enum, redirect: boolean, message?: string }) => {
   const Cookie = context.req.headers.cookie;
 
-  const isRefreshToken = Cookie.includes('refreshToken=');
+  const isRefreshToken = Cookie.includes('refresh=');
 
   if (!isRefreshToken && redirect) {
     context.user = null;
