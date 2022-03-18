@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Center } from '@chakra-ui/react';
+import { Alert, AlertIcon } from '@chakra-ui/react';
 
 export default function InfoMessage({ message }) {
 	return (

@@ -1,12 +1,4 @@
-import {
-	Box,
-	Center,
-	Container,
-	Flex,
-	Grid,
-	Heading,
-	Link,
-} from '@chakra-ui/react';
+import { Box, Container, Flex, Heading, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
 export default function Home() {
@@ -46,7 +38,7 @@ export default function Home() {
 								textTransform='uppercase'
 								_hover={{
 									textDecoration: 'none',
-									bgColor: 'rgba(255, 255, 255, 0.4)',
+									bgColor: 'rgba(23, 195, 178, 0.5)',
 								}}
 							>
 								Shop Now

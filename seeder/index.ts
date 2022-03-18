@@ -106,18 +106,18 @@ connectDB();
 
 // updateField();
 
-const renameField = async () => {
-  try {
-    await User.updateMany({}, { $rename: { "userWatchList": "userWatchlist" } });
-    console.log('Field renamed...');
-    process.exit();
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-};
+// const renameField = async () => {
+//   try {
+//     await User.updateMany({}, { $rename: { "userWatchList": "userWatchlist" } });
+//     console.log('Field renamed...');
+//     process.exit();
+//   } catch (error) {
+//     console.error(error);
+//     process.exit(1);
+//   }
+// };
 
-renameField();
+// renameField();
 
 
 // const insertProductsToDelete = async () => {

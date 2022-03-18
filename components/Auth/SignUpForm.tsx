@@ -9,7 +9,6 @@ import {
 	Center,
 	Box,
 	Button,
-	Heading,
 	Text,
 	Link,
 } from '@chakra-ui/react';

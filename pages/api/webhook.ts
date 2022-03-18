@@ -15,8 +15,6 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const fulfillOrder = async (session) => {
   await connectDB();
 
-  // console.log('Fulfilling order', session);
-
   const { customerId, productId } = session.metadata;
 
   const user = await User.findById(customerId);
