@@ -13,7 +13,7 @@ export default function DashboardOption({
 	return (
 		<LinkBox
 			borderRadius='lg'
-			w='xs'
+			w='md'
 			h='xs'
 			cursor='pointer'
 			boxShadow='md'
@@ -22,7 +22,7 @@ export default function DashboardOption({
 			backgroundPosition='center'
 			backgroundRepeat='no-repeat'
 			backgroundSize='cover'
-			justifySelf={'center'}
+			justifySelf='center'
 		>
 			<Center
 				borderRadius='lg'

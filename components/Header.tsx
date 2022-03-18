@@ -5,18 +5,14 @@ import Nav from './Nav';
 const Header = () => {
 	return (
 		<header>
-			<Container
-				maxW='container.xl'
-				px={['2rem', '1rem', '0.5rem', '0rem']}
-				py={['0.5rem', '0rem', null, null]}
-			>
+			<Container variant='header'>
 				<Flex
 					flexDir={['column', null, 'row', null]}
 					justifyContent='space-between'
 					alignItems='center'
 				>
 					<Heading as='h1' size='2xl' variant='light'>
-						<Link href='/products'>Mercado</Link>
+						<Link href='/'>Mercado</Link>
 					</Heading>
 					<Nav />
 				</Flex>

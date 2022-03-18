@@ -25,9 +25,10 @@ export default function Home() {
 					<Container maxW='container.xl' display='grid' textAlign='center'>
 						<Heading
 							as='h1'
-							fontSize={['4xl', '5xl', '6xl', '8xl']}
+							fontSize={['6xl', 'null', '7xl', '8xl']}
 							variant='light'
 							py={['8', null, '12', '16']}
+							mb={['8', null, '12', '16']}
 						>
 							Welcome to Mercado
 						</Heading>
@@ -45,7 +46,7 @@ export default function Home() {
 								textTransform='uppercase'
 								_hover={{
 									textDecoration: 'none',
-									bgColor: 'rgba(255, 255, 255, 0.3)',
+									bgColor: 'rgba(255, 255, 255, 0.4)',
 								}}
 							>
 								Shop Now

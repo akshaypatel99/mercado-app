@@ -9,7 +9,12 @@ type Option = {
 
 export default function Dashboard({ options }: { options: Option[] }) {
 	return (
-		<SimpleGrid minChildWidth='172px' spacingX={40} spacingY={20} mt='10'>
+		<SimpleGrid
+			minChildWidth='400px'
+			spacing='60px'
+			mt='8'
+			justifyItems='center'
+		>
 			{options.map((option) => (
 				<DashboardOption key={option.href} {...option} />
 			))}

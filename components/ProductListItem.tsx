@@ -17,8 +17,8 @@ export default function Product({ product }: { product: ProductProps }) {
 			maxW='sm'
 			borderWidth='1px'
 			borderRadius='lg'
-			borderColor='brand.blue'
-			bg='brand.blue'
+			borderColor='brand.600'
+			bg='brand.600'
 			overflow='hidden'
 			boxShadow='lg'
 			cursor='pointer'
@@ -63,7 +63,7 @@ export default function Product({ product }: { product: ProductProps }) {
 
 				<Box display='flex' pt='3' justifyContent='space-between'>
 					<Box
-						fontSize='xl'
+						fontSize='1.375rem'
 						fontWeight='semibold'
 						lineHeight='tight'
 						overflowWrap='break-word'
@@ -71,7 +71,7 @@ export default function Product({ product }: { product: ProductProps }) {
 						{product.name}
 					</Box>
 					<Box
-						fontSize='xl'
+						fontSize='1.375rem'
 						fontWeight='semibold'
 						lineHeight='tight'
 						isTruncated

@@ -25,27 +25,27 @@ export default function Nav() {
 				rightIcon={<FiChevronDown />}
 				p='0'
 				ml='6'
-				bg='brand.blue'
-				_hover={{ bg: 'brand.blue', color: 'brand.yellow' }}
-				_expanded={{ bg: 'brand.blue' }}
-				_focus={{ bg: 'brand.blue' }}
-				_active={{ bg: 'brand.blue' }}
+				bg='brand.700'
+				_hover={{ bg: 'brand.700', color: 'brand.yellow' }}
+				_expanded={{ bg: 'brand.700' }}
+				_focus={{ bg: 'brand.700' }}
+				_active={{ bg: 'brand.700' }}
 			>
 				<Text fontSize='xl'>{user?.name.split(' ')[0]}</Text>
 			</MenuButton>
 			<MenuList
 				p='0.5'
-				bg='brand.400'
-				_hover={{ bg: 'brand.400' }}
-				_expanded={{ bg: 'brand.400' }}
+				bg='brand.500'
+				_hover={{ bg: 'brand.500' }}
+				_expanded={{ bg: 'brand.500' }}
 				zIndex={2}
 			>
 				{user && user.role === 'ADMIN' && (
 					<NextLink href='/admin' passHref>
 						<MenuItem
-							bg='brand.400'
-							_hover={{ bg: 'brand.300' }}
-							_focus={{ bg: 'brand.350' }}
+							bg='brand.500'
+							_hover={{ bg: 'brand.400' }}
+							_focus={{ bg: 'brand.450' }}
 							minH='48px'
 							fontSize='lg'
 							fontWeight='semibold'
@@ -57,9 +57,9 @@ export default function Nav() {
 				)}
 				<MenuItem
 					onClick={logoutUser}
-					bg='brand.400'
-					_hover={{ bg: 'brand.300' }}
-					_focus={{ bg: 'brand.350' }}
+					bg='brand.500'
+					_hover={{ bg: 'brand.400' }}
+					_focus={{ bg: 'brand.450' }}
 					minH='48px'
 					fontSize='lg'
 					fontWeight='semibold'
