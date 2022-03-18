@@ -3,7 +3,15 @@ import Link from 'next/link';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import { CheckoutContext } from '../../context/CheckoutContext';
-import { Box, Button, Heading, Image, Text, VStack } from '@chakra-ui/react';
+import {
+	Box,
+	Button,
+	Flex,
+	Heading,
+	Image,
+	Text,
+	VStack,
+} from '@chakra-ui/react';
 import ErrorMessage from '../Message/ErrorMessage';
 import formatCurrency from '../../lib/formatCurrency';
 import getStripe from '../../lib/get-stripejs';
@@ -42,8 +50,8 @@ export default function CheckoutItem() {
 	return (
 		<>
 			{checkoutItem && (
-				<Box display='flex' alignItems='center' p='2' mb='4'>
-					<Box w='66%'>
+				<Box display={{ md: 'flex' }} alignItems='center' p='2' my='4'>
+					<Flex flexDir='column' w='100%'>
 						<Link href={`/product/${checkoutItem._id}`} passHref>
 							<Image
 								boxSize='400px'
@@ -51,10 +59,11 @@ export default function CheckoutItem() {
 								src={checkoutItem.image}
 								alt={checkoutItem.name}
 								cursor='pointer'
+								alignSelf='center'
 							/>
 						</Link>
-					</Box>
-					<Box ml='16' w='100%'>
+					</Flex>
+					<Box ml={{ md: '16' }} w='100%' mt={{ sm: '8', md: '0' }}>
 						<VStack align='flex-start' spacing={4}>
 							<Heading fontSize='3xl' variant='product'>
 								{checkoutItem.name}
@@ -62,11 +71,11 @@ export default function CheckoutItem() {
 							<Heading fontSize='3xl' variant='product' mt='2'>
 								{formatCurrency(checkoutItem.price)}
 							</Heading>
-							<Text>
+							<Text fontWeight='semibold'>
 								Platform fee (3%):{' '}
 								<strong>{formatCurrency(checkoutItem.price * 0.03)}</strong>
 							</Text>
-							<Text>
+							<Text fontWeight='semibold'>
 								Delivery cost: <strong>£3.95</strong>
 							</Text>
 							<Heading fontSize='3xl' variant='product'>

@@ -1,4 +1,4 @@
-import { Box, Heading, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
 import formatCurrency from '../../lib/formatCurrency';
 import EditProduct from './EditProduct';
 import ProductCustomerOptions from './ProductCustomerOptions';
@@ -24,9 +24,9 @@ type SingleProduct = {
 export default function Product({ product, user }) {
 	return (
 		<>
-			<Box w='100%' display={{ lg: 'flex' }} my='6'>
-				<Box w='100%'>
-					<Image src={product.image} alt={product.name} />
+			<Box w='100%' display={{ md: 'flex' }} my='6'>
+				<Flex flexDir='column' w='100%'>
+					<Image src={product.image} alt={product.name} justifySelf='center' />
 					<Text
 						color='brand.700'
 						fontWeight='semibold'
@@ -34,11 +34,12 @@ export default function Product({ product, user }) {
 						fontSize='xs'
 						textTransform='uppercase'
 						mt='2'
+						textAlign={{ sm: 'right', md: 'left' }}
 					>
 						Seller: {product.user.name}
 					</Text>
-				</Box>
-				<Box w='100%' ml={{ sm: '6', lg: '4' }}>
+				</Flex>
+				<Box w='100%' ml={{ md: '8' }}>
 					<Text
 						color='brand.700'
 						fontWeight='bold'
