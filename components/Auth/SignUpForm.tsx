@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import React, { useState, useContext } from 'react';
 import {
 	FormControl,
 	FormLabel,
@@ -18,9 +17,11 @@ import ErrorMessage from '../Message/ErrorMessage';
 import Title from '../Common/Title';
 
 export default function SignUpForm() {
-	const [name, setName] = useState('');
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const [formData, setFormData] = useState({
+		name: '',
+		email: '',
+		password: '',
+	});
 	const { user, signup, signupLoading, signupError } = useContext(AuthContext);
 
 	async function handleSignup(e: React.SyntheticEvent) {
@@ -28,17 +29,23 @@ export default function SignUpForm() {
 		await signup({
 			variables: {
 				input: {
-					name,
-					email,
-					password,
+					...formData,
 				},
 			},
 		});
 	}
 
-	const isNameError = name === '';
-	const isEmailError = email === '';
-	const isPasswordError = password === '';
+	const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target;
+		setFormData((prevState) => ({
+			...prevState,
+			[name]: value,
+		}));
+	};
+
+	const isNameError = formData.name === '';
+	const isEmailError = formData.email === '';
+	const isPasswordError = formData.password === '';
 
 	return (
 		<Box>
@@ -54,8 +61,8 @@ export default function SignUpForm() {
 							w='sm'
 							id='name'
 							type='text'
-							value={name}
-							onChange={(e) => setName(e.target.value)}
+							value={formData.name}
+							onChange={onInputChange}
 						/>
 						{isEmailError && (
 							<FormErrorMessage>Full name is required.</FormErrorMessage>
@@ -67,8 +74,8 @@ export default function SignUpForm() {
 							w='sm'
 							id='email'
 							type='email'
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							value={formData.email}
+							onChange={onInputChange}
 						/>
 						{!isEmailError ? (
 							<FormHelperText>
@@ -84,8 +91,8 @@ export default function SignUpForm() {
 							w='sm'
 							id='password'
 							type='password'
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							value={formData.password}
+							onChange={onInputChange}
 						/>
 						{isPasswordError && (
 							<FormErrorMessage>Password is required.</FormErrorMessage>

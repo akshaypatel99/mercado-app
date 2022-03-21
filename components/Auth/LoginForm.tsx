@@ -8,7 +8,6 @@ import {
 	Center,
 	Box,
 	Button,
-	Heading,
 	Text,
 	Link,
 } from '@chakra-ui/react';
@@ -18,8 +17,10 @@ import ErrorMessage from '../Message/ErrorMessage';
 import Title from '../Common/Title';
 
 export default function LoginForm() {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const [formData, setFormData] = useState({
+		email: '',
+		password: '',
+	});
 	const { login, loginLoading, loginError, user } = useContext(AuthContext);
 
 	async function handleLogin(e: React.SyntheticEvent) {
@@ -27,15 +28,22 @@ export default function LoginForm() {
 		await login({
 			variables: {
 				input: {
-					email,
-					password,
+					...formData,
 				},
 			},
 		});
 	}
 
-	const isEmailError = email === '';
-	const isPasswordError = password === '';
+	const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target;
+		setFormData((prevState) => ({
+			...prevState,
+			[name]: value,
+		}));
+	};
+
+	const isEmailError = formData.email === '';
+	const isPasswordError = formData.password === '';
 
 	return (
 		<Box>
@@ -51,8 +59,9 @@ export default function LoginForm() {
 							w='sm'
 							id='email'
 							type='email'
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							name='email'
+							value={formData.email}
+							onChange={onInputChange}
 						/>
 						{!isEmailError ? (
 							<FormHelperText>
@@ -68,8 +77,9 @@ export default function LoginForm() {
 							w='sm'
 							id='password'
 							type='password'
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							name='password'
+							value={formData.password}
+							onChange={onInputChange}
 						/>
 						{isPasswordError && (
 							<FormErrorMessage>Password is required.</FormErrorMessage>
