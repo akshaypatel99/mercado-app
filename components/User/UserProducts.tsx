@@ -15,8 +15,13 @@ import NextLink from 'next/link';
 import Router from 'next/router';
 import { localDate } from '../../lib/localDate';
 import { FiInfo, FiMinus, FiTrash2 } from 'react-icons/fi';
+import { UserProductsType } from '../../pages/account/products';
 
-export default function UserProducts({ products }) {
+export default function UserProducts({
+	products,
+}: {
+	products: UserProductsType;
+}) {
 	return (
 		<Table variant='simple' color='brand.700'>
 			<TableCaption placement='top'>

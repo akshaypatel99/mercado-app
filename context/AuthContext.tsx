@@ -6,25 +6,9 @@ import {
 	useEffect,
 	useState,
 } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { ApolloError, gql, useMutation } from '@apollo/client';
 import Router from 'next/router';
 import { useCurrentUser } from '../hooks/useCurrentUser';
-
-type User = {
-	_id: string;
-	name: string;
-	email: string;
-	role: string;
-	userProducts: object[];
-	userOrders: string[];
-	userWatchlist: object[];
-};
-
-interface AuthContextInterface {
-	user: User | undefined;
-	setUser: Dispatch<SetStateAction<User | undefined>>;
-	logout: () => void;
-}
 
 const SIGN_UP = gql`
 	mutation SignUp($input: SignupInput) {
@@ -35,42 +19,6 @@ const SIGN_UP = gql`
 				name
 				email
 				role
-				userProducts {
-					_id
-					name
-					description
-					image
-					category
-					price
-				}
-				userOrders {
-					_id
-					product {
-						_id
-						name
-						price
-					}
-					subTotal
-					deliveryCost
-					totalCost
-					deliveryAddress {
-						name
-						street
-						city
-						postcode
-					}
-					paymentResult {
-						id
-						status
-						emailAddress
-					}
-					isPaid
-					paidAt
-					createdAt
-				}
-				userWatchlist {
-					_id
-				}
 			}
 		}
 	}
@@ -85,42 +33,6 @@ const LOGIN = gql`
 				name
 				email
 				role
-				userProducts {
-					_id
-					name
-					description
-					image
-					category
-					price
-				}
-				userOrders {
-					_id
-					product {
-						_id
-						name
-						price
-					}
-					subTotal
-					deliveryCost
-					totalCost
-					deliveryAddress {
-						name
-						street
-						city
-						postcode
-					}
-					paymentResult {
-						id
-						status
-						emailAddress
-					}
-					isPaid
-					paidAt
-					createdAt
-				}
-				userWatchlist {
-					_id
-				}
 			}
 		}
 	}
@@ -132,25 +44,65 @@ const LOGOUT = gql`
 	}
 `;
 
-const AuthContext = createContext(null);
+export type User = {
+	_id: string;
+	name: string;
+	email: string;
+	role: string;
+};
+
+type LoginInput = {
+	email: string;
+	password: string;
+};
+
+type SignupInput = {
+	name: string;
+	email: string;
+	password: string;
+};
+
+type AuthMutationResult = {
+	message: string;
+	user: User;
+};
+
+type AuthContextType = {
+	user: User | null;
+	setUser: Dispatch<SetStateAction<User | null>>;
+	signupUser: (input: SignupInput) => void;
+	signupLoading: boolean;
+	signupError: ApolloError | null;
+	loginUser: (input: LoginInput) => void;
+	loginLoading: boolean;
+	loginError: ApolloError | null;
+	logoutUser: () => void;
+	alertMessage: string | null;
+};
+
+const AuthContext = createContext<AuthContextType>(null);
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-	const [user, setUser] = useState();
+	const [user, setUser] = useState<User | null>(null);
+	const [alertMessage, setAlertMessage] = useState<string | null>(null);
 	const [
 		signup,
 		{ data: signupUserData, loading: signupLoading, error: signupError },
-	] = useMutation(SIGN_UP);
+	] = useMutation<{ signup: AuthMutationResult }, { input: SignupInput }>(
+		SIGN_UP
+	);
 	const [
 		login,
 		{ data: loginUserData, loading: loginLoading, error: loginError },
-	] = useMutation(LOGIN);
-	const [logout, { reset: logoutReset }] = useMutation(LOGOUT);
+	] = useMutation<{ login: AuthMutationResult }, { input: LoginInput }>(LOGIN);
+	const [logout, { reset: logoutReset }] =
+		useMutation<{ logout: boolean }>(LOGOUT);
 	const { currentUserData, currentUserLoading, currentUserError } =
 		useCurrentUser();
 
 	useEffect(() => {
 		if (signupUserData) {
-			setUser(loginUserData.signup.user);
+			setUser(signupUserData.signup.user);
 			setTimeout(() => Router.push('/products'), 2000);
 		}
 		if (loginUserData) {
@@ -161,6 +113,22 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 			setUser(currentUserData.currentUser);
 		}
 	}, [currentUserData, loginUserData, signupUserData]);
+
+	const loginUser = async (formData: LoginInput) => {
+		if (user) {
+			setAlertMessage('You are already logged in, please logout first');
+			return;
+		}
+		await login({ variables: { input: { ...formData } } });
+	};
+
+	const signupUser = async (formData: SignupInput) => {
+		if (user) {
+			setAlertMessage('You are already logged in, please logout first');
+			return;
+		}
+		await signup({ variables: { input: { ...formData } } });
+	};
 
 	const logoutUser = () => {
 		try {
@@ -184,14 +152,14 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 			value={{
 				user,
 				setUser,
-				signup,
+				signupUser,
 				signupLoading,
 				signupError,
-				login,
+				loginUser,
 				loginLoading,
 				loginError,
 				logoutUser,
-				userRedirect,
+				alertMessage,
 			}}
 		>
 			{children}

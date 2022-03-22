@@ -12,12 +12,22 @@ const WATCHLIST = gql`
 	}
 `;
 
+type WatchlistType = {
+	userWatchlist: {
+		_id: string;
+		name: string;
+		price: number;
+		image: string;
+		isSold: boolean;
+	}[];
+};
+
 export function useWatchlist() {
 	const {
 		data: watchlistData,
 		loading: watchlistLoading,
 		error: watchlistError,
-	} = useQuery(WATCHLIST);
+	} = useQuery<WatchlistType>(WATCHLIST);
 
 	return { watchlistData, watchlistLoading, watchlistError };
 }

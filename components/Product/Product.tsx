@@ -1,27 +1,10 @@
 import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
 import formatCurrency from '../../lib/formatCurrency';
+import { ProductProps } from '../../pages/product/[id]';
 import EditProduct from './EditProduct';
 import ProductCustomerOptions from './ProductCustomerOptions';
 
-type SingleProduct = {
-	product: {
-		_id: string;
-		name: string;
-		description: string;
-		image: string;
-		category: string;
-		price: number;
-		user: {
-			_id: string;
-			name: string;
-		};
-		watchedBy: {
-			_id: string;
-		};
-	};
-};
-
-export default function Product({ product, user }) {
+export default function Product({ product, user }: ProductProps) {
 	return (
 		<>
 			<Box w='100%' display={{ md: 'flex' }} my='6'>

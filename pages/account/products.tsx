@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import checkUser, { MyPageContext } from '../../lib/checkUser';
-import { gql } from '@apollo/client';
+import { ApolloError, gql } from '@apollo/client';
 import client from '../../lib/apollo-client';
 import BackTo from '../../components/Common/BackTo';
 import Title from '../../components/Common/Title';
@@ -9,7 +9,7 @@ import InfoMessage from '../../components/Message/InfoMessage';
 import UserProducts from '../../components/User/UserProducts';
 import { Container } from '@chakra-ui/react';
 
-export default function MyProducts({ products, error }) {
+export default function MyProducts({ products, error }: UserProductsProps) {
 	return (
 		<Container variant='page'>
 			<BackTo text='My Account' href='account' />
@@ -20,6 +20,24 @@ export default function MyProducts({ products, error }) {
 		</Container>
 	);
 }
+
+export type UserProductsType = {
+	_id: string;
+	name: string;
+	image: string;
+	price: number;
+	isSold: boolean;
+	soldOn: Date;
+	watchedBy: {
+		_id: string;
+	}[];
+	createdAt: Date;
+}[];
+
+type UserProductsProps = {
+	products: UserProductsType;
+	error: ApolloError | null;
+};
 
 export const getServerSideProps: GetServerSideProps = async (
 	context: MyPageContext

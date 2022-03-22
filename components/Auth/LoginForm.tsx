@@ -15,23 +15,24 @@ import { AuthContext } from '../../context/AuthContext';
 import NextLink from 'next/link';
 import ErrorMessage from '../Message/ErrorMessage';
 import Title from '../Common/Title';
+import InfoMessage from '../Message/InfoMessage';
+
+type LoginFormState = {
+	email: string;
+	password: string;
+};
 
 export default function LoginForm() {
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<LoginFormState>({
 		email: '',
 		password: '',
 	});
-	const { login, loginLoading, loginError, user } = useContext(AuthContext);
+	const { loginUser, loginLoading, loginError, user, alertMessage } =
+		useContext(AuthContext);
 
 	async function handleLogin(e: React.SyntheticEvent) {
 		e.preventDefault();
-		await login({
-			variables: {
-				input: {
-					...formData,
-				},
-			},
-		});
+		loginUser(formData);
 	}
 
 	const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +51,7 @@ export default function LoginForm() {
 			<Title title={user ? `Welcome ${user.name}!` : 'Login'} />
 			<Center mb='4'>
 				{loginError && <ErrorMessage error={loginError} />}
+				{alertMessage && <InfoMessage message={alertMessage} />}
 			</Center>
 			<Center>
 				<form onSubmit={handleLogin}>

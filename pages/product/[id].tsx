@@ -6,8 +6,13 @@ import { GetServerSideProps } from 'next';
 import ErrorMessage from '../../components/Message/ErrorMessage';
 import BackLink from '../../components/Common/BackLink';
 import { Container } from '@chakra-ui/react';
+import { ApolloError } from 'apollo-server-micro';
 
-export default function ProductPage({ product, error, user }) {
+export default function ProductPage({
+	product,
+	error,
+	user,
+}: ProductPageProps) {
 	return (
 		<Container variant='page'>
 			<BackLink />
@@ -16,6 +21,33 @@ export default function ProductPage({ product, error, user }) {
 		</Container>
 	);
 }
+
+export type ProductType = {
+	_id: string;
+	name: string;
+	description: string;
+	image: string;
+	category: string;
+	price: number;
+	user: {
+		_id: string;
+		name: string;
+	};
+	watchedBy: {
+		_id: string;
+	}[];
+	isSold: boolean;
+};
+
+export type ProductProps = {
+	product: ProductType;
+	user: {
+		_id: string;
+		role: string;
+	} | null;
+};
+
+type ProductPageProps = ProductProps & { error: ApolloError | null };
 
 export const getServerSideProps: GetServerSideProps = async (
 	context: MyPageContext

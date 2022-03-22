@@ -1,7 +1,11 @@
 import NextLink from 'next/link';
 import { Center, Heading, Link, Text } from '@chakra-ui/react';
 
-export default function LoginRedirect({ message }) {
+export default function LoginRedirect({
+	message,
+}: {
+	message: string | string[];
+}) {
 	return (
 		<Center flexDir='column' height='sm'>
 			<Heading fontSize='xl' mb='8'>

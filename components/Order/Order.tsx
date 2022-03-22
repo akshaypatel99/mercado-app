@@ -14,8 +14,9 @@ import NextLink from 'next/link';
 import formatCurrency from '../../lib/formatCurrency';
 import { localDate } from '../../lib/localDate';
 import Title from '../Common/Title';
+import { OrderProps } from '../../pages/order/[id]';
 
-export default function Order({ order, user }) {
+export default function Order({ order, user }: OrderProps) {
 	return (
 		<>
 			<Title title={`Order #${order._id}`} />

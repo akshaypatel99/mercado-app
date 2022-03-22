@@ -25,6 +25,14 @@ import formatCurrency from '../../lib/formatCurrency';
 import DeleteDialog from '../Common/DeleteDialog';
 import ErrorMessage from '../Message/ErrorMessage';
 import InfoMessage from '../Message/InfoMessage';
+import { AdminProduct, AllProductsProps } from '../../pages/admin/products';
+
+type MutationResult = {
+	message: string;
+	product: {
+		_id: string;
+	};
+};
 
 const DELETE_PRODUCT = gql`
 	mutation DeleteProduct($deleteProductId: ID!) {
@@ -39,7 +47,7 @@ const DELETE_PRODUCT = gql`
 
 const RESTOCK_PRODUCT = gql`
 	mutation Restock($restockProductId: ID!) {
-		restock(id: $restockProductId) {
+		restockProduct(id: $restockProductId) {
 			message
 			product {
 				_id
@@ -48,27 +56,25 @@ const RESTOCK_PRODUCT = gql`
 	}
 `;
 
-export default function AdminProducts({ products, count }) {
-	const [productToDelete, setProductToDelete] = useState(null);
-	const [error, setError] = useState(null);
+export default function AdminProducts({ products, count }: AllProductsProps) {
+	const [productToDelete, setProductToDelete] = useState<string>(null);
+	const [error, setError] = useState<Error>(null);
 	const router = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const [deleteProduct, { data: deleteData, error: deleteError }] = useMutation(
-		DELETE_PRODUCT,
-		{
+	const [deleteProduct, { data: deleteData, error: deleteError }] =
+		useMutation<{ deleteProduct: MutationResult }>(DELETE_PRODUCT, {
 			onCompleted: () =>
 				Router.push(`/admin/products?message=Product deleted!`),
-		}
-	);
+		});
 
 	const [restockProduct, { data: restockData, error: restockError }] =
-		useMutation(RESTOCK_PRODUCT, {
+		useMutation<{ restockProduct: MutationResult }>(RESTOCK_PRODUCT, {
 			onCompleted: () =>
 				Router.push(`/admin/products?message=Product restocked!`),
 		});
 
-	const handleDelete = (productId) => {
+	const handleDelete = (productId: string) => {
 		deleteProduct({
 			variables: {
 				deleteProductId: productId,
@@ -81,7 +87,7 @@ export default function AdminProducts({ products, count }) {
 		onClose();
 	};
 
-	const handleRestock = (productId) => {
+	const handleRestock = (productId: string) => {
 		restockProduct({
 			variables: {
 				restockProductId: productId,
@@ -92,9 +98,11 @@ export default function AdminProducts({ products, count }) {
 		}
 	};
 
-	function returnId(product) {
+	function returnId(product: AdminProduct) {
 		const order = product.orders.find(
-			(order) => order.createdAt.slice(0, 19) === product.soldOn.slice(0, 19)
+			(order) =>
+				order.createdAt.toString().slice(0, 19) ===
+				product.soldOn.toString().slice(0, 19)
 		);
 		return order ? order._id : null;
 	}

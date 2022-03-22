@@ -1,7 +1,7 @@
 import { createContext, useContext, ReactNode } from 'react';
 import Router from 'next/router';
 import { useDisclosure } from '@chakra-ui/react';
-import { gql, useMutation } from '@apollo/client';
+import { ApolloError, gql, useMutation } from '@apollo/client';
 import { CURRENT_USER } from '../hooks/useCurrentUser';
 import { WATCHLIST } from '../hooks/useWatchlistHook';
 import { AuthContext } from './AuthContext';
@@ -24,7 +24,16 @@ const TOGGLE_WATCHLIST = gql`
 	}
 `;
 
-const WatchlistContext = createContext(null);
+type WatchlistContextType = {
+	watchlistIsOpen: boolean;
+	watchlistOnOpen: () => void;
+	watchlistOnClose: () => void;
+	toggleUserWatchlist: (id: string) => void;
+	toggleWatchlistLoading: boolean;
+	toggleWatchlistError: ApolloError | null;
+};
+
+const WatchlistContext = createContext<WatchlistContextType>(null);
 
 const WatchlistProvider = ({ children }: { children: ReactNode }) => {
 	const { user } = useContext(AuthContext);

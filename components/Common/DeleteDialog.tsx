@@ -10,13 +10,21 @@ import {
 	Text,
 } from '@chakra-ui/react';
 
+type DeleteDialogProps = {
+	isOpen: boolean;
+	onClose: () => void;
+	heading: string;
+	handleDelete: (id: string) => void;
+	id: string;
+};
+
 export default function DeleteDialog({
 	isOpen,
 	onClose,
 	heading,
 	handleDelete,
 	id,
-}) {
+}: DeleteDialogProps) {
 	const cancelRef = useRef();
 
 	return (

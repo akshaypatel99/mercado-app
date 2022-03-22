@@ -4,9 +4,10 @@ import { Box, Heading } from '@chakra-ui/react';
 import ProductForm from './ProductForm';
 import ErrorMessage from '../Message/ErrorMessage';
 import SuccessMessage from '../Message/SuccessMessage';
+import { ProductType } from '../../pages/product/[id]';
+import { ProductMutationResult } from './CreateProduct';
 
-type Product = {
-	_id: string;
+export type UpdatedProductType = {
 	name: string;
 	description: string;
 	image: string;
@@ -33,10 +34,13 @@ export const UPDATE_PRODUCT = gql`
 	}
 `;
 
-export default function EditProduct({ product }) {
-	const [updatedProduct, setUpdatedProduct] = useState<Product>(product);
+export default function EditProduct({ product }: { product: ProductType }) {
+	const [updatedProduct, setUpdatedProduct] =
+		useState<UpdatedProductType>(product);
 
-	const [update, { data, loading, error }] = useMutation(UPDATE_PRODUCT, {
+	const [update, { data, loading, error }] = useMutation<{
+		updateProduct: ProductMutationResult;
+	}>(UPDATE_PRODUCT, {
 		variables: {
 			updateProductId: product._id,
 			input: {

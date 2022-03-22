@@ -14,8 +14,9 @@ import NextLink from 'next/link';
 import Router from 'next/router';
 import { localDate } from '../../lib/localDate';
 import { FiInfo } from 'react-icons/fi';
+import { AllUsers } from '../../pages/admin/users';
 
-export default function AdminUsers({ users, count }) {
+export default function AdminUsers({ users, count }: AllUsers) {
 	return (
 		<>
 			<Text fontWeight='semibold'>Total: {count}</Text>

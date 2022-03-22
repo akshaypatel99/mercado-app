@@ -19,6 +19,16 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { FiCheck, FiFile } from 'react-icons/fi';
+import { UpdatedProductType } from './EditProduct';
+
+type ImageSrc = string | ArrayBuffer;
+
+type ImageUploadModalProps = {
+	isOpen: boolean;
+	onClose: () => void;
+	updatedProduct: UpdatedProductType;
+	setUpdatedProduct: React.Dispatch<React.SetStateAction<UpdatedProductType>>;
+};
 
 const UPLOAD_PHOTO = gql`
 	mutation UploadPhoto($file: Upload!) {
@@ -30,14 +40,12 @@ const UPLOAD_PHOTO = gql`
 	}
 `;
 
-type ImageSrc = string | ArrayBuffer;
-
 export default function ImageUploadModal({
 	isOpen,
 	onClose,
 	updatedProduct,
 	setUpdatedProduct,
-}) {
+}: ImageUploadModalProps) {
 	const [imageSrc, setImageSrc] = useState<ImageSrc>();
 	const [imageAlt, setImageAlt] = useState<string>();
 	const [uploadPhoto, { data, loading, error, reset }] =

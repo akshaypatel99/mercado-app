@@ -1,11 +1,10 @@
-import { gql } from '@apollo/client';
 import { GetServerSidePropsContext } from 'next';
-import client from './apollo-client';
 import {validateRefreshToken} from './api-util';
+import { ApolloError } from 'apollo-server-micro';
 
 export interface MyPageContext extends GetServerSidePropsContext {
   user: any | null;
-  error: Error | null;
+  error: Error | ApolloError | null;
 }
 
 type Enum = 'ADMIN' | 'USER';

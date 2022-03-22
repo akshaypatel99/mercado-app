@@ -1,14 +1,21 @@
 import { createContext, useState, ReactNode, useContext } from 'react';
 import Router from 'next/router';
 import { AuthContext } from './AuthContext';
+import { ProductType } from '../pages/product/[id]';
 
-const CheckoutContext = createContext(null);
+type CheckoutContextType = {
+	checkoutItem: ProductType | null;
+	buyNow: (product: ProductType) => void;
+	cancelCheckout: (id: string) => void;
+};
+
+const CheckoutContext = createContext<CheckoutContextType>(null);
 
 const CheckoutProvider = ({ children }: { children: ReactNode }) => {
-	const [checkoutItem, setCheckoutItem] = useState(null);
+	const [checkoutItem, setCheckoutItem] = useState<ProductType | null>(null);
 	const { user } = useContext(AuthContext);
 
-	const buyNow = (product) => {
+	const buyNow = (product: ProductType) => {
 		if (!user) {
 			Router.push('/login?message=Please login or signup to buy this product');
 		} else {

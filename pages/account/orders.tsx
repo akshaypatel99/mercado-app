@@ -8,8 +8,9 @@ import Title from '../../components/Common/Title';
 import ErrorMessage from '../../components/Message/ErrorMessage';
 import InfoMessage from '../../components/Message/InfoMessage';
 import { Container } from '@chakra-ui/react';
+import { ApolloError } from 'apollo-server-micro';
 
-export default function Orders({ orders, error }) {
+export default function Orders({ orders, error }: UserOrdersProps) {
 	return (
 		<Container variant='page'>
 			<BackTo text='My Account' href='account' />
@@ -20,6 +21,22 @@ export default function Orders({ orders, error }) {
 		</Container>
 	);
 }
+
+export type UserOrdersType = {
+	_id: string;
+	product: {
+		_id: string;
+		name: string;
+	};
+	createdAt: Date;
+	subTotal: number;
+	totalCost: number;
+}[];
+
+type UserOrdersProps = {
+	orders: UserOrdersType;
+	error: ApolloError | null;
+};
 
 export const getServerSideProps: GetServerSideProps = async (
 	context: MyPageContext

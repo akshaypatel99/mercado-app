@@ -16,9 +16,10 @@ import ErrorMessage from '../Message/ErrorMessage';
 import formatCurrency from '../../lib/formatCurrency';
 import getStripe from '../../lib/get-stripejs';
 import Policy from './Policy';
+import { StripeError } from '@stripe/stripe-js';
 
 export default function CheckoutItem() {
-	const [error, setError] = useState(null);
+	const [error, setError] = useState<StripeError>(null);
 	const { checkoutItem, cancelCheckout } = useContext(CheckoutContext);
 	const { user } = useContext(AuthContext);
 

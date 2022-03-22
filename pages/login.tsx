@@ -4,7 +4,7 @@ import InfoMessage from '../components/Message/InfoMessage';
 import LoginForm from '../components/Auth/LoginForm';
 
 export default function Login() {
-	const [message, setMessage] = useState('');
+	const [message, setMessage] = useState<string>('');
 
 	useEffect(() => {
 		// Check to see if this is a redirect

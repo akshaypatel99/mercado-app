@@ -2,7 +2,7 @@ import { Container, Flex, Heading } from '@chakra-ui/react';
 import Link from 'next/link';
 import Nav from './Nav';
 
-const Header = () => {
+export default function Header() {
 	return (
 		<header>
 			<Container variant='header'>
@@ -19,6 +19,4 @@ const Header = () => {
 			</Container>
 		</header>
 	);
-};
-
-export default Header;
+}

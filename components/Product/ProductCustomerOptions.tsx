@@ -5,8 +5,13 @@ import { WatchlistContext } from '../../context/WatchlistReactContext';
 import { useWatchlist } from '../../hooks/useWatchlistHook';
 import ErrorMessage from '../Message/ErrorMessage';
 import Policy from './Policy';
+import { ProductType } from '../../pages/product/[id]';
 
-export default function ProductCustomerOptions({ product }) {
+export default function ProductCustomerOptions({
+	product,
+}: {
+	product: ProductType;
+}) {
 	const { toggleUserWatchlist, toggleWatchlistLoading, toggleWatchlistError } =
 		useContext(WatchlistContext);
 	const { watchlistData } = useWatchlist();

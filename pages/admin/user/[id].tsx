@@ -7,10 +7,13 @@ import UserOrders from '../../../components/User/UserOrders';
 import ErrorMessage from '../../../components/Message/ErrorMessage';
 import UserProducts from '../../../components/User/UserProducts';
 import { Box, Container, Heading } from '@chakra-ui/react';
+import BackTo from '../../../components/Common/BackTo';
+import { UserProfileProps } from '../../account/profile';
 
-export default function UserPage({ error, user }) {
+export default function UserPage({ error, user }: UserProfileProps) {
 	return (
 		<Container variant='page'>
+			<BackTo text='All Users' href='admin/users' />
 			{error && <ErrorMessage error={error} />}
 			<Box>
 				<UserProfile user={user} />
@@ -57,6 +60,7 @@ export const getServerSideProps: GetServerSideProps = async (
 						image
 						price
 						isSold
+						soldOn
 						watchedBy {
 							_id
 						}

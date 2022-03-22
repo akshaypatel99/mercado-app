@@ -6,8 +6,9 @@ import { GetServerSideProps } from 'next';
 import ErrorMessage from '../../components/Message/ErrorMessage';
 import BackLink from '../../components/Common/BackLink';
 import { Container } from '@chakra-ui/react';
+import { ApolloError } from 'apollo-server-micro';
 
-export default function OrderPage({ order, error, user }) {
+export default function OrderPage({ order, error, user }: OrderPageProps) {
 	return (
 		<Container variant='page'>
 			{error && <ErrorMessage error={error} />}
@@ -16,6 +17,48 @@ export default function OrderPage({ order, error, user }) {
 		</Container>
 	);
 }
+
+export type OrderProps = {
+	order: {
+		_id: string;
+		user: {
+			_id: string;
+			name: string;
+			email: string;
+		};
+		product: {
+			_id: string;
+			name: string;
+			image: string;
+			price: number;
+			user: {
+				_id: string;
+				name: string;
+			};
+		};
+		subTotal: number;
+		deliveryCost: number;
+		platformFee: number;
+		totalCost: number;
+		deliveryAddress: {
+			name: string;
+			street: string;
+			city: string;
+			postcode: string;
+		};
+		paymentResult: {
+			status: string;
+		};
+		paidAt: Date;
+		createdAt: Date;
+	};
+	user: {
+		_id: string;
+		role: string;
+	} | null;
+};
+
+type OrderPageProps = OrderProps & { error: ApolloError | null };
 
 export const getServerSideProps: GetServerSideProps = async (
 	context: MyPageContext

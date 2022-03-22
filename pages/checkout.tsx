@@ -5,8 +5,16 @@ import BackTo from '../components/Common/BackTo';
 import Title from '../components/Common/Title';
 import { Container } from '@chakra-ui/react';
 
+type CancelStateType = {
+	isCancelled: boolean;
+	message: string;
+};
+
 export default function Checkout() {
-	const [cancel, setCancel] = useState({ isCancelled: false, message: '' });
+	const [cancel, setCancel] = useState<CancelStateType>({
+		isCancelled: false,
+		message: '',
+	});
 
 	useEffect(() => {
 		// Check to see if this is a redirect back from Checkout

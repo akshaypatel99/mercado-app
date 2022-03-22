@@ -18,6 +18,8 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import ImageUploadModal from './ImageUploadModal';
+import { UpdatedProductType } from './EditProduct';
+import { ProductType } from '../../pages/product/[id]';
 
 const schema = z.object({
 	name: z
@@ -48,19 +50,11 @@ const schema = z.object({
 		.default('Other'),
 });
 
-type Product = {
-	name: string;
-	description: string;
-	image: string;
-	category: string;
-	price: number;
-};
-
 type ProductFormProps = {
-	product?: Product;
+	product?: ProductType;
 	mutationFn: () => {};
-	updatedProduct?: Product;
-	setUpdatedProduct: Dispatch<any>;
+	updatedProduct?: UpdatedProductType;
+	setUpdatedProduct: React.Dispatch<React.SetStateAction<UpdatedProductType>>;
 };
 
 export default function ProductForm({
@@ -69,7 +63,7 @@ export default function ProductForm({
 	updatedProduct,
 	setUpdatedProduct,
 }: ProductFormProps) {
-	const [productInfo, setProductInfo] = useState(product);
+	const [productInfo, setProductInfo] = useState<ProductType>(product);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
 		handleSubmit,

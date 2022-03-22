@@ -15,24 +15,26 @@ import { AuthContext } from '../../context/AuthContext';
 import NextLink from 'next/link';
 import ErrorMessage from '../Message/ErrorMessage';
 import Title from '../Common/Title';
+import InfoMessage from '../Message/InfoMessage';
+
+type SignupFormState = {
+	name: string;
+	email: string;
+	password: string;
+};
 
 export default function SignUpForm() {
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<SignupFormState>({
 		name: '',
 		email: '',
 		password: '',
 	});
-	const { user, signup, signupLoading, signupError } = useContext(AuthContext);
+	const { user, signupUser, signupLoading, signupError, alertMessage } =
+		useContext(AuthContext);
 
 	async function handleSignup(e: React.SyntheticEvent) {
 		e.preventDefault();
-		await signup({
-			variables: {
-				input: {
-					...formData,
-				},
-			},
-		});
+		signupUser(formData);
 	}
 
 	const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +54,7 @@ export default function SignUpForm() {
 			<Title title={user ? `Welcome ${user.name}!` : 'Sign Up'} />
 			<Center mb='4'>
 				{signupError && <ErrorMessage error={signupError} />}
+				{alertMessage && <InfoMessage message={alertMessage} />}
 			</Center>
 			<Center>
 				<form onSubmit={handleSignup}>

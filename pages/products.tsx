@@ -3,8 +3,9 @@ import client from '../lib/apollo-client';
 import ProductList from '../components/Product/ProductList';
 import { GetServerSideProps } from 'next';
 import { Box, Center, Container, Heading } from '@chakra-ui/react';
+import { ApolloError } from 'apollo-server-micro';
 
-export default function Products({ products, error }) {
+export default function Products({ products, error }: ProductsProps) {
 	return (
 		<>
 			<Box
@@ -44,6 +45,20 @@ export default function Products({ products, error }) {
 		</>
 	);
 }
+
+export type Product = {
+	_id: string;
+	name: string;
+	image: string;
+	category: string;
+	price: number;
+	isNew: boolean;
+};
+
+export type ProductsProps = {
+	products: Product[];
+	error: ApolloError | null;
+};
 
 export const getServerSideProps: GetServerSideProps = async () => {
 	const { data, error } = await client.query({

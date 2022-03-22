@@ -22,6 +22,14 @@ import formatCurrency from '../../lib/formatCurrency';
 import DeleteDialog from '../Common/DeleteDialog';
 import ErrorMessage from '../Message/ErrorMessage';
 import InfoMessage from '../Message/InfoMessage';
+import { AllOrdersProps } from '../../pages/admin/orders';
+
+type MutationResult = {
+	message: string;
+	order: {
+		_id: string;
+	};
+};
 
 const DELETE_ORDER = gql`
 	mutation DeleteOrder($deleteOrderId: ID!) {
@@ -34,16 +42,18 @@ const DELETE_ORDER = gql`
 	}
 `;
 
-export default function AdminOrders({ orders, count }) {
+export default function AdminOrders({ orders, count }: AllOrdersProps) {
 	const [orderToDelete, setOrderToDelete] = useState(null);
 	const router = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const [deleteOrder, { data, error }] = useMutation(DELETE_ORDER, {
+	const [deleteOrder, { data, error }] = useMutation<{
+		deleteOrder: MutationResult;
+	}>(DELETE_ORDER, {
 		onCompleted: () => Router.push(`/admin/orders?message=Order deleted!`),
 	});
 
-	const handleDelete = (orderId) => {
+	const handleDelete = (orderId: string) => {
 		deleteOrder({
 			variables: {
 				deleteOrderId: orderId,

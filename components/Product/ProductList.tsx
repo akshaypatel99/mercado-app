@@ -1,17 +1,9 @@
 import { SimpleGrid } from '@chakra-ui/react';
 import ErrorMessage from '../Message/ErrorMessage';
 import ProductListItem from './ProductListItem';
+import { Product, ProductsProps } from '../../pages/products';
 
-type Product = {
-	_id: string;
-	name: string;
-	image: string;
-	category: string;
-	price: number;
-	isNew: boolean;
-};
-
-export default function ProductList({ products, error }) {
+export default function ProductList({ products, error }: ProductsProps) {
 	if (error) return <ErrorMessage error={error} />;
 
 	return (

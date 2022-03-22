@@ -10,8 +10,9 @@ import {
 } from '@chakra-ui/react';
 import formatCurrency from '../../lib/formatCurrency';
 import { localDate } from '../../lib/localDate';
+import { UserProfileType } from '../../pages/account/profile';
 
-export default function UserProfile({ user }) {
+export default function UserProfile({ user }: { user: UserProfileType }) {
 	const itemsSold = user.userProducts.filter((item) => item.isSold);
 	const totalEarnings = itemsSold.reduce((acc, item) => {
 		return acc + item.price;
@@ -52,7 +53,7 @@ export default function UserProfile({ user }) {
 					<StatNumber fontSize='4xl'>
 						{formatCurrency(totalEarnings)}
 					</StatNumber>
-					<StatHelpText>Amount earnt from product sales</StatHelpText>
+					<StatHelpText>Amount earned from product sales</StatHelpText>
 				</Stat>
 				<Stat p='6' minW='200px'>
 					<StatLabel fontWeight='bold' textTransform='uppercase'>

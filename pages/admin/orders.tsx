@@ -8,8 +8,13 @@ import ErrorMessage from '../../components/Message/ErrorMessage';
 import InfoMessage from '../../components/Message/InfoMessage';
 import AdminOrders from '../../components/Admin/AdminOrders';
 import { Container } from '@chakra-ui/react';
+import { ApolloError } from 'apollo-server-micro';
 
-export default function AllProducts({ orders, error, count }) {
+export default function AllOrders({
+	orders,
+	error,
+	count,
+}: AllOrdersPageProps) {
 	return (
 		<Container variant='page'>
 			<BackTo text='Admin Dashboard' href='admin' />
@@ -22,6 +27,31 @@ export default function AllProducts({ orders, error, count }) {
 		</Container>
 	);
 }
+
+export type AdminOrder = {
+	_id: string;
+	user: {
+		_id: string;
+		name: string;
+	};
+	product: {
+		_id: string;
+		name: string;
+	};
+	subTotal: number;
+	platformFee: number;
+	totalCost: number;
+	isPaid: boolean;
+	paidAt: Date;
+	createdAt: Date;
+};
+
+export type AllOrdersProps = {
+	orders: AdminOrder[];
+	count: number;
+};
+
+type AllOrdersPageProps = AllOrdersProps & { error: ApolloError | null };
 
 export const getServerSideProps: GetServerSideProps = async (
 	context: MyPageContext

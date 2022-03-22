@@ -12,13 +12,21 @@ import {
 import NextLink from 'next/link';
 import ProductForm from './ProductForm';
 import ErrorMessage from '../Message/ErrorMessage';
+import { UpdatedProductType } from './EditProduct';
 
-type Product = {
-	name: string;
-	description: string;
-	image: string;
-	category: string;
-	price: number;
+export type ProductMutationResult = {
+	message: string;
+	product: {
+		_id: string;
+		user: {
+			name: string;
+		};
+		name: string;
+		description: string;
+		image: string;
+		category: string;
+		price: number;
+	};
 };
 
 export const CREATE_PRODUCT = gql`
@@ -41,7 +49,7 @@ export const CREATE_PRODUCT = gql`
 `;
 
 export default function CreateProduct() {
-	const [updatedProduct, setUpdatedProduct] = useState<Product>({
+	const [updatedProduct, setUpdatedProduct] = useState<UpdatedProductType>({
 		name: '',
 		description: '',
 		image: '',
@@ -49,7 +57,9 @@ export default function CreateProduct() {
 		price: 0,
 	});
 
-	const [create, { data, loading, error }] = useMutation(CREATE_PRODUCT, {
+	const [create, { data, loading, error }] = useMutation<{
+		createProduct: ProductMutationResult;
+	}>(CREATE_PRODUCT, {
 		variables: {
 			input: {
 				name: updatedProduct.name,

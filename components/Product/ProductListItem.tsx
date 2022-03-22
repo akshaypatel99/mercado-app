@@ -1,17 +1,9 @@
 import { Badge, Box, Image, LinkBox, LinkOverlay } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import formatCurrency from '../../lib/formatCurrency';
+import { Product } from '../../pages/products';
 
-type ProductProps = {
-	_id: string;
-	name: string;
-	image: string;
-	category: string;
-	price: number;
-	isNew: boolean;
-};
-
-export default function Product({ product }: { product: ProductProps }) {
+export default function ProductListItem({ product }: { product: Product }) {
 	return (
 		<LinkBox
 			maxW='sm'

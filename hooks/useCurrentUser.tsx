@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import { User } from '../context/AuthContext';
 
 const CURRENT_USER = gql`
 	query CurrentUser {
@@ -7,42 +8,6 @@ const CURRENT_USER = gql`
 			name
 			email
 			role
-			userProducts {
-				_id
-				name
-				description
-				image
-				category
-				price
-			}
-			userOrders {
-				_id
-				product {
-					_id
-					name
-					price
-				}
-				subTotal
-				deliveryCost
-				totalCost
-				deliveryAddress {
-					name
-					street
-					city
-					postcode
-				}
-				paymentResult {
-					id
-					status
-					emailAddress
-				}
-				isPaid
-				paidAt
-				createdAt
-			}
-			userWatchlist {
-				_id
-			}
 		}
 	}
 `;
@@ -52,7 +17,7 @@ export function useCurrentUser() {
 		data: currentUserData,
 		loading: currentUserLoading,
 		error: currentUserError,
-	} = useQuery(CURRENT_USER);
+	} = useQuery<{ currentUser: User }>(CURRENT_USER);
 
 	return { currentUserData, currentUserLoading, currentUserError };
 }
