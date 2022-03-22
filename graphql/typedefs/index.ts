@@ -29,7 +29,7 @@ type Mutation {
 	updateProduct(id: ID!, input: ProductInput): ProductResult
 	deleteProduct(id: ID!): ProductDeleteResult
 	uploadPhoto(file: Upload!): UploadedFileResponse
-	restock(id: ID!): ProductResult
+	restockProduct(id: ID!): ProductResult
 
 	# User
 	signup(input: SignupInput): AuthenticationResult

@@ -56,7 +56,7 @@ const productMutations = {
       return error
     }
   },
-  restock: async (parent, { id }, { user }) => {
+  restockProduct: async (parent, { id }, { user }) => {
     checkUserRole(user, ["ADMIN"]);
     try {
       const product = await Product.findById(id);
