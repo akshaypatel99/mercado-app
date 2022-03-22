@@ -1,7 +1,7 @@
 import { ApolloError, UserInputError } from 'apollo-server-micro';
 import { User, Product } from '../../../db/models';
 import { removeCookie, setCookies } from '../../../lib/cookies';
-import { hashPassword, verifyPassword, checkUserRole, setTokens, safeUserInfo } from '../../../lib/api-util';
+import { hashPassword, verifyPassword, checkUserRole, setTokens, safeUserInfo, UserData } from '../../../lib/api-util';
 
 const userMutations = {
   signup: async (parent, { input }, { req, res }) => {
@@ -28,7 +28,7 @@ const userMutations = {
         }
 
         const newUser = new User(userData);
-        const savedUser = await newUser.save();
+        const savedUser: UserData = await newUser.save();
 
         if (savedUser) {
           const {accessToken, refreshToken} = setTokens(savedUser);
@@ -53,7 +53,7 @@ const userMutations = {
     try {
       const { email, password } = input;
 
-      const foundUser = await User.findOne({ email }).lean();
+      const foundUser: UserData = await User.findOne({ email }).lean();
 
       if (!foundUser) {
         throw new UserInputError('Wrong email or password');

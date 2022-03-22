@@ -2,6 +2,7 @@ import { buffer } from 'micro';
 import { Stripe } from 'stripe';
 import { Order, Product, User } from '../../db/models';
 import connectDB from '../../db/config';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 export const config = {
   api: {
@@ -57,7 +58,7 @@ const fulfillOrder = async (session) => {
   };
 }
 
-export default async function webhookHandler(req, res) {
+export default async function webhookHandler(req: NextApiRequest, res: NextApiResponse) {
 
   if (req.method === 'POST') {
     const requestBuffer = await buffer(req);

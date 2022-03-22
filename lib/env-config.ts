@@ -1,4 +1,4 @@
-let uri;
+let uri: string;
 
 if(process.env.NODE_ENV === 'development') {
   uri = 'http://localhost:3000/api/graphql';

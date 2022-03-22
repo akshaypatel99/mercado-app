@@ -26,11 +26,16 @@ export type UserData = {
   updatedAt: string;
 }
 
+export interface JwtPayload {
+  _id: string;
+  role: string;
+}
+
 const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
 const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
 
 /* AUTH TOKEN HELPERS */
-const setTokens = (user) => {
+const setTokens = (user: UserData) => {
 
   const accessUser: AccessUserInfo = {
     _id: user._id,
@@ -51,7 +56,7 @@ const setTokens = (user) => {
 
 const validateAccessToken = (token: string) => {
   try {
-    return jwt.verify(token, jwtAccessSecret);
+    return jwt.verify(token, jwtAccessSecret) as JwtPayload;
   } catch (error) {
     return null;
   }
@@ -59,7 +64,7 @@ const validateAccessToken = (token: string) => {
 
 const validateRefreshToken = (token: string) => {
   try {
-    return jwt.verify(token, jwtRefreshSecret);
+    return jwt.verify(token, jwtRefreshSecret) as JwtPayload;
   } catch (error) {
     return null;
   }
@@ -84,8 +89,8 @@ const hashPassword = async (password: string) => {
 };
 
 const verifyPassword = (
-  passwordAttempt,
-  hashedPassword
+  passwordAttempt: string,
+  hashedPassword: string
 ) => {
   return bcrypt.compare(passwordAttempt, hashedPassword);
 };

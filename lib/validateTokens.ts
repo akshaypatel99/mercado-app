@@ -1,12 +1,12 @@
-import { setTokens, validateAccessToken, validateRefreshToken } from "./api-util";
+import { setTokens, UserData, validateAccessToken, validateRefreshToken } from "./api-util";
 import { User } from "../db/models";
 import { NextApiResponse } from 'next';
 import { NextApiRequestWithFilePayload } from '../pages/api/graphql'
 import { getCookie, removeCookie, setCookies } from "./cookies";
 
 export default async function validateTokens(req: NextApiRequestWithFilePayload, res: NextApiResponse) {
-  const accessToken = getCookie(req, 'access');
-  const refreshToken = getCookie(req, 'refresh');
+  const accessToken: string = getCookie(req, 'access');
+  const refreshToken: string = getCookie(req, 'refresh');
 
   if(!accessToken && !refreshToken) return { req, res, user: null };
 
@@ -20,8 +20,8 @@ export default async function validateTokens(req: NextApiRequestWithFilePayload,
   // If access token is invalid, check refresh token
   const decodedRefreshToken = validateRefreshToken(refreshToken);
 
-  if(decodedRefreshToken) {
-    const user = await User.findById(decodedRefreshToken._id).lean();
+  if(decodedRefreshToken && decodedRefreshToken._id) {
+    const user: UserData = await User.findById(decodedRefreshToken._id).lean();
 
     // If refresh token is invalid, clear cookies
     if (!user) {

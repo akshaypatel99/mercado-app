@@ -3,7 +3,7 @@ import { User, Order } from "../../../db/models";
 import { checkUserRole } from "../../../lib/api-util";
 
 const orderQueries = {
-  orders: async (parent, { params }, { user}) => {
+  orders: async (parent, { params }, { user }) => {
     checkUserRole(user, ["ADMIN"]);
     try {
       const { pageSize, page } = params;
