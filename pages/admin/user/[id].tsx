@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import client from '../../../lib/apollo-client';
-import checkUser, { MyPageContext } from '../../../lib/checkUser';
+import checkUser from '../../../lib/checkUser';
 import { GetServerSideProps } from 'next';
 import UserProfile from '../../../components/User/UserProfile';
 import UserOrders from '../../../components/User/UserOrders';
@@ -30,18 +30,14 @@ export default function UserPage({ error, user }: UserProfileProps) {
 	);
 }
 
-export const getServerSideProps: GetServerSideProps = async (
-	context: MyPageContext
-) => {
-	await checkUser(context, { level: 'ADMIN', redirect: false });
-
+export const getServerSideProps: GetServerSideProps = async (context) => {
 	await checkUser(context, {
 		level: 'ADMIN',
 		redirect: true,
 		message: 'You do not have permission to view this page',
 	});
 
-	const { id } = context.params;
+	const id = context.params?.id;
 
 	const Cookie = context.req.headers.cookie;
 

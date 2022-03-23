@@ -1,12 +1,13 @@
 import { gql } from '@apollo/client';
 import client from '../../lib/apollo-client';
 import Product from '../../components/Product/Product';
-import checkUser, { MyPageContext } from '../../lib/checkUser';
+import checkUser from '../../lib/checkUser';
 import { GetServerSideProps } from 'next';
 import ErrorMessage from '../../components/Message/ErrorMessage';
 import BackLink from '../../components/Common/BackLink';
 import { Container } from '@chakra-ui/react';
 import { ApolloError } from 'apollo-server-micro';
+import { ParsedUrlQuery } from 'querystring';
 
 export default function ProductPage({
 	product,
@@ -49,15 +50,13 @@ export type ProductProps = {
 
 type ProductPageProps = ProductProps & { error: ApolloError | null };
 
-export const getServerSideProps: GetServerSideProps = async (
-	context: MyPageContext
-) => {
-	await checkUser(context, {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const { user } = await checkUser(context, {
 		level: 'USER',
 		redirect: false,
 	});
 
-	const { id } = context.params;
+	const id = context.params?.id;
 
 	const { data, error } = await client.query({
 		query: gql`
@@ -89,7 +88,7 @@ export const getServerSideProps: GetServerSideProps = async (
 		props: {
 			product: data.product,
 			error: error || null,
-			user: context.user,
+			user,
 		},
 	};
 };

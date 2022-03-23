@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import checkUser, { MyPageContext } from '../../lib/checkUser';
+import checkUser from '../../lib/checkUser';
 import { gql } from '@apollo/client';
 import client from '../../lib/apollo-client';
 import BackTo from '../../components/Common/BackTo';
@@ -53,9 +53,7 @@ export type AllOrdersProps = {
 
 type AllOrdersPageProps = AllOrdersProps & { error: ApolloError | null };
 
-export const getServerSideProps: GetServerSideProps = async (
-	context: MyPageContext
-) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
 	await checkUser(context, {
 		level: 'ADMIN',
 		redirect: true,

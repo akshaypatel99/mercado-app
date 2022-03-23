@@ -2,7 +2,7 @@ import { Container } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import CreateProduct from '../components/Product/CreateProduct';
 import Title from '../components/Common/Title';
-import checkUser, { MyPageContext } from '../lib/checkUser';
+import checkUser from '../lib/checkUser';
 
 export default function Sell() {
 	return (
@@ -13,9 +13,7 @@ export default function Sell() {
 	);
 }
 
-export const getServerSideProps: GetServerSideProps = async (
-	context: MyPageContext
-) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
 	await checkUser(context, {
 		level: 'USER',
 		redirect: true,
@@ -23,8 +21,6 @@ export const getServerSideProps: GetServerSideProps = async (
 	});
 
 	return {
-		props: {
-			user: context.user,
-		},
+		props: {},
 	};
 };

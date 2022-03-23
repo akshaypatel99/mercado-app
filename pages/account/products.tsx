@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import checkUser, { MyPageContext } from '../../lib/checkUser';
+import checkUser from '../../lib/checkUser';
 import { ApolloError, gql } from '@apollo/client';
 import client from '../../lib/apollo-client';
 import BackTo from '../../components/Common/BackTo';
@@ -39,10 +39,8 @@ type UserProductsProps = {
 	error: ApolloError | null;
 };
 
-export const getServerSideProps: GetServerSideProps = async (
-	context: MyPageContext
-) => {
-	await checkUser(context, {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const { user } = await checkUser(context, {
 		level: 'USER',
 		redirect: true,
 		message: 'Please log in to view your products',

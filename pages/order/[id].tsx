@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import client from '../../lib/apollo-client';
 import Order from '../../components/Order/Order';
-import checkUser, { MyPageContext } from '../../lib/checkUser';
+import checkUser from '../../lib/checkUser';
 import { GetServerSideProps } from 'next';
 import ErrorMessage from '../../components/Message/ErrorMessage';
 import BackLink from '../../components/Common/BackLink';
@@ -60,16 +60,14 @@ export type OrderProps = {
 
 type OrderPageProps = OrderProps & { error: ApolloError | null };
 
-export const getServerSideProps: GetServerSideProps = async (
-	context: MyPageContext
-) => {
-	await checkUser(context, {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const { user } = await checkUser(context, {
 		level: 'USER',
 		redirect: true,
 		message: 'Please log in to view your order',
 	});
 
-	const { id } = context.params;
+	const id = context.params?.id;
 
 	const Cookie = context.req.headers.cookie;
 
@@ -121,7 +119,7 @@ export const getServerSideProps: GetServerSideProps = async (
 		props: {
 			order: data.order,
 			error: error || null,
-			user: context.user,
+			user,
 		},
 	};
 };

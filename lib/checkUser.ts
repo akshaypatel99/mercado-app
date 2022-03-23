@@ -1,45 +1,43 @@
 import { GetServerSidePropsContext } from 'next';
 import {validateRefreshToken} from './apiUtils';
-import { ApolloError } from 'apollo-server-micro';
-
-export interface MyPageContext extends GetServerSidePropsContext {
-  user: any | null;
-  error: Error | ApolloError | null;
-}
 
 type Enum = 'ADMIN' | 'USER';
 
-const checkUser = async (context: MyPageContext, { level, redirect, message }: { level: Enum, redirect: boolean, message?: string }) => {
+const checkUser = async (context: GetServerSidePropsContext, { level, redirect, message }: { level: Enum, redirect: boolean, message?: string }) => {
   const Cookie = context.req.headers.cookie;
 
   if (!Cookie && redirect) {
-    context.user = null;
     context.res.writeHead(302, {
       Location: message ? `/login?message=${message}` : '/login',
     });
     context.res.end();
-    return context;
+    return {
+      user: null,
+    };
   }
 
   if (!Cookie) {
-    context.user = null;
-    return context;
+    return {
+      user: null,
+    };
   }
 
   const isRefreshToken = Cookie.includes('refresh=');
 
   if (!isRefreshToken && redirect) {
-    context.user = null;
     context.res.writeHead(302, {
 			Location: message ? `/login?message=${message}` : '/login',
 		});
     context.res.end();
-    return context;
+    return {
+      user: null,
+    };
   }
   
   if (!isRefreshToken) {
-    context.user = null;
-    return context;
+    return {
+      user: null,
+    };
   }
 
   if (isRefreshToken) {
@@ -47,26 +45,32 @@ const checkUser = async (context: MyPageContext, { level, redirect, message }: {
     const decodedRefreshToken = validateRefreshToken(refreshToken);
 
     if (!decodedRefreshToken) {
-      context.user = null;
       context.res.writeHead(302, {
         Location: message ? `/login?message=${message}` : '/login',
       });
       context.res.end();
-      return context;
+      return {
+        user: null,
+      }
     } else if (level === 'ADMIN' && decodedRefreshToken.role !== 'ADMIN') {
-      context.user = null;
       context.res.writeHead(302, {
         Location: message ? `/login?message=Unauthorized access` : '/login',
       });
       context.res.end();
-      return context;
+      return {
+        user: null,
+      };
     } else {
-      context.user = decodedRefreshToken;
-      return context;
+      return {
+        user: decodedRefreshToken,
+      };
     }
   }
 
-  return context;
+  return {
+
+    user: null,
+  };
 }
 
 export default checkUser;

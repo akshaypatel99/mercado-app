@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import checkUser, { MyPageContext } from '../../lib/checkUser';
+import checkUser from '../../lib/checkUser';
 import Title from '../../components/Common/Title';
 import Dashboard from '../../components/Dashboard/Dashboard';
 import { Container } from '@chakra-ui/react';
@@ -36,16 +36,16 @@ export default function Account() {
 	);
 }
 
-export const getServerSideProps: GetServerSideProps = async (
-	context: MyPageContext
-) => {
-	await checkUser(context, {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const { user } = await checkUser(context, {
 		level: 'USER',
 		redirect: true,
 		message: 'Please log in to view your account',
 	});
 
 	return {
-		props: {},
+		props: {
+			user,
+		},
 	};
 };
