@@ -8,7 +8,8 @@
     "lint": "next lint",
     "data:import": "ts-node --project tsconfig.seeder.json seeder/index.ts",
     "data:destroy": "ts-node --project tsconfig.seeder.json seeder/index.ts -d",
-    "data:insert": "ts-node --project tsconfig.seeder.json seeder/index.ts"
+    "data:insert": "ts-node --project tsconfig.seeder.json seeder/index.ts",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@apollo/client": "^3.5.8",
@@ -20,7 +21,9 @@
     "@graphql-tools/utils": "^8.6.1",
     "@hookform/resolvers": "^2.8.8",
     "@stripe/stripe-js": "^1.23.0",
+    "@types/apollo-upload-client": "^17.0.0",
     "@types/bcryptjs": "^2.4.2",
+    "@types/cookies": "^0.7.7",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/nprogress": "^0.2.0",
     "@types/stripe-v3": "^3.1.26",
@@ -49,10 +52,13 @@
     "zod": "^3.11.6"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
     "@types/node": "17.0.16",
     "@types/react": "17.0.39",
     "eslint": "8.8.0",
     "eslint-config-next": "12.0.10",
+    "jest": "^27.5.1",
     "typescript": "4.5.5"
   }
 }
