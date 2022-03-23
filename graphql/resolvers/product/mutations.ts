@@ -1,6 +1,6 @@
 import { ApolloError } from 'apollo-server-micro';
 import { Product, User } from '../../../db/models';
-import { checkUserRole, uploadFile } from '../../../lib/api-util';
+import { checkUserRole, uploadFile } from '../../../lib/apiUtils';
 
 const productMutations = {
   createProduct: async (parent, { input }, { user }) => {

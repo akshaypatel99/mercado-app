@@ -1,6 +1,6 @@
 import { AuthenticationError } from "apollo-server-micro";
 import { User } from "../../../db/models";
-import { checkUserRole, safeUserInfo } from "../../../lib/api-util";
+import { checkUserRole, safeUserInfo } from "../../../lib/apiUtils";
 
 const userQueries = {
   users: async (parent, { params }, { user }) => {

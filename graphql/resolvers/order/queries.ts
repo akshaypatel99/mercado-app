@@ -1,6 +1,6 @@
 import { ApolloError } from "apollo-server-micro";
 import { User, Order } from "../../../db/models";
-import { checkUserRole } from "../../../lib/api-util";
+import { checkUserRole } from "../../../lib/apiUtils";
 
 const orderQueries = {
   orders: async (parent, { params }, { user }) => {

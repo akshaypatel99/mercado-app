@@ -1,6 +1,6 @@
 import { ApolloError } from "apollo-server-micro";
 import { Order, User, Product } from "../../../db/models";
-import { checkUserRole } from "../../../lib/api-util";
+import { checkUserRole } from "../../../lib/apiUtils";
 
 const orderMutations = {
   createOrder: async (parent, { input, customerId }, { user }) => {

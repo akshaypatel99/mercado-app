@@ -1,5 +1,5 @@
 import { Product } from '../../../db/models'
-import { checkUserRole } from '../../../lib/api-util';
+import { checkUserRole } from '../../../lib/apiUtils';
 
 const productQueries = {
   products: async (parent, { params }, context) => {

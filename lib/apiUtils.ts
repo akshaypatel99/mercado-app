@@ -31,8 +31,8 @@ export interface JwtPayload {
   role: string;
 }
 
-const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
-const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
+const jwtAccessSecret = process.env.JWT_ACCESS_SECRET as string;
+const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET as string;
 
 /* AUTH TOKEN HELPERS */
 const setTokens = (user: UserData) => {
@@ -96,6 +96,7 @@ const verifyPassword = (
 };
 
 /* UPLOAD HELPERS */
+// @ts-ignore: Any type is allowed
 const uploadFile = async (file) => {
   const { createReadStream } = await file;
   const fileStream = createReadStream();
