@@ -23,7 +23,7 @@ export default function Watchlist() {
 			isOpen={watchlistIsOpen}
 			placement='right'
 			onClose={() => watchlistOnClose()}
-			finalFocusRef={btnRef}
+			initialFocusRef={btnRef.current}
 			size='md'
 		>
 			<DrawerOverlay />
