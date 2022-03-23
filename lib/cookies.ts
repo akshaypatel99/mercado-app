@@ -7,7 +7,7 @@ import { parse } from 'path'
 const cookieOptions = {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production' ? true : false,
-      sameSite: 'strict',
+      sameSite: true,
       path: '/',
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week 
     }
@@ -43,5 +43,5 @@ export const parseCookie = (req: NextApiRequestWithFilePayload) => {
 
 export const getCookie = (req: NextApiRequestWithFilePayload, name: string) => {
   const cookies = parseCookie(req);
-  return cookies[name];
+  return cookies[name as keyof typeof cookies];
 }

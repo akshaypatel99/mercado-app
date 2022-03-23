@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
-import {validateRefreshToken} from './api-util';
+import {validateRefreshToken} from './apiUtils';
 import { ApolloError } from 'apollo-server-micro';
 
 export interface MyPageContext extends GetServerSidePropsContext {
@@ -12,12 +12,26 @@ type Enum = 'ADMIN' | 'USER';
 const checkUser = async (context: MyPageContext, { level, redirect, message }: { level: Enum, redirect: boolean, message?: string }) => {
   const Cookie = context.req.headers.cookie;
 
+  if (!Cookie && redirect) {
+    context.user = null;
+    context.res.writeHead(302, {
+      Location: message ? `/login?message=${message}` : '/login',
+    });
+    context.res.end();
+    return context;
+  }
+
+  if (!Cookie) {
+    context.user = null;
+    return context;
+  }
+
   const isRefreshToken = Cookie.includes('refresh=');
 
   if (!isRefreshToken && redirect) {
     context.user = null;
     context.res.writeHead(302, {
-			Location: message ? `/login?message=${message}&Crd` : '/login',
+			Location: message ? `/login?message=${message}` : '/login',
 		});
     context.res.end();
     return context;
@@ -35,7 +49,7 @@ const checkUser = async (context: MyPageContext, { level, redirect, message }: {
     if (!decodedRefreshToken) {
       context.user = null;
       context.res.writeHead(302, {
-        Location: message ? `/login?message=${message}&dRT` : '/login',
+        Location: message ? `/login?message=${message}` : '/login',
       });
       context.res.end();
       return context;
