@@ -52,6 +52,7 @@ export type QueryProduct = {
 	image: string;
 	category: string;
 	price: number;
+	isSold: boolean;
 };
 
 export type Product = QueryProduct & {
@@ -74,6 +75,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 						image
 						category
 						price
+						isSold
 					}
 					info {
 						count
