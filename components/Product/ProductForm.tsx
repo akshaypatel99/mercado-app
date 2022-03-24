@@ -150,7 +150,7 @@ export default function ProductForm({
 					<FormLabel htmlFor='price'>Price</FormLabel>
 					<NumberInput
 						id='price'
-						defaultValue={productInfo ? productInfo.price : 0}
+						defaultValue={productInfo ? productInfo.price : undefined}
 						min={0}
 						precision={2}
 						step={1.0}
@@ -175,7 +175,7 @@ export default function ProductForm({
 				<FormControl mt='6' isInvalid={errors.image}>
 					<FormLabel htmlFor='image'>Image</FormLabel>
 					<Input
-						isReadOnly
+						// isReadOnly
 						id='image'
 						{...register('image')}
 						value={updatedProduct ? updatedProduct.image : ''}
