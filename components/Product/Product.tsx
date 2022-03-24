@@ -40,7 +40,12 @@ export default function Product({ product, user }: ProductProps) {
 					<Text my='8'>{product.description}</Text>
 
 					<Text my='8' fontWeight='semibold'>
-						Watched By: {product.watchedBy.length}
+						Watched By:{' '}
+						{product.watchedBy.length === 0
+							? 'Not watched yet'
+							: product.watchedBy.length === 1
+							? '1 person'
+							: `${product.watchedBy.length} people`}
 					</Text>
 
 					<Box mt='4'>
