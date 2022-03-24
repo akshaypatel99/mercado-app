@@ -85,20 +85,23 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null);
 	const [alertMessage, setAlertMessage] = useState<string | null>(null);
+
 	const [
 		signup,
 		{ data: signupUserData, loading: signupLoading, error: signupError },
 	] = useMutation<{ signup: AuthMutationResult }, { input: SignupInput }>(
 		SIGN_UP
 	);
+
 	const [
 		login,
 		{ data: loginUserData, loading: loginLoading, error: loginError },
 	] = useMutation<{ login: AuthMutationResult }, { input: LoginInput }>(LOGIN);
+
 	const [logout, { reset: logoutReset }] =
 		useMutation<{ logout: boolean }>(LOGOUT);
-	const { currentUserData, currentUserLoading, currentUserError } =
-		useCurrentUser();
+
+	const { currentUserData } = useCurrentUser();
 
 	useEffect(() => {
 		if (signupUserData) {
@@ -138,13 +141,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 		} catch (error) {
 			logoutReset();
 		}
-	};
-
-	const userRedirect = () => {
-		if (!user) {
-			return Router.push('/login');
-		}
-		return;
 	};
 
 	return (
