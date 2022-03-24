@@ -6,6 +6,20 @@ import { Product, ProductsProps } from '../../pages/products';
 export default function ProductList({ products, error }: ProductsProps) {
 	if (error) return <ErrorMessage error={error} />;
 
+	// Sort products by isSold (sold last)
+	products.sort((a, b) => {
+		// sort b before a
+		if (a.isSold && !b.isSold) return 1;
+		// sort a before b
+		if (!a.isSold && b.isSold) return -1;
+
+		if (a.isNew && !b.isNew) return -1;
+		if (!a.isNew && b.isNew) return 1;
+
+		// a === b, keep order
+		return 0;
+	});
+
 	return (
 		<>
 			<SimpleGrid
