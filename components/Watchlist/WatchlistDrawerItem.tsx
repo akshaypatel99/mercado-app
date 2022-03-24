@@ -34,7 +34,12 @@ export default function WatchlistItem({ product }: { product: ProductType }) {
 					</Heading>
 				</Box>
 				<Box display='flex' flexDir='column'>
-					<Button size='sm' onClick={() => buyNow(product)} variant='primary'>
+					<Button
+						size='sm'
+						onClick={() => buyNow(product)}
+						variant='primary'
+						disabled={product.isSold}
+					>
 						Buy Now
 					</Button>
 					<Button
