@@ -37,6 +37,12 @@ export default function ProductCustomerOptions({
 					onClick={handleWatchlist}
 					variant='secondary'
 					isLoading={toggleWatchlistLoading}
+					disabled={
+						watchlistData &&
+						watchlistData.userWatchlist.some((item) => item._id === product._id)
+							? false
+							: true
+					}
 				>
 					{!watchlistData
 						? 'Add to Watchlist'
