@@ -36,6 +36,11 @@ export default function Product({ product, user }: ProductProps) {
 						{product.name}
 					</Heading>
 					<Heading variant='product'>{formatCurrency(product.price)}</Heading>
+					{product.isSold && (
+						<Heading variant='warning' my='8'>
+							Sold Out
+						</Heading>
+					)}
 
 					<Text my='8'>{product.description}</Text>
 
