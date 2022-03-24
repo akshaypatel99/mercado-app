@@ -17,9 +17,10 @@ import formatCurrency from '../../lib/formatCurrency';
 import getStripe from '../../lib/get-stripejs';
 import Policy from './Policy';
 import { StripeError } from '@stripe/stripe-js';
+import { ProductType } from '../../pages/product/[id]';
 
 export default function CheckoutItem() {
-	const [error, setError] = useState<StripeError>(null);
+	const [error, setError] = useState<StripeError | null>(null);
 	const { checkoutItem, cancelCheckout } = useContext(CheckoutContext);
 	const { user } = useContext(AuthContext);
 
@@ -27,7 +28,7 @@ export default function CheckoutItem() {
 		return null;
 	}
 
-	const createCheckoutSession = async (checkoutItem) => {
+	const createCheckoutSession = async (checkoutItem: ProductType) => {
 		// Initialize Stripe.js
 		const stripe = await getStripe();
 
@@ -38,7 +39,7 @@ export default function CheckoutItem() {
 		});
 
 		// When Checkout Session is created, redirect to Checkout page
-		const stripeCheckout = await stripe.redirectToCheckout({
+		const stripeCheckout = await stripe!.redirectToCheckout({
 			sessionId: checkoutSession.data.id,
 		});
 

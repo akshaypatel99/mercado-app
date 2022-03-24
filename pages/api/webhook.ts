@@ -1,5 +1,5 @@
 import { buffer } from 'micro';
-import { Stripe } from 'stripe';
+import Stripe from 'stripe';
 import { Order, Product, User } from '../../db/models';
 import connectDB from '../../db/config';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -13,6 +13,7 @@ export const config = {
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+// @ts-ignore
 const fulfillOrder = async (session) => {
   await connectDB();
 
@@ -71,7 +72,8 @@ export default async function webhookHandler(req: NextApiRequest, res: NextApiRe
     try {
       if (!sig || !webhookSecret) return;
       event = stripe.webhooks.constructEvent(payload, sig, webhookSecret);
-    } catch (error) {
+    } catch (err) {
+      const error = err as Stripe.StripeError;
       console.log(`Webhook error: ${error.message}`)
       return res.status(400).send(`Webhook error: ${error.message}`);
     }
@@ -79,8 +81,9 @@ export default async function webhookHandler(req: NextApiRequest, res: NextApiRe
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
 
-      // Fulfill the purchase...
-      return fulfillOrder(session)
+      if (session) {
+        // Fulfill the purchase...
+        return fulfillOrder(session)
         .then(result => {
           console.log('Order fulfilled', result);
           res.status(200).end();
@@ -89,6 +92,7 @@ export default async function webhookHandler(req: NextApiRequest, res: NextApiRe
           console.log('Error fulfilling order', error);
           res.status(400).send(`Webhook Error: ${error.message}`);
         });
+      }
     }
   }
 }

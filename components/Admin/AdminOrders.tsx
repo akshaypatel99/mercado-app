@@ -43,7 +43,7 @@ const DELETE_ORDER = gql`
 `;
 
 export default function AdminOrders({ orders, count }: AllOrdersProps) {
-	const [orderToDelete, setOrderToDelete] = useState(null);
+	const [orderToDelete, setOrderToDelete] = useState<string>('');
 	const router = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -59,7 +59,7 @@ export default function AdminOrders({ orders, count }: AllOrdersProps) {
 				deleteOrderId: orderId,
 			},
 		});
-		setOrderToDelete(null);
+		setOrderToDelete('');
 		onClose();
 	};
 

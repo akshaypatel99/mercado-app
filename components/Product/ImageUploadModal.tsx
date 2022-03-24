@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import {
 	Button,
@@ -21,7 +21,7 @@ import {
 import { FiCheck, FiFile } from 'react-icons/fi';
 import { UpdatedProductType } from './EditProduct';
 
-type ImageSrc = string | ArrayBuffer;
+type ImageSrc = string | ArrayBuffer | null;
 
 type ImageUploadModalProps = {
 	isOpen: boolean;
@@ -51,22 +51,27 @@ export default function ImageUploadModal({
 	const [uploadPhoto, { data, loading, error, reset }] =
 		useMutation(UPLOAD_PHOTO);
 
-	const handleOnChange = (changeEvent) => {
+	const handleOnChange = (changeEvent: any) => {
 		const reader = new FileReader();
 
 		reader.onload = function (onLoadEvent) {
-			setImageSrc(onLoadEvent.target.result);
+			if (onLoadEvent.target) {
+				setImageSrc(onLoadEvent.target.result);
+			}
 		};
 
 		reader.readAsDataURL(changeEvent.target.files[0]);
 		setImageAlt(changeEvent.target.files[0].name);
 	};
 
-	const handleOnSubmit = async (event) => {
+	const handleOnSubmit = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
-		const form: HTMLFormElement = event.currentTarget;
-		const fileInput: HTMLInputElement =
+		const form = event.currentTarget;
+		const fileInput: HTMLInputElement | null =
 			form.querySelector('input[type="file"]');
+		if (!fileInput || !fileInput.files || !fileInput.files[0]) {
+			return;
+		}
 		const file: File = fileInput.files[0];
 		const { data } = await uploadPhoto({ variables: { file } });
 		setUpdatedProduct({

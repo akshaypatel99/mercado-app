@@ -1,5 +1,4 @@
-import { Box, Link, Text } from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { Box, Text } from '@chakra-ui/react';
 import Router from 'next/router';
 import { FiArrowLeft } from 'react-icons/fi';
 

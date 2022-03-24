@@ -30,10 +30,12 @@ type WatchlistContextType = {
 	watchlistOnClose: () => void;
 	toggleUserWatchlist: (id: string) => void;
 	toggleWatchlistLoading: boolean;
-	toggleWatchlistError: ApolloError | null;
+	toggleWatchlistError: ApolloError | undefined;
 };
 
-const WatchlistContext = createContext<WatchlistContextType>(null);
+const WatchlistContext = createContext<WatchlistContextType>(
+	{} as WatchlistContextType
+);
 
 const WatchlistProvider = ({ children }: { children: ReactNode }) => {
 	const { user } = useContext(AuthContext);

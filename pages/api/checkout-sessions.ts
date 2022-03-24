@@ -1,3 +1,4 @@
+import { HttpQueryError } from 'apollo-server-core';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -52,7 +53,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			});
 			res.status(200).json({ id: session.id });
 		} catch (err) {
-			res.status(err.statusCode || 500).json(err.message);
+			const error = err as HttpQueryError;
+			res.status(error?.statusCode || 500).json(error.message);
 		}
 	} else {
 		res.setHeader('Allow', 'POST');

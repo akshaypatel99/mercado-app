@@ -53,7 +53,7 @@ const schema = z.object({
 type ProductFormProps = {
 	product?: ProductType;
 	mutationFn: () => {};
-	updatedProduct?: UpdatedProductType;
+	updatedProduct: UpdatedProductType;
 	setUpdatedProduct: React.Dispatch<React.SetStateAction<UpdatedProductType>>;
 };
 
@@ -63,13 +63,21 @@ export default function ProductForm({
 	updatedProduct,
 	setUpdatedProduct,
 }: ProductFormProps) {
-	const [productInfo, setProductInfo] = useState<ProductType>(product);
+	const [productInfo, setProductInfo] = useState<ProductType | undefined>(
+		product
+	);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
 		handleSubmit,
 		register,
 		formState: { errors, isSubmitting },
 	} = useForm({ mode: 'onTouched', resolver: zodResolver(schema) });
+
+	const handleReset = () => {
+		if (product) {
+			setUpdatedProduct(product);
+		}
+	};
 
 	return (
 		<>
@@ -195,7 +203,7 @@ export default function ProductForm({
 					ml={4}
 					colorScheme='yellow'
 					type='reset'
-					onClick={() => setUpdatedProduct(productInfo)}
+					onClick={handleReset}
 				>
 					Reset
 				</Button>

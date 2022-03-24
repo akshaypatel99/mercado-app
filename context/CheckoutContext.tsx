@@ -9,7 +9,9 @@ type CheckoutContextType = {
 	cancelCheckout: (id: string) => void;
 };
 
-const CheckoutContext = createContext<CheckoutContextType>(null);
+const CheckoutContext = createContext<CheckoutContextType>(
+	{} as CheckoutContextType
+);
 
 const CheckoutProvider = ({ children }: { children: ReactNode }) => {
 	const [checkoutItem, setCheckoutItem] = useState<ProductType | null>(null);

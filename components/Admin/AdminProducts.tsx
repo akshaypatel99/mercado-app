@@ -57,8 +57,8 @@ const RESTOCK_PRODUCT = gql`
 `;
 
 export default function AdminProducts({ products, count }: AllProductsProps) {
-	const [productToDelete, setProductToDelete] = useState<string>(null);
-	const [error, setError] = useState<Error>(null);
+	const [productToDelete, setProductToDelete] = useState<string>('');
+	const [error, setError] = useState<Error | null>(null);
 	const router = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -83,7 +83,7 @@ export default function AdminProducts({ products, count }: AllProductsProps) {
 		if (deleteError) {
 			setError(deleteError);
 		}
-		setProductToDelete(null);
+		setProductToDelete('');
 		onClose();
 	};
 

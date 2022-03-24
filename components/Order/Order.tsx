@@ -39,7 +39,7 @@ export default function Order({ order, user }: OrderProps) {
 							Customer:{' '}
 						</Text>
 						<Spacer />
-						{user.role === 'ADMIN' ? (
+						{user && user.role === 'ADMIN' ? (
 							<NextLink href={`/admin/user/${order.user._id}`}>
 								<Link fontWeight='semibold'>{order.user.name}</Link>
 							</NextLink>
@@ -102,7 +102,7 @@ export default function Order({ order, user }: OrderProps) {
 							Vendor:{' '}
 						</Text>
 						<Spacer />
-						{user.role === 'ADMIN' ? (
+						{user && user.role === 'ADMIN' ? (
 							<NextLink href={`/admin/user/${order.product.user._id}`}>
 								<Link fontWeight='semibold'>{order.product.user.name}</Link>
 							</NextLink>

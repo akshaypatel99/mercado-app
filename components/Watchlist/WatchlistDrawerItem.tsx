@@ -4,9 +4,10 @@ import { useContext } from 'react';
 import { CheckoutContext } from '../../context/CheckoutContext';
 import { WatchlistContext } from '../../context/WatchlistReactContext';
 import formatCurrency from '../../lib/formatCurrency';
+import { ProductType } from '../../pages/product/[id]';
 import ErrorMessage from '../Message/ErrorMessage';
 
-export default function WatchlistItem({ product }) {
+export default function WatchlistItem({ product }: { product: ProductType }) {
 	const { watchlistOnClose, toggleUserWatchlist, toggleWatchlistError } =
 		useContext(WatchlistContext);
 	const { buyNow } = useContext(CheckoutContext);

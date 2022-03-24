@@ -72,15 +72,15 @@ type AuthContextType = {
 	setUser: Dispatch<SetStateAction<User | null>>;
 	signupUser: (input: SignupInput) => void;
 	signupLoading: boolean;
-	signupError: ApolloError | null;
+	signupError: ApolloError | undefined;
 	loginUser: (input: LoginInput) => void;
 	loginLoading: boolean;
-	loginError: ApolloError | null;
+	loginError: ApolloError | undefined;
 	logoutUser: () => void;
 	alertMessage: string | null;
 };
 
-const AuthContext = createContext<AuthContextType>(null);
+const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null);

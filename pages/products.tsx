@@ -46,12 +46,15 @@ export default function Products({ products, error }: ProductsProps) {
 	);
 }
 
-export type Product = {
+export type QueryProduct = {
 	_id: string;
 	name: string;
 	image: string;
 	category: string;
 	price: number;
+};
+
+export type Product = QueryProduct & {
 	isNew: boolean;
 };
 
@@ -86,10 +89,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
 		},
 	});
 
-	const isNewProducts = data.products.results.map((product) => ({
-		...product,
-		isNew: Math.random() > 0.5,
-	}));
+	const isNewProducts: Product[] = data.products.results.map(
+		(product: QueryProduct) => ({
+			...product,
+			isNew: Math.random() > 0.5,
+		})
+	);
 
 	return {
 		props: {
