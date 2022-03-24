@@ -12,6 +12,7 @@ const product = fakeProduct();
 const user = fakeUser();
 const adminUser = fakeAdminUser();
 const productCreator = fakeProductCreator();
+const soldProduct = { ...product, isSold: true };
 
 describe('<Product />', () => {
 	it('renders the product name, price, description and watchedBy on the Product [id] page', () => {
@@ -52,6 +53,16 @@ describe('<Product />', () => {
 		);
 
 		expect(getByText(`Seller: ${product.user.name}`)).toBeInTheDocument();
+	});
+
+	it('render Sold Out heading if product has been sold', () => {
+		const { getByText } = render(
+			<MockedProvider>
+				<Product product={soldProduct} user={user} />
+			</MockedProvider>
+		);
+
+		expect(getByText('Sold Out')).toBeInTheDocument();
 	});
 
 	it('renders <ProductCustomerOptions /> Buy Now and Add to Watchlist buttons for USER level', () => {

@@ -6,7 +6,7 @@ import { fakeProduct } from '../lib/testUtils';
 const product = fakeProduct();
 
 describe('<ProductCustomerOptions />', () => {
-	it('renders Buy Now and `Add To Watchlist buttons without error', () => {
+	it('renders Buy Now and Add To Watchlist buttons without error', () => {
 		const { getByRole } = render(
 			<MockedProvider>
 				<ProductCustomerOptions product={product} />
@@ -19,7 +19,7 @@ describe('<ProductCustomerOptions />', () => {
 		).toBeInTheDocument();
 	});
 
-	it('if Product has been sold the Buy Now button is disabled ', () => {
+	it('if Product has been sold the Buy Now button should be disabled ', () => {
 		const soldProduct = {
 			...product,
 			isSold: true,

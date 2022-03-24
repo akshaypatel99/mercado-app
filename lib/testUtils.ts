@@ -6,6 +6,7 @@ function fakeProductListItem() {
     image: 'test.jpg',
     category: 'Other',
     isNew: true,
+    isSold: false,
   }
 }
 
