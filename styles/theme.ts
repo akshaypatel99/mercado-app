@@ -79,6 +79,9 @@ const theme = extendTheme({
         'product': {
           color: 'brand.700',
         },
+        'warning': {
+          color: 'brand.red',
+        },
       }
     },
     Button: {
