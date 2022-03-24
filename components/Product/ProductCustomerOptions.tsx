@@ -25,7 +25,11 @@ export default function ProductCustomerOptions({
 		<>
 			{toggleWatchlistError && <ErrorMessage error={toggleWatchlistError} />}
 			<Box>
-				<Button onClick={() => buyNow(product)} variant='primary'>
+				<Button
+					onClick={() => buyNow(product)}
+					variant='primary'
+					disabled={product.isSold}
+				>
 					Buy Now
 				</Button>
 				<Button
