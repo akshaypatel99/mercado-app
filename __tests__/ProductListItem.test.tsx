@@ -12,7 +12,7 @@ describe('<ProductListItem />', () => {
 
 		expect(getByText('Test product')).toBeInTheDocument();
 		expect(getByText('£1,234.56')).toBeInTheDocument();
-		expect(getByText('Test category')).toBeInTheDocument();
+		expect(getByText('Other')).toBeInTheDocument();
 		expect(getByText('New')).toBeInTheDocument();
 		expect(getByRole('img', { name: 'Test product' })).toBeInTheDocument();
 	});
