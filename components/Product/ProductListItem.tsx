@@ -9,14 +9,14 @@ export default function ProductListItem({ product }: { product: Product }) {
 			maxW='sm'
 			borderWidth='1px'
 			borderRadius='lg'
-			borderColor='brand.600'
-			bg='brand.600'
+			borderColor={product.isSold ? 'brand.300' : 'brand.600'}
+			bg={product.isSold ? 'brand.300' : 'brand.600'}
 			overflow='hidden'
 			boxShadow='lg'
 			cursor='pointer'
 			_hover={{
-				borderColor: 'brand.green',
-				backgroundColor: 'brand.green',
+				borderColor: product.isSold ? 'brand.red' : 'brand.green',
+				backgroundColor: product.isSold ? 'brand.red' : 'brand.green',
 			}}
 			color='brand.white'
 		>
@@ -41,7 +41,16 @@ export default function ProductListItem({ product }: { product: Product }) {
 					>
 						{product.category}
 					</Box>
-					{product.isNew && (
+					{product.isSold ? (
+						<Badge
+							borderRadius='full'
+							px='2'
+							colorScheme='red'
+							variant='subtle'
+						>
+							Sold
+						</Badge>
+					) : product.isNew ? (
 						<Badge
 							borderRadius='full'
 							px='2'
@@ -50,7 +59,7 @@ export default function ProductListItem({ product }: { product: Product }) {
 						>
 							New
 						</Badge>
-					)}
+					) : null}
 				</Box>
 
 				<Box display='flex' pt='3' justifyContent='space-between'>
