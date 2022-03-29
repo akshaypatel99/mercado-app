@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import { Container } from '@chakra-ui/react';
 import CheckoutItem from '../components/Product/CheckoutItem';
 import InfoMessage from '../components/Message/InfoMessage';
 import BackTo from '../components/Common/BackTo';
 import Title from '../components/Common/Title';
-import { Container } from '@chakra-ui/react';
 
 type CancelStateType = {
 	isCancelled: boolean;
@@ -30,11 +31,27 @@ export default function Checkout() {
 	}, []);
 
 	return (
-		<Container variant='page'>
-			<BackTo text='All Products' href='products' />
-			<Title title='Checkout' />
-			{cancel.isCancelled && <InfoMessage message={cancel.message} />}
-			<CheckoutItem />
-		</Container>
+		<>
+			<Head>
+				<title>Checkout | Mercado</title>
+				<meta
+					name='description'
+					content='Mercado - buy and sell second-hand items'
+				/>
+				<meta name='viewport' content='width=device-width, initial-scale=1' />
+				<link
+					rel='icon'
+					href='images/logo-light.svg'
+					sizes='any'
+					type='image/svg+xml'
+				/>
+			</Head>
+			<Container variant='page'>
+				<BackTo text='All Products' href='products' />
+				<Title title='Checkout' />
+				{cancel.isCancelled && <InfoMessage message={cancel.message} />}
+				<CheckoutItem />
+			</Container>
+		</>
 	);
 }

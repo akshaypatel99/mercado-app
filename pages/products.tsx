@@ -1,13 +1,28 @@
+import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import { gql } from '@apollo/client';
+import { ApolloError } from 'apollo-server-micro';
+import { Box, Center, Container, Heading } from '@chakra-ui/react';
 import client from '../lib/apollo-client';
 import ProductList from '../components/Product/ProductList';
-import { GetServerSideProps } from 'next';
-import { Box, Center, Container, Heading } from '@chakra-ui/react';
-import { ApolloError } from 'apollo-server-micro';
 
 export default function Products({ products, error }: ProductsProps) {
 	return (
 		<>
+			<Head>
+				<title>All Products | Mercado</title>
+				<meta
+					name='description'
+					content='Mercado - buy and sell second-hand items'
+				/>
+				<meta name='viewport' content='width=device-width, initial-scale=1' />
+				<link
+					rel='icon'
+					href='images/logo-light.svg'
+					sizes='any'
+					type='image/svg+xml'
+				/>
+			</Head>
 			<Box
 				as='section'
 				w='100%'

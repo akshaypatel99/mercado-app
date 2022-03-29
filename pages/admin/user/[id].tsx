@@ -1,32 +1,49 @@
+import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import { gql } from '@apollo/client';
+import { Box, Container, Heading } from '@chakra-ui/react';
 import client from '../../../lib/apollo-client';
 import checkUser from '../../../lib/checkUser';
-import { GetServerSideProps } from 'next';
 import UserProfile from '../../../components/User/UserProfile';
 import UserOrders from '../../../components/User/UserOrders';
 import ErrorMessage from '../../../components/Message/ErrorMessage';
 import UserProducts from '../../../components/User/UserProducts';
-import { Box, Container, Heading } from '@chakra-ui/react';
 import BackTo from '../../../components/Common/BackTo';
 import { UserProfileProps } from '../../account/profile';
 
 export default function UserPage({ error, user }: UserProfileProps) {
 	return (
-		<Container variant='page'>
-			<BackTo text='All Users' href='admin/users' />
-			{error && <ErrorMessage error={error} />}
-			<Box>
-				<UserProfile user={user} />
-			</Box>
-			<Box my='8'>
-				<Heading>Products</Heading>
-				<UserProducts products={user.userProducts} />
-			</Box>
-			<Box>
-				<Heading>Orders</Heading>
-				<UserOrders orders={user.userOrders} />
-			</Box>
-		</Container>
+		<>
+			<Head>
+				<title>User #{user._id} | Mercado</title>
+				<meta
+					name='description'
+					content='Mercado - buy and sell second-hand items'
+				/>
+				<meta name='viewport' content='width=device-width, initial-scale=1' />
+				<link
+					rel='icon'
+					href='images/logo-light.svg'
+					sizes='any'
+					type='image/svg+xml'
+				/>
+			</Head>
+			<Container variant='page'>
+				<BackTo text='All Users' href='admin/users' />
+				{error && <ErrorMessage error={error} />}
+				<Box>
+					<UserProfile user={user} />
+				</Box>
+				<Box my='8'>
+					<Heading>Products</Heading>
+					<UserProducts products={user.userProducts} />
+				</Box>
+				<Box>
+					<Heading>Orders</Heading>
+					<UserOrders orders={user.userOrders} />
+				</Box>
+			</Container>
+		</>
 	);
 }
 

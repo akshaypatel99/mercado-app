@@ -1,24 +1,41 @@
 import { GetServerSideProps } from 'next';
-import checkUser from '../../lib/checkUser';
+import Head from 'next/head';
 import { gql } from '@apollo/client';
+import { ApolloError } from 'apollo-server-micro';
+import { Container } from '@chakra-ui/react';
+import checkUser from '../../lib/checkUser';
 import client from '../../lib/apollo-client';
 import BackTo from '../../components/Common/BackTo';
 import Title from '../../components/Common/Title';
 import UserProfile from '../../components/User/UserProfile';
 import ErrorMessage from '../../components/Message/ErrorMessage';
-import { Container } from '@chakra-ui/react';
 import { UserProductsType } from './products';
 import { UserOrdersType } from './orders';
-import { ApolloError } from 'apollo-server-micro';
 
 export default function MyProfile({ user, error }: UserProfileProps) {
 	return (
-		<Container variant='page'>
-			<BackTo text='My Account' href='account' />
-			<Title title='My Details' />
-			{user && <UserProfile user={user} />}
-			{error && <ErrorMessage error={error} />}
-		</Container>
+		<>
+			<Head>
+				<title>My Profile | Mercado</title>
+				<meta
+					name='description'
+					content='Mercado - buy and sell second-hand items'
+				/>
+				<meta name='viewport' content='width=device-width, initial-scale=1' />
+				<link
+					rel='icon'
+					href='images/logo-light.svg'
+					sizes='any'
+					type='image/svg+xml'
+				/>
+			</Head>
+			<Container variant='page'>
+				<BackTo text='My Account' href='account' />
+				<Title title='My Details' />
+				{user && <UserProfile user={user} />}
+				{error && <ErrorMessage error={error} />}
+			</Container>
+		</>
 	);
 }
 

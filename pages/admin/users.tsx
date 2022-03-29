@@ -1,24 +1,43 @@
 import { GetServerSideProps } from 'next';
-import checkUser from '../../lib/checkUser';
+import Head from 'next/head';
 import { gql } from '@apollo/client';
+import { ApolloError } from 'apollo-server-micro';
+import { Container } from '@chakra-ui/react';
+import checkUser from '../../lib/checkUser';
 import client from '../../lib/apollo-client';
 import BackTo from '../../components/Common/BackTo';
 import Title from '../../components/Common/Title';
 import ErrorMessage from '../../components/Message/ErrorMessage';
 import InfoMessage from '../../components/Message/InfoMessage';
 import AdminUsers from '../../components/Admin/AdminUsers';
-import { Container } from '@chakra-ui/react';
-import { ApolloError } from 'apollo-server-micro';
 
 export default function AllUsers({ users, error, count }: AllUsersPageProps) {
 	return (
-		<Container variant='page'>
-			<BackTo text='Admin Dashboard' href='admin' />
-			<Title title='All Users' />
-			{users.length < 1 && <InfoMessage message='No users yet' />}
-			{users && users.length > 0 && <AdminUsers users={users} count={count} />}
-			{error && <ErrorMessage error={error} />}
-		</Container>
+		<>
+			<Head>
+				<title>All Users | Mercado</title>
+				<meta
+					name='description'
+					content='Mercado - buy and sell second-hand items'
+				/>
+				<meta name='viewport' content='width=device-width, initial-scale=1' />
+				<link
+					rel='icon'
+					href='images/logo-light.svg'
+					sizes='any'
+					type='image/svg+xml'
+				/>
+			</Head>
+			<Container variant='page'>
+				<BackTo text='Admin Dashboard' href='admin' />
+				<Title title='All Users' />
+				{users.length < 1 && <InfoMessage message='No users yet' />}
+				{users && users.length > 0 && (
+					<AdminUsers users={users} count={count} />
+				)}
+				{error && <ErrorMessage error={error} />}
+			</Container>
+		</>
 	);
 }
 

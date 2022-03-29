@@ -1,23 +1,42 @@
 import { GetServerSideProps } from 'next';
-import checkUser from '../../lib/checkUser';
+import Head from 'next/head';
 import { ApolloError, gql } from '@apollo/client';
+import { Container } from '@chakra-ui/react';
+import checkUser from '../../lib/checkUser';
 import client from '../../lib/apollo-client';
 import BackTo from '../../components/Common/BackTo';
 import Title from '../../components/Common/Title';
 import ErrorMessage from '../../components/Message/ErrorMessage';
 import InfoMessage from '../../components/Message/InfoMessage';
 import UserProducts from '../../components/User/UserProducts';
-import { Container } from '@chakra-ui/react';
 
 export default function MyProducts({ products, error }: UserProductsProps) {
 	return (
-		<Container variant='page'>
-			<BackTo text='My Account' href='account' />
-			<Title title='My Products' />
-			{products.length < 1 && <InfoMessage message='No products yet' />}
-			{products && products.length > 0 && <UserProducts products={products} />}
-			{error && <ErrorMessage error={error} />}
-		</Container>
+		<>
+			<Head>
+				<title>My Products | Mercado</title>
+				<meta
+					name='description'
+					content='Mercado - buy and sell second-hand items'
+				/>
+				<meta name='viewport' content='width=device-width, initial-scale=1' />
+				<link
+					rel='icon'
+					href='images/logo-light.svg'
+					sizes='any'
+					type='image/svg+xml'
+				/>
+			</Head>
+			<Container variant='page'>
+				<BackTo text='My Account' href='account' />
+				<Title title='My Products' />
+				{products.length < 1 && <InfoMessage message='No products yet' />}
+				{products && products.length > 0 && (
+					<UserProducts products={products} />
+				)}
+				{error && <ErrorMessage error={error} />}
+			</Container>
+		</>
 	);
 }
 

@@ -1,20 +1,37 @@
-import { gql } from '@apollo/client';
-import client from '../../lib/apollo-client';
-import Order from '../../components/Order/Order';
-import checkUser from '../../lib/checkUser';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
+import { gql } from '@apollo/client';
+import { ApolloError } from 'apollo-server-micro';
+import { Container } from '@chakra-ui/react';
+import client from '../../lib/apollo-client';
+import checkUser from '../../lib/checkUser';
+import Order from '../../components/Order/Order';
 import ErrorMessage from '../../components/Message/ErrorMessage';
 import BackLink from '../../components/Common/BackLink';
-import { Container } from '@chakra-ui/react';
-import { ApolloError } from 'apollo-server-micro';
 
 export default function OrderPage({ order, error, user }: OrderPageProps) {
 	return (
-		<Container variant='page'>
-			{error && <ErrorMessage error={error} />}
-			<BackLink />
-			<Order order={order} user={user} />
-		</Container>
+		<>
+			<Head>
+				<title>Order #{order._id} | Mercado</title>
+				<meta
+					name='description'
+					content='Mercado - buy and sell second-hand items'
+				/>
+				<meta name='viewport' content='width=device-width, initial-scale=1' />
+				<link
+					rel='icon'
+					href='images/logo-light.svg'
+					sizes='any'
+					type='image/svg+xml'
+				/>
+			</Head>
+			<Container variant='page'>
+				{error && <ErrorMessage error={error} />}
+				<BackLink />
+				<Order order={order} user={user} />
+			</Container>
+		</>
 	);
 }
 

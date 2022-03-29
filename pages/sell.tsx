@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { Container } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import CreateProduct from '../components/Product/CreateProduct';
@@ -6,10 +7,26 @@ import checkUser from '../lib/checkUser';
 
 export default function Sell() {
 	return (
-		<Container variant='page'>
-			<Title title='Sell your unwanted items' />
-			<CreateProduct />
-		</Container>
+		<>
+			<Head>
+				<title>Sell Your Item | Mercado</title>
+				<meta
+					name='description'
+					content='Mercado - buy and sell second-hand items'
+				/>
+				<meta name='viewport' content='width=device-width, initial-scale=1' />
+				<link
+					rel='icon'
+					href='images/logo-light.svg'
+					sizes='any'
+					type='image/svg+xml'
+				/>
+			</Head>
+			<Container variant='page'>
+				<Title title='Sell your unwanted items' />
+				<CreateProduct />
+			</Container>
+		</>
 	);
 }
 

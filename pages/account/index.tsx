@@ -1,8 +1,9 @@
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
+import { Container } from '@chakra-ui/react';
 import checkUser from '../../lib/checkUser';
 import Title from '../../components/Common/Title';
 import Dashboard from '../../components/Dashboard/Dashboard';
-import { Container } from '@chakra-ui/react';
 
 export default function Account() {
 	const options = [
@@ -29,10 +30,26 @@ export default function Account() {
 	];
 
 	return (
-		<Container variant='page'>
-			<Title title='My Account' />
-			<Dashboard options={options} />
-		</Container>
+		<>
+			<Head>
+				<title>My Account | Mercado</title>
+				<meta
+					name='description'
+					content='Mercado - buy and sell second-hand items'
+				/>
+				<meta name='viewport' content='width=device-width, initial-scale=1' />
+				<link
+					rel='icon'
+					href='images/logo-light.svg'
+					sizes='any'
+					type='image/svg+xml'
+				/>
+			</Head>
+			<Container variant='page'>
+				<Title title='My Account' />
+				<Dashboard options={options} />
+			</Container>
+		</>
 	);
 }
 
