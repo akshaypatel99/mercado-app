@@ -10,6 +10,7 @@ const theme = extendTheme({
       yellow: '#ECC94B',
       cream: ' #FEF9EF',
       red: '#FE6D73',
+      background: '#eff5f8',
       50: '#e9f2f5',
       100: '#d3e5eb',
       150: '#bdd8e2',
@@ -38,7 +39,7 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: 'brand.50',
+        bg: 'brand.background',
         color: 'brand.800',
         height: "100vh",
       },

@@ -22,20 +22,13 @@ export default function Products({ products, error }: ProductsProps) {
 					boxSize='full'
 					backdropFilter='auto'
 					backdropContrast='80%'
-					bgColor='rgba(20, 74, 94, 0.4)'
-					backdropBlur='1px'
+					// bgColor='rgba(20, 74, 94, 0.3)'
+					bgColor='rgba(78, 150, 177, 0.4)'
+					backdropBlur='2px'
 					textAlign='center'
 				>
 					<Heading variant='light' textTransform='uppercase' fontSize='2.5rem'>
-						Find{' '}
-						<span
-							style={{
-								color: '#17C3B2',
-							}}
-						>
-							your
-						</span>{' '}
-						next bargain today...
+						Find your next bargain today...
 					</Heading>
 				</Center>
 			</Box>
