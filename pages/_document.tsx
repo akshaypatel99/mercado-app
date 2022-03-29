@@ -16,6 +16,12 @@ class MyDocument extends Document {
 						rel='stylesheet'
 					/>
 					<link
+						rel='apple-touch-icon'
+						sizes='180x180'
+						href='/logo.svg'
+						type='image/svg+xml'
+					/>
+					<link
 						rel='icon'
 						href='/logo.svg'
 						sizes='any'
