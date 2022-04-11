@@ -37,11 +37,13 @@ export default function ProductCustomerOptions({
 					onClick={handleWatchlist}
 					variant='secondary'
 					isLoading={toggleWatchlistLoading}
+					// Disable button if product has been sold and not already in watchlist
+					// If product is in watchlist and sold, allow user to remove from watchlist
 					disabled={
-						watchlistData &&
-						watchlistData.userWatchlist.some((item) => item._id === product._id)
-							? false
-							: true
+						product.isSold &&
+						!watchlistData.userWatchlist.some(
+							(item) => item._id === product._id
+						)
 					}
 				>
 					{!watchlistData
