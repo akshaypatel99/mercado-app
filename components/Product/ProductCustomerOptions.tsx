@@ -41,6 +41,7 @@ export default function ProductCustomerOptions({
 					// If product is in watchlist and sold, allow user to remove from watchlist
 					disabled={
 						product.isSold &&
+						watchlistData &&
 						!watchlistData.userWatchlist.some(
 							(item) => item._id === product._id
 						)
