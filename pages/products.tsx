@@ -100,6 +100,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 				page: 1,
 			},
 		},
+		fetchPolicy: 'network-only',
 	});
 
 	const isNewProducts: Product[] = data.products.results.map(

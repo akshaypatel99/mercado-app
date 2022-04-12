@@ -98,6 +98,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		variables: {
 			productId: id,
 		},
+		fetchPolicy: 'network-only',
 	});
 
 	return {
