@@ -5,6 +5,7 @@ import { ApolloError } from 'apollo-server-micro';
 import { Box, Center, Container, Heading } from '@chakra-ui/react';
 import client from '../lib/apollo-client';
 import ProductList from '../components/Product/ProductList';
+import { isProductCreatedWithin30Days } from '../lib/localDate';
 
 export default function Products({ products, error }: ProductsProps) {
 	return (
@@ -61,6 +62,7 @@ export type QueryProduct = {
 	category: string;
 	price: number;
 	isSold: boolean;
+	createdAt: Date;
 };
 
 export type Product = QueryProduct & {
@@ -84,6 +86,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 						category
 						price
 						isSold
+						createdAt
 					}
 					info {
 						count
@@ -93,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 		`,
 		variables: {
 			params: {
-				pageSize: 20,
+				pageSize: 50,
 				page: 1,
 			},
 		},
@@ -102,7 +105,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	const isNewProducts: Product[] = data.products.results.map(
 		(product: QueryProduct) => ({
 			...product,
-			isNew: Math.random() > 0.5,
+			isNew: isProductCreatedWithin30Days(product.createdAt)
+				? true
+				: Math.random() > 0.25,
 		})
 	);
 
