@@ -189,12 +189,23 @@ export default function ProductForm({
 					<FormErrorMessage>
 						{errors.image?.message && <p>{errors.image?.message}</p>}
 					</FormErrorMessage>
-					<Button mt='4' onClick={onOpen} variant='secondary'>
+					<Button
+						mt='4'
+						onClick={onOpen}
+						variant='secondary'
+						disabled={product.isSold}
+					>
 						Upload Image
 					</Button>
 				</FormControl>
 
-				<Button mt={8} variant='primary' isLoading={isSubmitting} type='submit'>
+				<Button
+					mt={8}
+					variant='primary'
+					isLoading={isSubmitting}
+					type='submit'
+					disabled={product.isSold}
+				>
 					Submit
 				</Button>
 
@@ -204,6 +215,7 @@ export default function ProductForm({
 					colorScheme='yellow'
 					type='reset'
 					onClick={handleReset}
+					disabled={product.isSold}
 				>
 					Reset
 				</Button>
