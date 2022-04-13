@@ -33,7 +33,7 @@ const productMutations = {
       const loggedInUser = await User.findById(user._id);
 
       if (product) {
-        if (product.user === user._id || loggedInUser.role === 'ADMIN') {
+        if (loggedInUser.role === 'ADMIN' || product.user.toString() === user._id) {
           product.name = name;
           product.description = description;
           product.category = category;
@@ -82,9 +82,10 @@ const productMutations = {
     try {
       const product = await Product.findById(id);
       const loggedInUser = await User.findById(user._id);
+      
 
       if (product) {
-        if (product.user === user._id || loggedInUser.role === 'ADMIN') {
+        if (loggedInUser.role === 'ADMIN' || product.user.toString() === user._id) {
           const productCreator = await User.findOneAndUpdate(
             { _id: user._id }, { $pull: { userProducts: product._id } }
           );
