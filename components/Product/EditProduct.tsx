@@ -68,7 +68,9 @@ export default function EditProduct({ product }: { product: ProductType }) {
 					Edit Product
 				</Heading>
 				{data && data.updateProduct.message && (
-					<SuccessMessage message={data.updateProduct.message} />
+					<SuccessMessage
+						message={`${data.updateProduct.message} - Please refresh the page to see your changes`}
+					/>
 				)}
 				{error && <ErrorMessage error={error} />}
 				<ProductForm
