@@ -68,15 +68,11 @@ export default function ProductListItem({ product }: { product: Product }) {
 						fontWeight='semibold'
 						lineHeight='tight'
 						overflowWrap='break-word'
+						w='75%'
 					>
 						{product.name}
 					</Box>
-					<Box
-						fontSize='1.375rem'
-						fontWeight='semibold'
-						lineHeight='tight'
-						isTruncated
-					>
+					<Box fontSize='1.375rem' fontWeight='semibold' lineHeight='tight'>
 						{formatCurrency(product.price)}
 					</Box>
 				</Box>
