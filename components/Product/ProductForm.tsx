@@ -193,7 +193,7 @@ export default function ProductForm({
 						mt='4'
 						onClick={onOpen}
 						variant='secondary'
-						disabled={product.isSold}
+						disabled={product && product.isSold}
 					>
 						Upload Image
 					</Button>
@@ -204,7 +204,7 @@ export default function ProductForm({
 					variant='primary'
 					isLoading={isSubmitting}
 					type='submit'
-					disabled={product.isSold}
+					disabled={product && product.isSold}
 				>
 					Submit
 				</Button>
@@ -215,7 +215,7 @@ export default function ProductForm({
 					colorScheme='yellow'
 					type='reset'
 					onClick={handleReset}
-					disabled={product.isSold}
+					disabled={product && product.isSold}
 				>
 					Reset
 				</Button>
