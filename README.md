@@ -1,8 +1,8 @@
 # Mercado
 
-**_A full-stack ecommerce website built with GraphQL and Next.js_**
+### **_A full-stack ecommerce website built with GraphQL and Next.js_**
 
-Check out the live site [**here**](https://tinyurl.com/mercado-app).
+#### Check out the live site [**here**](https://tinyurl.com/mercado-app).
 
 ## Project Overview
 
